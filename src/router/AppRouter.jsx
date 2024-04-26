@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
-import Home from "../pages/Home/Home";
-import Register from "../pages/Register/Register";
-import Login from "../pages/Login/Login";
-import DetailsPost from "../pages/DetailsPost/DetailsPost";
-import Cart from "../pages/Cart/Cart";
-import SuccessPlan from "../pages/SuccessPlan/SuccessPlan";
+import Home from "../pages/Home";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
+import DetailsPost from "../pages/DetailsPost";
+import Cart from "../pages/Cart";
+import SuccessPlan from "../pages/SuccessPlan";
 
 const AppRouter = () => {
   return (
