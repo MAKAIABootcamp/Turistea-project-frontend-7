@@ -13,6 +13,11 @@ const Navbar = () => {
           <img src={logo} className="h-8" alt="Logo" />
         </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <button className="mr-2">
+            <svg className="w-6 h-6 fill-primary-color" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M176 56V96H336V56c0-4.4-3.6-8-8-8H184c-4.4 0-8 3.6-8 8zM128 96V56c0-30.9 25.1-56 56-56H328c30.9 0 56 25.1 56 56V96v32V480H128V128 96zM64 96H96V480H64c-35.3 0-64-28.7-64-64V160c0-35.3 28.7-64 64-64zM448 480H416V96h32c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64z" />
+            </svg>
+          </button>
           <button
             type="button"
             className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -24,7 +29,7 @@ const Navbar = () => {
             <span className="sr-only">Open user menu</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="w-8 h-8 stroke-primary-color bg-secondary-color fill-secondary-color"
+              className="w-6 h-6 stroke-primary-color bg-secondary-color fill-secondary-color"
               viewBox="0 0 16 16"
             >
               <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5M.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5" />
@@ -86,9 +91,9 @@ const Navbar = () => {
               viewBox="0 0 17 14"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M1 1h15M1 7h15M1 13h15"
               />
             </svg>
