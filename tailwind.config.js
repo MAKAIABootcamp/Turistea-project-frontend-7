@@ -16,8 +16,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        lato: [ "Lato", "sans-serif"],
-        montserrat: ["Montserrat", "sans-serif"],
+        title: [ "Lato", "sans-serif"],
+        body: ["Montserrat", "sans-serif"],
+        pacifico: ["Pacifico", "cursive"],
       },
     },
   },
