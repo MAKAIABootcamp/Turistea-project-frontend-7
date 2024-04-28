@@ -1,5 +1,6 @@
 import React from "react";
 import banner from "../assets/Termales-Santa-Rosa-de-Cabal.jpg";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -16,7 +17,7 @@ const Home = () => {
           </h1>
         </figcaption>
       </figure>
-      <div className="mt-6 flex justify-center items-center w-full">
+      <div className="my-10 flex justify-center items-center w-full">
         <div className="max-h-full flex justify-center md:w-2/6 flex border border-highlight-color p-1 sm:py-0 rounded-lg">
           <button className="flex items-center flex-row mr-3">
             <svg
@@ -27,7 +28,9 @@ const Home = () => {
               <path d="M14.844 20H6.5C5.121 20 4 18.879 4 17.5S5.121 15 6.5 15h7c1.93 0 3.5-1.57 3.5-3.5S15.43 8 13.5 8H8.639a9.812 9.812 0 0 1-1.354 2H13.5c.827 0 1.5.673 1.5 1.5s-.673 1.5-1.5 1.5h-7C4.019 13 2 15.019 2 17.5S4.019 22 6.5 22h9.593a10.415 10.415 0 0 1-1.249-2zM5 2C3.346 2 2 3.346 2 5c0 3.188 3 5 3 5s3-1.813 3-5c0-1.654-1.346-3-3-3zm0 4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 5 6.5z"></path>
               <path d="M19 14c-1.654 0-3 1.346-3 3 0 3.188 3 5 3 5s3-1.813 3-5c0-1.654-1.346-3-3-3zm0 4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 19 18.5z"></path>
             </svg>
-            <p className="font-body md:text-lg sm:text-sm text-black-text">Destino</p>
+            <p className="font-body md:text-lg sm:text-sm text-black-text">
+              Destino
+            </p>
           </button>
           <button className="flex items-center flex-row mr-3">
             <svg
@@ -37,7 +40,9 @@ const Home = () => {
             >
               <path d="M15.999 8.5h2c0-2.837-2.755-4.131-5-4.429V2h-2v2.071c-2.245.298-5 1.592-5 4.429 0 2.706 2.666 4.113 5 4.43v4.97c-1.448-.251-3-1.024-3-2.4h-2c0 2.589 2.425 4.119 5 4.436V22h2v-2.07c2.245-.298 5-1.593 5-4.43s-2.755-4.131-5-4.429V6.1c1.33.239 3 .941 3 2.4zm-8 0c0-1.459 1.67-2.161 3-2.4v4.799c-1.371-.253-3-1.002-3-2.399zm8 7c0 1.459-1.67 2.161-3 2.4v-4.8c1.33.239 3 .941 3 2.4z"></path>
             </svg>
-            <p className="font-body md:text-lg sm:text-sm text-black-text">Bajo Costo</p>
+            <p className="font-body md:text-lg sm:text-sm text-black-text">
+              Bajo Costo
+            </p>
           </button>
           <button className="flex items-center flex-row">
             <svg
@@ -47,7 +52,9 @@ const Home = () => {
             >
               <path d="M20.787 9.023c-.125.027-1.803.418-3.953 1.774-.323-1.567-1.279-4.501-4.108-7.485L12 2.546l-.726.767C8.435 6.308 7.483 9.25 7.163 10.827 5.005 9.448 3.34 9.052 3.218 9.024L2 8.752V10c0 7.29 3.925 12 10 12 5.981 0 10-4.822 10-12V8.758l-1.213.265zM8.999 12.038c.002-.033.152-3.1 3.001-6.532C14.814 8.906 14.999 12 15 12v.125a18.933 18.933 0 0 0-3.01 3.154 19.877 19.877 0 0 0-2.991-3.113v-.128zM12 20c-5.316 0-7.549-4.196-7.937-8.564 1.655.718 4.616 2.426 7.107 6.123l.841 1.249.825-1.26c2.426-3.708 5.425-5.411 7.096-6.122C19.534 15.654 17.304 20 12 20z"></path>
             </svg>
-            <p className="font-body md:text-lg sm:text-sm text-black-text">Ecoturismo</p>
+            <p className="font-body md:text-lg sm:text-sm text-black-text">
+              Ecoturismo
+            </p>
           </button>
         </div>
         <form className=" max-h-full md:w-1/6 mx-3">
@@ -56,10 +63,27 @@ const Home = () => {
             id="sort"
             className="font-body md:text-lg sm:text-sm text-black-text py-0 bg-gray-50 border border-highlight-color text-gray-900 text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block w-full"
           >
-            <option className="font-body md:text-base sm:text-xs text-black-text">Ordenar por</option>
-            <option className="font-body md:text-base sm:text-xs text-black-text" value="lowPrice">Precio: menor a mayor</option>
-            <option className="font-body md:text-base sm:text-xs text-black-text" value="highPrice">Precio: mayor a menor</option>
-            <option className="font-body md:text-base sm:text-xs text-black-text" value="score">Puntuación</option>
+            <option className="font-body md:text-base sm:text-xs text-black-text">
+              Ordenar por
+            </option>
+            <option
+              className="font-body md:text-base sm:text-xs text-black-text"
+              value="lowPrice"
+            >
+              Precio: menor a mayor
+            </option>
+            <option
+              className="font-body md:text-base sm:text-xs text-black-text"
+              value="highPrice"
+            >
+              Precio: mayor a menor
+            </option>
+            <option
+              className="font-body md:text-base sm:text-xs text-black-text"
+              value="score"
+            >
+              Puntuación
+            </option>
           </select>
         </form>
         <button className="h-3/4 bg-primary-color rounded-full flex justify-center items-center p-1">
@@ -72,6 +96,52 @@ const Home = () => {
             <path d="M11.412 8.586c.379.38.588.882.588 1.414h2a3.977 3.977 0 0 0-1.174-2.828c-1.514-1.512-4.139-1.512-5.652 0l1.412 1.416c.76-.758 2.07-.756 2.826-.002z"></path>
           </svg>
         </button>
+      </div>
+      <div>
+        <h2 className="mb-4 font-bold font-title text-black md:text-xl sm:text-base xs:text-sm sm:mx-2 ">          RESEÑAS DE NUESTROS USUARIOS
+        </h2>
+
+        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <Link href="#">
+            <img
+              className="rounded-t-lg"
+              src="/docs/images/blog/image-1.jpg"
+              alt=""
+            />
+          </Link>
+          <div className="p-5">
+            <Link href="#">
+              <h5 classN="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Noteworthy technology acquisitions 2021
+              </h5>
+            </Link>
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Here are the biggest enterprise technology acquisitions of 2021 so
+              far, in reverse chronological order.
+            </p>
+            <Link
+              href="#"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Read more
+              <svg
+                className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );
