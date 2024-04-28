@@ -7,7 +7,7 @@ import Login from "../pages/Login";
 import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
-
+import Perfil from "../pages/Perfil";
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -19,6 +19,7 @@ const AppRouter = () => {
           <Route path="detailsPost" element={<DetailsPost />} />
           <Route path="cart" element={<Cart />} />
           <Route path="successPlan" element={<SuccessPlan />} />
+          <Route path="perfilUsuario" element={<Perfil/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
