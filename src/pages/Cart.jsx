@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import product1 from '../assets/Mote-Donde-Mingo.png'
+import product2 from '../assets/Hostal-freesoul-Palomino-Colombia.jpg'
 
 const Cart = () => {
   return (
@@ -13,35 +15,31 @@ const Cart = () => {
       </div>
       <div className=" px-4 w-1/2 md:w-1/3 sm:w-5/12 flex flex-col mt-6 items-center">
         <div className="w-full">
-          <h2 className="w-full mb-6 text-base sm:text-2xl md:text-3xl font-title text-highlight-color ">
-            Detalles de tu Viaje
-          </h2>
-        </div>
-        <div>
-          <h1 className="w-full mb-6 text-sm sm:text-base md:text-lg font-title text-primary-color">
+          <h1 className="w-full mb-6 text-base sm:text-2xl md:text-3xl font-title text-highlight-color ">
             Detalles de tu Viaje
           </h1>
+        </div>
+        <div>
           <ul role="list" className="-my-6 divide-y divide-gray-200">
             <li className="flex py-6">
               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                 <img
-                  src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg"
-                  alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
+                  src={product1}
+                  alt="mote"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
-
               <div className="ml-4 flex flex-1 flex-col">
                 <div>
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <h3>
-                      <a href="#">Throwback Hip Bag</a>
+                      <Link href="#">Mote de queso</Link>
                     </h3>
-                    <p className="ml-4">$90.00</p>
+                    <p className="ml-4">$30.000</p>
                   </div>
                 </div>
                 <div className="flex flex-1 items-end justify-between text-sm">
-                  <p className="text-gray-500">Hospedaje</p>
+                  <p className="text-gray-500">Alimentación</p>
                   <div className="flex">
                   <button
                       type="button"
@@ -63,8 +61,8 @@ const Cart = () => {
             <li className="flex py-6">
               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                 <img
-                  src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg"
-                  alt="Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch."
+                  src={product2}
+                  alt="producto2"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
@@ -72,13 +70,13 @@ const Cart = () => {
                 <div>
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <h3>
-                      <a href="#">Medium Stuff Satchel</a>
+                      <Link href="#">Hostal freesould</Link>
                     </h3>
-                    <p className="ml-4">$32.00</p>
+                    <p className="ml-4">$92.000</p>
                   </div>
                 </div>
                 <div className="flex flex-1 items-end justify-between text-sm">
-                  <p className="text-gray-500">Alimentacion</p>
+                  <p className="text-gray-500">Hospedaje</p>
                   <div className="flex">
                     <button
                       type="button"
