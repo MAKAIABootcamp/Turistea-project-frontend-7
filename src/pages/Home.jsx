@@ -1,7 +1,7 @@
 import React from "react";
 import banner from "../assets/Termales-Santa-Rosa-de-Cabal.jpg";
 import { Link } from "react-router-dom";
-import card1 from '../assets/HomeCards/cerros-de-mavecure.avif'
+import card1 from "../assets/HomeCards/cerros-de-mavecure.avif";
 
 const Home = () => {
   return (
@@ -102,24 +102,254 @@ const Home = () => {
 
       <div className="flex flex-wrap">
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
-          <div className="max-w-sm rounded overflow-hidden shadow-lg">
-            <img
-              className="w-full"
-              src={card1}
-              alt={card1}
-            />
+          <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
             <div className="p-4">
               <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
-              <div className="font-bold text-lg mb-2">$45.0000 <p className="inline font-normal">/noche</p></div>
-              <p className="text-gray-cards text-base">
-                Lorem ipsum dolor sit amet
-              </p>
-              <p className="text-gray-cards text-base">
-                Lorem ipsum dolor sit amet
-              </p>
+              <div className="font-bold text-lg ">
+                $45.0000 <p className="inline font-normal">/noche</p>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <p className="text-gray-cards text-base">
+                  Guainia
+                  </p>
+                  <p className="text-gray-cards text-base">
+                  Reseña por: user3Register
+                  </p>
+                </div>
+                <div className="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 fill-primary-color"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                  </svg>
+                  <p className="">4.5</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
+          <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <div className="p-4">
+              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <div className="font-bold text-lg ">
+                $45.0000 <p className="inline font-normal">/noche</p>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <p className="text-gray-cards text-base">
+                  Guainia
+                  </p>
+                  <p className="text-gray-cards text-base">
+                  Reseña por: user3Register
+                  </p>
+                </div>
+                <div className="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 fill-primary-color"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                  </svg>
+                  <p className="">4.5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
+          <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <div className="p-4">
+              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <div className="font-bold text-lg ">
+                $45.0000 <p className="inline font-normal">/noche</p>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <p className="text-gray-cards text-base">
+                  Guainia
+                  </p>
+                  <p className="text-gray-cards text-base">
+                  Reseña por: user3Register
+                  </p>
+                </div>
+                <div className="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 fill-primary-color"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                  </svg>
+                  <p className="">4.5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
+          <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <div className="p-4">
+              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <div className="font-bold text-lg ">
+                $45.0000 <p className="inline font-normal">/noche</p>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <p className="text-gray-cards text-base">
+                  Guainia
+                  </p>
+                  <p className="text-gray-cards text-base">
+                  Reseña por: user3Register
+                  </p>
+                </div>
+                <div className="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 fill-primary-color"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                  </svg>
+                  <p className="">4.5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
+          <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <div className="p-4">
+              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <div className="font-bold text-lg ">
+                $45.0000 <p className="inline font-normal">/noche</p>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <p className="text-gray-cards text-base">
+                  Guainia
+                  </p>
+                  <p className="text-gray-cards text-base">
+                  Reseña por: user3Register
+                  </p>
+                </div>
+                <div className="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 fill-primary-color"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                  </svg>
+                  <p className="">4.5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
+          <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <div className="p-4">
+              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <div className="font-bold text-lg ">
+                $45.0000 <p className="inline font-normal">/noche</p>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <p className="text-gray-cards text-base">
+                  Guainia
+                  </p>
+                  <p className="text-gray-cards text-base">
+                  Reseña por: user3Register
+                  </p>
+                </div>
+                <div className="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 fill-primary-color"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                  </svg>
+                  <p className="">4.5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
+          <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <div className="p-4">
+              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <div className="font-bold text-lg ">
+                $45.0000 <p className="inline font-normal">/noche</p>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <p className="text-gray-cards text-base">
+                  Guainia
+                  </p>
+                  <p className="text-gray-cards text-base">
+                  Reseña por: user3Register
+                  </p>
+                </div>
+                <div className="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 fill-primary-color"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                  </svg>
+                  <p className="">4.5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
+          <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
+            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <div className="p-4">
+              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <div className="font-bold text-lg ">
+                $45.0000 <p className="inline font-normal">/noche</p>
+              </div>
+              <div className="flex gap-4">
+                <div>
+                  <p className="text-gray-cards text-base">
+                  Guainia
+                  </p>
+                  <p className="text-gray-cards text-base">
+                  Reseña por: user3Register
+                  </p>
+                </div>
+                <div className="flex items-start">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 fill-primary-color"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                  </svg>
+                  <p className="">4.5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
       </div>
     </section>
   );
