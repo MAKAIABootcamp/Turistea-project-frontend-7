@@ -1,6 +1,7 @@
 import React from "react";
 import banner from "../assets/Termales-Santa-Rosa-de-Cabal.jpg";
 import { Link } from "react-router-dom";
+import card1 from '../assets/HomeCards/cerros-de-mavecure.avif'
 
 const Home = () => {
   return (
@@ -17,8 +18,9 @@ const Home = () => {
           </h1>
         </figcaption>
       </figure>
-      <div className="my-10 flex justify-center items-center w-full">
-        <div className="max-h-full flex justify-center md:w-2/6 flex border border-highlight-color p-1 sm:py-0 rounded-lg">
+
+      <div className="my-10 flex justify-center items-center w-full h-10">
+        <div className="h-full flex justify-center md:w-2/6 flex border border-highlight-color p-1 sm:py-0 rounded-lg">
           <button className="flex items-center flex-row mr-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -57,11 +59,11 @@ const Home = () => {
             </p>
           </button>
         </div>
-        <form className=" max-h-full md:w-1/6 mx-3">
+        <form className="h-full md:w-1/6 mx-3">
           <label htmlFor="sort"></label>
           <select
             id="sort"
-            className="font-body md:text-lg sm:text-sm text-black-text py-0 bg-gray-50 border border-highlight-color text-gray-900 text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block w-full"
+            className="h-full font-body md:text-lg sm:text-sm text-black-text py-0 bg-gray-50 border border-highlight-color text-gray-900 text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block w-full"
           >
             <option className="font-body md:text-base sm:text-xs text-black-text">
               Ordenar por
@@ -97,49 +99,25 @@ const Home = () => {
           </svg>
         </button>
       </div>
-      <div>
-        <h2 className="mb-4 font-bold font-title text-black md:text-xl sm:text-base xs:text-sm sm:mx-2 ">          RESEÑAS DE NUESTROS USUARIOS
-        </h2>
 
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <Link href="#">
+      <div className="flex flex-wrap">
+        <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
+          <div className="max-w-sm rounded overflow-hidden shadow-lg">
             <img
-              className="rounded-t-lg"
-              src="/docs/images/blog/image-1.jpg"
-              alt=""
+              className="w-full"
+              src={card1}
+              alt={card1}
             />
-          </Link>
-          <div className="p-5">
-            <Link href="#">
-              <h5 classN="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
-              </h5>
-            </Link>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p>
-            <Link
-              href="#"
-              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Read more
-              <svg
-                className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
-            </Link>
+            <div className="p-4">
+              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <div className="font-bold text-lg mb-2">$45.0000 <p className="inline font-normal">/noche</p></div>
+              <p className="text-gray-cards text-base">
+                Lorem ipsum dolor sit amet
+              </p>
+              <p className="text-gray-cards text-base">
+                Lorem ipsum dolor sit amet
+              </p>
+            </div>
           </div>
         </div>
       </div>
