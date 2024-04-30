@@ -2,6 +2,13 @@ import React from "react";
 import banner from "../assets/Termales-Santa-Rosa-de-Cabal.jpg";
 import { Link } from "react-router-dom";
 import card1 from "../assets/HomeCards/cerros-de-mavecure.avif";
+import card2 from "../assets/HomeCards/finca-carpe-diem.jpg";
+import card3 from "../assets/HomeCards/Hostal-freesoul-Palomino-Colombia.jpg";
+import card4 from "../assets/HomeCards/restoVitto.avif";
+import popular1 from '../assets/HomeCards/Mote-Donde-Mingo.png'
+import popular2 from '../assets/HomeCards/Golden-Glamping-guatavita.jpg'
+import popular3 from '../assets/HomeCards/PalacionEpiscopalQuibdo.jpg'
+import popular4 from '../assets/HomeCards/Safari-casanare.webp'
 
 const Home = () => {
   return (
@@ -100,22 +107,20 @@ const Home = () => {
         </button>
       </div>
 
-      <div className="flex flex-wrap">
+      <div className="flex justify-center flex-wrap">
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
           <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
-            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <img className="w-full md:h-80 sm:h-60 object-cover" src={card1} alt={card1} />
             <div className="p-4">
-              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <h3 className="font-bold text-xl mb-1">Cerros de Mavecure</h3>
               <div className="font-bold text-lg ">
                 $45.0000 <p className="inline font-normal">/noche</p>
               </div>
               <div className="flex gap-4">
                 <div>
+                  <p className="text-gray-cards text-base">Guainia</p>
                   <p className="text-gray-cards text-base">
-                  Guainia
-                  </p>
-                  <p className="text-gray-cards text-base">
-                  Reseña por: user3Register
+                    Reseña por: user3Register
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -134,19 +139,17 @@ const Home = () => {
         </div>
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
           <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
-            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <img className="w-full md:h-80 sm:h-60 object-cover" src={card2} alt={card2} />
             <div className="p-4">
-              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <h3 className="font-bold text-xl mb-1">Cerros de Mavecure</h3>
               <div className="font-bold text-lg ">
                 $45.0000 <p className="inline font-normal">/noche</p>
               </div>
               <div className="flex gap-4">
                 <div>
+                  <p className="text-gray-cards text-base">Guainia</p>
                   <p className="text-gray-cards text-base">
-                  Guainia
-                  </p>
-                  <p className="text-gray-cards text-base">
-                  Reseña por: user3Register
+                    Reseña por: user3Register
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -165,19 +168,17 @@ const Home = () => {
         </div>
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
           <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
-            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <img className="w-full md:h-80 sm:h-60 object-cover" src={card3} alt={card3} />
             <div className="p-4">
-              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <h3 className="font-bold text-xl mb-1">Cerros de Mavecure</h3>
               <div className="font-bold text-lg ">
                 $45.0000 <p className="inline font-normal">/noche</p>
               </div>
               <div className="flex gap-4">
                 <div>
+                  <p className="text-gray-cards text-base">Guainia</p>
                   <p className="text-gray-cards text-base">
-                  Guainia
-                  </p>
-                  <p className="text-gray-cards text-base">
-                  Reseña por: user3Register
+                    Reseña por: user3Register
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -196,19 +197,17 @@ const Home = () => {
         </div>
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
           <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
-            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <img className="w-full md:h-80 sm:h-60 object-cover" src={card4} alt={card4} />
             <div className="p-4">
-              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <h3 className="font-bold text-xl mb-1">Cerros de Mavecure</h3>
               <div className="font-bold text-lg ">
                 $45.0000 <p className="inline font-normal">/noche</p>
               </div>
               <div className="flex gap-4">
                 <div>
+                  <p className="text-gray-cards text-base">Guainia</p>
                   <p className="text-gray-cards text-base">
-                  Guainia
-                  </p>
-                  <p className="text-gray-cards text-base">
-                  Reseña por: user3Register
+                    Reseña por: user3Register
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -227,19 +226,17 @@ const Home = () => {
         </div>
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
           <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
-            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <img className="w-full md:h-80 sm:h-60 object-cover" src={card1} alt={card1} />
             <div className="p-4">
-              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <h3 className="font-bold text-xl mb-1">Cerros de Mavecure</h3>
               <div className="font-bold text-lg ">
                 $45.0000 <p className="inline font-normal">/noche</p>
               </div>
               <div className="flex gap-4">
                 <div>
+                  <p className="text-gray-cards text-base">Guainia</p>
                   <p className="text-gray-cards text-base">
-                  Guainia
-                  </p>
-                  <p className="text-gray-cards text-base">
-                  Reseña por: user3Register
+                    Reseña por: user3Register
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -258,19 +255,17 @@ const Home = () => {
         </div>
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
           <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
-            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <img className="w-full md:h-80 sm:h-60 object-cover" src={card2} alt={card2} />
             <div className="p-4">
-              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <h3 className="font-bold text-xl mb-1">Cerros de Mavecure</h3>
               <div className="font-bold text-lg ">
                 $45.0000 <p className="inline font-normal">/noche</p>
               </div>
               <div className="flex gap-4">
                 <div>
+                  <p className="text-gray-cards text-base">Guainia</p>
                   <p className="text-gray-cards text-base">
-                  Guainia
-                  </p>
-                  <p className="text-gray-cards text-base">
-                  Reseña por: user3Register
+                    Reseña por: user3Register
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -289,19 +284,17 @@ const Home = () => {
         </div>
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
           <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
-            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <img className="w-full md:h-80 sm:h-60 object-cover" src={card3} alt={card3} />
             <div className="p-4">
-              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <h3 className="font-bold text-xl mb-1">Cerros de Mavecure</h3>
               <div className="font-bold text-lg ">
                 $45.0000 <p className="inline font-normal">/noche</p>
               </div>
               <div className="flex gap-4">
                 <div>
+                  <p className="text-gray-cards text-base">Guainia</p>
                   <p className="text-gray-cards text-base">
-                  Guainia
-                  </p>
-                  <p className="text-gray-cards text-base">
-                  Reseña por: user3Register
+                    Reseña por: user3Register
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -320,19 +313,17 @@ const Home = () => {
         </div>
         <div className="w-full lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full">
           <div className=" m-2 max-w-sm rounded overflow-hidden shadow-lg">
-            <img className="w-full h-80 object-cover" src={card1} alt={card1} />
+            <img className="w-full md:h-80 sm:h-60 object-cover" src={card4} alt={card4} />
             <div className="p-4">
-              <div className="font-bold text-xl mb-1">Cerros de Mavecure</div>
+              <h3 className="font-bold text-xl mb-1">Cerros de Mavecure</h3>
               <div className="font-bold text-lg ">
                 $45.0000 <p className="inline font-normal">/noche</p>
               </div>
               <div className="flex gap-4">
                 <div>
+                  <p className="text-gray-cards text-base">Guainia</p>
                   <p className="text-gray-cards text-base">
-                  Guainia
-                  </p>
-                  <p className="text-gray-cards text-base">
-                  Reseña por: user3Register
+                    Reseña por: user3Register
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -349,7 +340,56 @@ const Home = () => {
             </div>
           </div>
         </div>
-       
+        
+      </div>
+
+      <div className="flex md:flex-row p-5 md:p-20 ">
+        <figure className="w-1/3 m-2 opacity-100 hover:opacity-75 relative">
+          <img
+            className="w-full h-full object-cover rounded-md"
+            src={popular2}
+            alt="popular2"
+          />
+          <figcaption className="rounded-b-md absolute inset-0 flex flex-col justify-center px-4 w-full h-1/4 top-3/4 bg-[#05050550]">
+          <h3 className="font-bold font-body text-secondary-color  text-sm md:text-xl">
+                Cerros de Mavecure
+              </h3>
+              <p className="text-secondary-color xs md:text-sm ">12 comentarios</p>
+          </figcaption>
+        </figure>
+        <div className="w-1/3 m-2">
+          <figure className="w-full mb-2 opacity-100 hover:opacity-75 relative">
+            <img className="w-full md:h-80 sm:h-60 object-cover rounded-md" src={popular1} alt="popular1" />
+            <figcaption className=" rounded-b-md absolute inset-0 flex flex-col  justify-start px-4 w-full h-1/4 top-3/4 bg-[#05050550]">
+              <h3 className="font-bold font-body text-secondary-color  text-sm md:text-xl">
+                Cerros de Mavecure
+              </h3>
+              <p className="text-secondary-color xs md:text-sm ">10 comentarios</p>
+            </figcaption>
+          </figure>
+          <figure className="w-full mt-2 opacity-100 hover:opacity-75 relative">
+            <img className="w-full md:h-80 sm:h-60 object-cover rounded-md" src={popular3} alt="popular3" />
+            <figcaption className="rounded-b-md absolute inset-0 flex flex-col justify-center px-4 w-full  h-1/4 top-3/4 bg-[#05050550]">
+            <h3 className="font-bold font-body text-secondary-color  text-sm md:text-xl">
+                Cerros de Mavecure
+              </h3>
+              <p className="text-secondary-color xs md:text-sm ">Guainia</p>
+            </figcaption>
+          </figure>
+        </div>
+        <figure className="w-1/3 m-2 opacity-100 hover:opacity-75 relative">
+          <img
+            className="w-full h-full object-cover rounded-md"
+            src={popular4}
+            alt="popular4"
+          />
+          <figcaption className="rounded-b-md absolute inset-0 flex flex-col justify-center px-4 w-full h-1/4 top-3/4 bg-[#05050550]">
+          <h3 className="font-bold font-body text-secondary-color  text-sm md:text-xl">
+                Cerros de Mavecure
+              </h3>
+              <p className="text-secondary-color xs md:text-sm ">Guainia</p>
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
