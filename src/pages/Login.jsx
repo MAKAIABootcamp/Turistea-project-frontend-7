@@ -25,7 +25,6 @@ const Login = () => {
               id="email"
               className="bg-trasparent border border-highlight-color text-black-text text-sm rounded-xl focus:ring-highlight-color focus:border-highlight-color w-full p-2.5 "
               placeholder="name@flowbite.com"
-              required
             />
           </div>
           <div className="mb-5">
@@ -34,7 +33,6 @@ const Login = () => {
               id="password"
               className="bg-trasparent border border-highlight-color text-black-text text-sm rounded-xl focus:ring-highlight-color focus:border-highlight-color w-full p-2.5 "
               placeholder="xxxxxxxx"
-              required
             />
           </div>
           {/* <div className="flex items-start mb-5">

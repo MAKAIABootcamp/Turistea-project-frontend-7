@@ -1,27 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import product1 from '../assets/Mote-Donde-Mingo.png'
-import product2 from '../assets/Hostal-freesoul-Palomino-Colombia.jpg'
+import product1 from "../assets/Mote-Donde-Mingo.png";
+import product2 from "../assets/Hostal-freesoul-Palomino-Colombia.jpg";
 
 const Cart = () => {
   return (
     <section className="flex w-full h-screen">
-      <div className="w-1/2 md:w-3/4 sm:w-3/5 bg-[#05050549]">
-        {/* <img
-          className="h-full w-full  object-cover"
-          src={imgPrincipal}
-          alt="imgPrincipal"
-        /> */}
-      </div>
+      <div className="w-1/2 md:w-3/4 sm:w-3/5 bg-[#05050549]"></div>
       <div className=" px-4 w-1/2 md:w-1/3 sm:w-5/12 flex flex-col mt-6 items-center">
         <div className="w-full">
-          <h1 className="w-full mb-6 text-base sm:text-2xl md:text-3xl font-title text-highlight-color ">
+          <h1 className="w-full mb-6 text-base sm:text-2xl md:text-3xl font-title text-primary-color ">
             Detalles de tu Viaje
           </h1>
         </div>
         <div>
           <ul role="list" className="-my-6 divide-y divide-gray-200">
-            <li className="flex py-6">
+            <li className="w-full flex py-6">
               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                 <img
                   src={product1}
@@ -30,18 +24,16 @@ const Cart = () => {
                 />
               </div>
               <div className="ml-4 flex flex-1 flex-col">
-                <div>
-                  <div className="flex justify-between text-base font-medium text-gray-900">
-                    <h3>
-                      <Link href="#">Mote de queso</Link>
-                    </h3>
-                    <p className="ml-4">$30.000</p>
-                  </div>
+                <div className="flex justify-between text-base font-medium text-gray-900">
+                  <h3>
+                    <Link href="#">Mote de queso</Link>
+                  </h3>
+                  <p className="ml-4">$30.000</p>
                 </div>
-                <div className="flex flex-1 items-end justify-between text-sm">
+                <div className="flex items-end justify-between text-sm">
                   <p className="text-gray-500">Alimentación</p>
                   <div className="flex">
-                  <button
+                    <button
                       type="button"
                       className="w-6 h-6 stroke-primary-color fill-secondary-color hover:fill-primary-color "
                     >
@@ -58,7 +50,7 @@ const Cart = () => {
                 </div>
               </div>
             </li>
-            <li className="flex py-6">
+            <li className="w-full flex py-6">
               <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                 <img
                   src={product2}
@@ -67,15 +59,13 @@ const Cart = () => {
                 />
               </div>
               <div className="ml-4 flex flex-1 flex-col">
-                <div>
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <h3>
                       <Link href="#">Hostal freesould</Link>
                     </h3>
                     <p className="ml-4">$92.000</p>
                   </div>
-                </div>
-                <div className="flex flex-1 items-end justify-between text-sm">
+                <div className="flex items-end justify-between text-sm">
                   <p className="text-gray-500">Hospedaje</p>
                   <div className="flex">
                     <button
