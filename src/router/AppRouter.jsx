@@ -21,7 +21,7 @@ const AppRouter = () => {
           <Route path="detailsPost" element={<DetailsPost />} />
           <Route path="cart" element={<Cart />} />
           <Route path="successPlan" element={<SuccessPlan />} />
-          <Route path="perfilUsuario" element={<Perfil/>}/>
+          <Route path="myProfile" element={<Perfil/>}/>
           <Route path="configperfil" element={<ConfigPerfil />}/>
         </Route>
       </Routes>
