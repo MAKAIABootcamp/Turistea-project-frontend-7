@@ -8,6 +8,8 @@ import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
 import Perfil from "../pages/Perfil";
+import ConfigPerfil from "../pages/configPerfil";
+
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -20,6 +22,7 @@ const AppRouter = () => {
           <Route path="cart" element={<Cart />} />
           <Route path="successPlan" element={<SuccessPlan />} />
           <Route path="perfilUsuario" element={<Perfil/>}/>
+          <Route path="configperfil" element={<ConfigPerfil />}/>
         </Route>
       </Routes>
     </BrowserRouter>

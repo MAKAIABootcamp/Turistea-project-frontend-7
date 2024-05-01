@@ -16,7 +16,7 @@ const Perfil = () => {
   return (
     <>
       <div className='flex flex-row  w-full'>
-        {/* Renderizar el componente seleccionado al lado de las opciones */}
+        
         <aside className='flex-col w-1/3.2  w-80 h-screen'>
           <nav className='flex flex-col gap-5 pt-7 font-body text-m mx-3 h-72 bg-white rounded-lg items-center shadow shadow-gray-300 mt-11 mx-1'>
             
@@ -28,7 +28,7 @@ const Perfil = () => {
           </nav>
         </aside>
 
-        {/* Renderizar el componente seleccionado al lado de las opciones */}
+        
         <main className='flex-col w-2/3 h-screen'>
           {componenteSeleccionado}
         </main>
