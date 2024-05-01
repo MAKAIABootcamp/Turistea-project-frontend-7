@@ -6,17 +6,17 @@ import product2 from "../../assets/Hostal-freesoul-Palomino-Colombia.jpg";
 const FormTravelPlans = () => {
   return (
     <section className="flex justify-between w-full h-screen px-10 py-5 mb-4 md:px-20 md:py-10 sm:py-8 sm:px-16">
-      <div className=" border border px-1 w-2/5 md:w-3/5 sm:w-3/5 bg-secondary mr-2">
+      <div className="px-1 w-2/5 md:w-5/12 sm:w-3/5 bg-secondary mr-2">
         <nav class="flex items-center mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-4 h-4 fill-gray-input"
+            className="w-4 h-4 fill-gray-input hover:fill-primary-color"
             viewBox="0 0 24 24"
           >
             <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
           </svg>
 
-          <Link class="ms-1 text-sm font-medium text-gray-input hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
+          <Link class="ms-1 text-sm font-medium text-gray-input hover:text-primary-color md:ms-2">
             Back
           </Link>
         </nav>
@@ -27,8 +27,8 @@ const FormTravelPlans = () => {
           <h2 className="text-body font-semibold text-lg md:text-xl my-6 text-black-text">
             ¿Como deseas viajar?
           </h2>
-          <div className="flex justify-start gap-4 items-center">
-            <div className="w-1/3">
+          <div className="flex justify-start gap-6 items-center">
+            <div className="w-1/4">
               <label
                 htmlFor="date"
                 className="text-black-text text-body font-semibold text-sm md:text-lg"
@@ -47,7 +47,7 @@ const FormTravelPlans = () => {
                 </option>
               </select>
             </div>
-            <div className="w-1/4">
+            <div className="w-1/6">
               <label
                 htmlFor="persons"
                 className="text-black-text text-body font-semibold text-sm md:text-lg"
@@ -61,7 +61,7 @@ const FormTravelPlans = () => {
                 className="p-2 mt-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block w-full"
               />
             </div>
-            <div className="w-1/3">
+            <div className="w-1/4 flexflex-col justify-center">
               <label
                 htmlFor="days"
                 className="text-black-text text-body font-semibold text-sm md:text-lg"
@@ -72,7 +72,7 @@ const FormTravelPlans = () => {
                 id="days"
                 type="number"
                 placeholder="1"
-                className="p-2 mt-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block w-full"
+                className="p-2 mt-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block w-1/2"
               />
             </div>
           </div>
@@ -82,7 +82,7 @@ const FormTravelPlans = () => {
           <div className="flex justify-start gap-4 items-center">
             <button
               type="submit"
-              className="p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards hover:text-highlight-color hover:font-bold text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color"
+              className="p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards hover:text-highlight-color hover:font-bold hover:border-2 dtext-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color"
             >
               Semanal
             </button>
@@ -121,7 +121,7 @@ const FormTravelPlans = () => {
           </button>
         </form>
       </div>
-      <div className="rounded-lg shadow shadow-2xl p-6 border w-2/5 h-full mb-4 md:w-1/3 sm:w-5/12 flex flex-col items-center">
+      <div className="rounded-lg shadow shadow-2xl p-6 border w-2/5 h-full mb-4 md:w-1/2 sm:w-5/12 flex flex-col items-center">
         <div className="w-full">
           <h2 className="w-full mb-2 text-lg md:text-2xl font-title text-highlight-color ">
             Resumen de mi viaje
