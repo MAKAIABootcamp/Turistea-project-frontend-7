@@ -7,10 +7,11 @@ export default {
   ],
   theme: {
     colors: {
-      "primary-color": "#2196f3",
+      "primary-color": "#4CAF50",
       "secondary-color": "#ffffff",
       "bg-input": "rgba(33, 150, 243, 0.09)",
-      "text-input": "#BCC1CA",
+      "gray-input": "#BCC1CA",
+      "gray-cards":"#9095A0",
       "black-text": "#323842",
       "highlight-color": "#ffa317",
     },
