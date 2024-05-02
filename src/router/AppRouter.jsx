@@ -17,9 +17,9 @@ const AppRouter = () => {
           <Route path="register" element={<Register />} />
           <Route index element={<Home />} />
           <Route path="detailsPost" element={<DetailsPost />} />
-          <Route path="cart" element={<Cart />} />
           <Route path="successPlan" element={<SuccessPlan />} />
         </Route>
+        <Route path="cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>
   );
