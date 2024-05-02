@@ -8,18 +8,22 @@ import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
 import FormTravelPlans from "../components/FormTravelPlans/FormTravelPlans";
+import Perfil from "../pages/Perfil";
+import ConfigPerfil from "../pages/configPerfil";
 
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route path="/" element={<Layout />}>
-          <Route path="register" element={<Register />} />
           <Route index element={<Home />} />
           <Route path="detailsPost" element={<DetailsPost />} />
           <Route path="successPlan" element={<SuccessPlan />} />
           <Route path="form" element={<FormTravelPlans />} />
+          <Route path="perfilUsuario" element={<Perfil/>}/>
+          <Route path="configperfil" element={<ConfigPerfil />}/>
         </Route>
         <Route path="cart" element={<Cart />} />
       </Routes>
