@@ -9,6 +9,7 @@ import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
 import Perfil from "../pages/Perfil";
 import ConfigPerfil from "../pages/configPerfil";
+import ViewDetails from "../pages/ViewDetails";
 
 const AppRouter = () => {
   return (
@@ -23,6 +24,7 @@ const AppRouter = () => {
           <Route path="successPlan" element={<SuccessPlan />} />
           <Route path="myProfile" element={<Perfil/>}/>
           <Route path="configperfil" element={<ConfigPerfil />}/>
+          <Route path="detailsPlan" element={<ViewDetails />}/>
         </Route>
       </Routes>
     </BrowserRouter>
