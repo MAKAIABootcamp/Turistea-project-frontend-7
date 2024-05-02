@@ -9,11 +9,12 @@ export default {
     colors: {
       "primary-color": "#4CAF50",
       "secondary-color": "#ffffff",
-      "bg-input": "rgba(33, 150, 243, 0.09)",
+      "bg-input": "rgba(76, 175, 80, 0.15)",
       "gray-input": "#BCC1CA",
       "gray-cards":"#9095A0",
       "black-text": "#323842",
       "highlight-color": "#ffa317",
+      "primary-line":"#1DD75B"
     },
     extend: {
       fontFamily: {
