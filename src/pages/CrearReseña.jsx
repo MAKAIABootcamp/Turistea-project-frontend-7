@@ -54,9 +54,9 @@ const CrearReseña = () => {
               <button
                 key={index}
                 type="button"
-                className="w-20 h-20 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg focus:ring-highlight-color focus:outline-none"
+                className="w-20 h-20 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg focus:ring-2 focus:ring-highlight-color focus:outline-none"
               >
-                <span className="text-2xl">+</span>
+                <span className="text-2xl focus:ring-highlight-color">+</span>
               </button>
             ))}
           </div>
@@ -94,4 +94,3 @@ const CrearReseña = () => {
 }
 
 export default CrearReseña;
-
