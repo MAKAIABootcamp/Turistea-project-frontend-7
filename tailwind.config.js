@@ -14,6 +14,7 @@ export default {
       "gray-cards":"#9095A0",
       "black-text": "#323842",
       "highlight-color": "#ffa317",
+      "primary-line":"#1DD75B"
     },
     extend: {
       fontFamily: {
