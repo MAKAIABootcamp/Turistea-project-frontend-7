@@ -14,14 +14,19 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route path="/" element={<Layout />}>
-          <Route path="register" element={<Register />} />
           <Route index element={<Home />} />
           <Route path="detailsPost" element={<DetailsPost />} />
           <Route path="misReseñas" element={<MisReseñas/>} />
           <Route path="cart" element={<Cart />} />
           <Route path="successPlan" element={<SuccessPlan />} />
+          <Route path="form" element={<FormTravelPlans />} />
+          <Route path="myProfile" element={<Perfil/>}/>
+          <Route path="configperfil" element={<ConfigPerfil />}/>
+          <Route path="detailsPlan" element={<ViewDetails />}/>
         </Route>
+        <Route path="cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>
   );
