@@ -34,9 +34,9 @@ const DetailsPost = () => {
   </button>
 </div>
     </div>
-    <div className="mt-4 flex gap-4">
-  {/* Contenedor para la imagen principal */}
-  <div className="flex-grow">
+    <div className="mt-8 flex" style={{ gap: '0px' }}> {/* Elimina cualquier espacio entre los contenedores */}
+        {/* Contenedor para la imagen principal */}
+        <div className="flex-grow" style={{ marginRight: '-10px' }}> 
     <img
       src="src/assets/Image-19.webp" 
       alt="Calle de Cartagena"
@@ -45,7 +45,7 @@ const DetailsPost = () => {
   </div>
   
   {/* Contenedor para las imágenes pequeñas */}
-  <div className="flex flex-col space-y-4">
+  <div className="flex flex-col" style={{ gap: '2px', marginLeft: '-10px' }}> 
     <img
       src="src/assets/Image-20.webp" 
       alt="Atardecer en Cartagena"
@@ -68,11 +68,11 @@ const DetailsPost = () => {
           <div>
             <h2 className="text-lg font-semibold text-gray-900">Reserva</h2>
             <p className="text-sm text-gray-500">
-              <FontAwesomeIcon icon={faCalendarDay} className="h-5 w-5 inline mr-2 text-blue-500" />
+              <FontAwesomeIcon icon={faCalendarDay} className="h-5 w-5 inline mr-2 text-green-500" />
               Julio 22, 2024
             </p>
             <p className="text-sm text-gray-500">
-              <FontAwesomeIcon icon={faMapMarkerAlt} className="h-5 w-5 inline mr-2 text-blue-500" />
+              <FontAwesomeIcon icon={faMapMarkerAlt} className="h-5 w-5 inline mr-2 text-green-500" />
               Cartagena, Colombia
             </p>
             <p className="text-sm text-gray-500">
@@ -80,11 +80,11 @@ const DetailsPost = () => {
               Hotel Caribe
             </p>
             <p className="text-sm text-gray-500">
-              <FontAwesomeIcon icon={faDollarSign} className="h-5 w-5 inline mr-2 text-orange-600" />
+              <FontAwesomeIcon icon={faDollarSign} className="h-5 w-5 inline mr-2 text-green-500" />
               El coste
             </p>
             <p className="text-sm text-gray-500">
-              <FontAwesomeIcon icon={faSuitcase} className="h-5 w-5 inline mr-2 text-purple-500" />
+              <FontAwesomeIcon icon={faSuitcase} className="h-5 w-5 inline mr-2 text-green-500" />
               Actividades, tours
             </p>
             <p className="text-gray-700 mt-2">
