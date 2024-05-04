@@ -10,7 +10,7 @@ const Cart = () => {
       <div className=" px-4 w-1/2 md:w-1/3 sm:w-5/12 flex flex-col mt-6 items-center">
         <div className="w-full">
           <h1 className="w-full mb-6 text-base sm:text-2xl md:text-3xl font-title text-primary-color ">
-            Detalles de tu Viaje
+            Detalles de tu viaje
           </h1>
         </div>
         <div>

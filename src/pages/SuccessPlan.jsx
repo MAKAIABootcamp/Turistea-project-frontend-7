@@ -15,30 +15,30 @@ const SuccessPlan = () => {
         <h1 className="font-title text-3xl mb-10 font-bold"> Todo listo, buen viaje!</h1>
         <section className="flex flex-col gap-5">
           <div className="flex flex-row gap-2 items-center font-body text-m">
-            <FontAwesomeIcon icon={faCalendar} style={{color: "#cd8218"}} />
+            <FontAwesomeIcon icon={faCalendar} className="text-highlight-color" />
             <p> Mayo 3, 2024</p>
           </div>
           <div className="flex flex-row gap-2 items-center font-body text-m">
-            <FontAwesomeIcon icon={faLocationPin} style={{color: "#cd8218"}} />
+            <FontAwesomeIcon icon={faLocationPin} className="text-highlight-color" />
             <p> Cartagena, Colombia</p>
           </div>
           <div className="flex flex-row gap-2 items-center font-body text-m">
-            <FontAwesomeIcon icon={faHotel} style={{color: "#cd8218"}}/>
+            <FontAwesomeIcon icon={faHotel} className="text-highlight-color"/>
             <p> Hotel Caribe</p>
           </div>
           <div className="flex flex-row gap-2 items-center font-body text-m">
-            <FontAwesomeIcon icon={faUtensils} style={{color: "#cd8218"}} />
+            <FontAwesomeIcon icon={faUtensils} className="text-highlight-color" />
             <p> El coste </p>
           </div>
           <div className="flex flex-row gap-2 items-center font-body text-m">
-            <FontAwesomeIcon icon={faPersonHiking} style={{color: "#cd8218"}}/>
+            <FontAwesomeIcon icon={faPersonHiking} className="text-highlight-color"/>
             <p>
               Actividades principales: Senderismo, Cabalgata , visita a lugares
               coloniales.
             </p>
           </div>
         </section>
-        <button className="bg-orange-400 text-white font-body text-m rounded-lg w-80 font-bold h-10 mt-6 mb-4"> Ver mi plan de viaje </button>
+        <button className="text-white bg-highlight-color hover:bg-primary-color hover:border border-primary-color font-body text-m rounded-lg w-80 font-bold h-10 mt-6 mb-4"> Ver mi plan de viaje </button>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const CrearReseña = () => {
             id="review-type"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-highlight-color focus:border-highlight-color sm:text-sm"
           >
-            <option>Seleccionar</option>
+            <option className='text-gray-input'>Seleccionar</option>
             {/* Aquí puedes agregar más opciones */}
           </select>
         </div>
@@ -65,7 +65,7 @@ const CrearReseña = () => {
           <label className="block text-sm font-medium text-gray-700">Calificación</label>
           <div className="flex items-center mt-1">
             {/* Aquí podrías integrar un componente de estrellas interactivo */}
-            <span className="focus:ring-highlight-color focus:border-highlight-color text-lg leading-none">★★★★☆</span>
+            <span className="text-highlight-color focus:ring-highlight-color focus:border-highlight-color text-lg leading-none">★★★★☆</span>
           </div>
         </div>
         {/* Botón para añadir otra reseña */}
@@ -75,8 +75,8 @@ const CrearReseña = () => {
             className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-highlight-color focus:ring-opacity-50"
           >
             <span>Añadir otra reseña</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" fill="#ffa317"/>
+            <svg className='fill-highlight-color' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" clipRule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z"/>
             </svg>
           </button>
         </div>
@@ -84,7 +84,7 @@ const CrearReseña = () => {
           <button type="button" className="py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 mr-4">
             Cancelar
           </button>
-          <button type="submit" className="py-2 px-4  bg-highlight-color text-white rounded-md hover:bg-blue-600">
+          <button type="submit" className="py-2 px-4  bg-highlight-color text-white rounded-md hover:bg-primary-color">
             Crear
           </button>
         </div>

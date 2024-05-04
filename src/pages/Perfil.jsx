@@ -3,7 +3,7 @@ import { useState } from 'react';
 import MisReseñas from '../components/MisReseñas';
 import PlanesDeAhorro from '../components/PlanAhorro';
 const Perfil = () => {
-  const [componenteSeleccionado, setComponenteSeleccionado] = useState(<PlanesDeAhorro />);
+  const [componenteSeleccionado, setComponenteSeleccionado] = useState(<MisReseñas />);
 
   // Función para cambiar el componente seleccionado
   const handleClick = (componente) => {

@@ -150,43 +150,43 @@ const ViewDetails = () => {
             Marca los ahorros cumplidos
           </h2>
 
-          <div class="flex items-center">
+          <div className="flex items-center">
             <input
               id="link-checkbox"
               type="checkbox"
               checked={true}
-              class="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
+              className="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
             />
             <label
               for="link-checkbox"
-              class="ms-2 text-sm font-medium text-gray-900"
+              className="ms-2 text-sm font-medium text-gray-900"
             >
               03 may 2024 - 03 jun 2024
             </label>
           </div>
-          <div class="flex items-center">
+          <div className="flex items-center">
             <input
               id="link-checkbox"
               type="checkbox"
               value=""
-              class="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
+              className="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
             />
             <label
               for="link-checkbox"
-              class="ms-2 text-sm font-medium text-gray-900"
+              className="ms-2 text-sm font-medium text-gray-900"
             >
               03 jun 2024 - 03 jul 2024
             </label>
           </div>
-          <div class="flex items-center">
+          <div className="flex items-center">
             <input
               id="link-checkbox"
               type="checkbox"
-              class="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
+              className="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
             />
             <label
               for="link-checkbox"
-              class="ms-2 text-sm font-medium text-gray-900"
+              className="ms-2 text-sm font-medium text-gray-900"
             >
               03 jul 2024 - 03 ago 2024
             </label>
