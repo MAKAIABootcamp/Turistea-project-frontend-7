@@ -7,7 +7,7 @@ import {
   faTrashCan,
 } from "@fortawesome/free-regular-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
-const ConfigPerfil = () => {
+const ConfigProfile = () => {
   return (
     <div className="flex flex-row gap-4 h-full w-full justify-evenly">
       <section className="mt-12">
@@ -50,7 +50,7 @@ const ConfigPerfil = () => {
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Gshp4z7EX1tb7MIup4TjrG-E4Gs2lVLZ1XKH8wyCLw&s"
           />
           <button className="bg-highlight-color w-8 h-8 absolute top-32 left-3 rounded-full">
-            <FontAwesomeIcon className="w-5 h-5" icon={faPencil}  style={{ color: "#F9F9F8" }} />
+            <FontAwesomeIcon className="w-5 h-5 text-secondary-color" icon={faPencil} />
           </button>
         </div>
 
@@ -95,4 +95,4 @@ const ConfigPerfil = () => {
   );
 };
 
-export default ConfigPerfil;
+export default ConfigProfile;

@@ -1,7 +1,7 @@
 import React from "react";
 // import { StarIcon } from '@heroicons/react/24/solid';
 
-const MisReseñas = () => {
+const MyReview = () => {
   return (
     <div className="p-5">
       {/* Barra lateral con menú */}
@@ -326,4 +326,4 @@ const MisReseñas = () => {
   );
 };
 
-export default MisReseñas;
+export default MyReview;

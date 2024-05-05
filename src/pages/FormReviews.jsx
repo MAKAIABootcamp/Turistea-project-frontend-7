@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CrearReseña = () => {
+const FormReviews = () => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto  mt-10">
       <h2 className="text-2xl font-semibold text-primary-color mb-6">Creación Reseña</h2>
@@ -93,4 +93,4 @@ const CrearReseña = () => {
   );
 }
 
-export default CrearReseña;
+export default FormReviews;

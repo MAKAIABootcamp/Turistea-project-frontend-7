@@ -1,6 +1,7 @@
 import React from "react";
 import img from "../assets/imagensuccess.png";
-const PlanesDeAhorro = () => (
+
+const SavingsPlan = () => (
   <section className="px-10 py-5 md:px-20 md:py-10 sm:py-8 sm:px-16">
     <div className="pb-4 border-b-2 border-primary-line flex justify-between">
       <h1 className="font-bold font-title text-primary-color md:text-3xl sm:text-base xs:text-sm sm:mx-2 ">
@@ -100,7 +101,7 @@ const PlanesDeAhorro = () => (
           </div>
           <button
             type="submit"
-            className=" my-4 font-body text-xs md:text-base font-bold text-secondary-color bg-highlight-color hover:bg-primary-color hover:border border-primary-color font-semibold rounded-xl md:w-1/3 px-5 py-2 text-center"
+            className=" my-4 font-body text-xs md:text-base font-bold text-secondary-color bg-highlight-color hover:bg-primary-color hover:border border-primary-color font-semibold rounded-xl lg:w-1/3 px-5 py-2 text-center"
           >
             Ver detalles
           </button>
@@ -109,4 +110,4 @@ const PlanesDeAhorro = () => (
     </div>
   </section>
 );
-export default PlanesDeAhorro;
+export default SavingsPlan;

@@ -8,10 +8,10 @@ import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
 import FormTravelPlans from "../components/FormTravelPlans/FormTravelPlans";
-import Perfil from "../pages/Perfil";
-import ConfigPerfil from "../pages/configPerfil";
+import ConfigProfile from "../pages/ConfigProfile";
 import ViewDetails from "../pages/ViewDetails";
-import CrearReseña from "../pages/CrearReseña";
+import FormReviews from "../pages/FormReviews";
+import Profile from "../pages/Profile";
 
 const AppRouter = () => {
   return (
@@ -20,10 +20,10 @@ const AppRouter = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="detailsPost" element={<DetailsPost />} />
-          <Route path="formReseñas" element={<CrearReseña/>} />
+          <Route path="formReviews" element={<FormReviews/>} />
           <Route path="successPlan" element={<SuccessPlan />} />
-          <Route path="myProfile" element={<Perfil/>}/>
-          <Route path="configPerfil" element={<ConfigPerfil />}/>
+          <Route path="myProfile" element={<Profile/>}/>
+          <Route path="configProfile" element={<ConfigProfile />}/>
           <Route path="detailsPlan" element={<ViewDetails />}/>
         </Route>
         <Route path="/login" element={<Login />} />
