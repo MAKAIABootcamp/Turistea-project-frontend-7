@@ -17,7 +17,6 @@ const Login = () => {
         <Link to={`/`} className="flex items-center mb-8">
           <img src={logo} className="object-cover" alt="Logo" />
         </Link>
-        {/* <h1 className="mb-6 md:text-4xl sm:text-base font-title text-highlight-color ">Inicia Sesión</h1> */}
         <form className="w-full flex flex-col justify-center">
           <div className="mb-5">
             <input

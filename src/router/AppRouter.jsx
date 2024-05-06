@@ -25,11 +25,11 @@ const AppRouter = () => {
           <Route path="myProfile" element={<Profile/>}/>
           <Route path="configProfile" element={<ConfigProfile />}/>
           <Route path="detailsPlan" element={<ViewDetails />}/>
+          <Route path="register" element={<Register />} />
         </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="formPlans" element={<FormTravelPlans />} />
-        <Route path="cart" element={<Cart />} />
+        <Route path="/formPlans" element={<FormTravelPlans />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>
   );
