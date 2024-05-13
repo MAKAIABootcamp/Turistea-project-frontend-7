@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { loginFail, loginRequest, loginSucess } from "./userAuthSlice";
-import { auth } from "../../firebase/firebaseConfig";
+import { auth } from "../../firebaseConfig";
 
 export const actionRegisterWithEmailAndPassword = ({
   email,
