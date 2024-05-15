@@ -26,6 +26,7 @@ const Register = () => {
     setImg(fileItem);
     setTouchedPhoto(true);
     formik.values.photo = fileItem? fileItem.name : ''
+    console.log(formik.values.photo)
   };
   const formik = useFormik({
     initialValues: {
@@ -200,9 +201,9 @@ const Register = () => {
             className="hidden w-full text-sm text-transparent rounded-xl cursor-pointer bg-trasparent focus:ring-3 focus:ring-highlight-color focus:border-highlight-color"
             id="photo"
             type="file"
-            onChange={(e)=> handleChangefile(e)}               
+            onChange={(e)=> handleChangefile(e)}
           />
-          {touchedPhoto && formik.errors.photo  ? (
+          {touchedPhoto && formik.errors.photo ? (
             <span className="text-highlight-color text-xs font-semibold">
               {formik.errors.photo}
             </span>
