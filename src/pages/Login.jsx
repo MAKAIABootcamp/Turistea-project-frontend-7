@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLoginWithEmailAndPassword } from "../redux/userAuth/userAuthActions";
 import Swal from "sweetalert2";
+import { loginFail } from "../redux/userAuth/userAuthSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -59,8 +60,12 @@ const Login = () => {
     Swal.fire({
       position: "top-end",
       allowOutsideClick: false,
-      text: "Errror al iniciar sesión",
+      text: "Error al iniciar sesión",
       icon: "error",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(loginFail(null))
+      }
     });
   }
 

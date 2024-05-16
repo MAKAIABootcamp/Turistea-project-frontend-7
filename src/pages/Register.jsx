@@ -6,9 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import fileUpload from "../services/fileUpload";
 import { actionRegisterWithEmailAndPassword } from "../redux/userAuth/userAuthActions";
-import { valuesAlert } from "../utils/alerts";
 import Swal from "sweetalert2";
-import { set } from "firebase/database";
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,16}$/;
 const supportedFormats = ["jpg", "png", "webp"];
@@ -36,18 +34,18 @@ const Register = () => {
       photo: "",
     },
     validationSchema: Yup.object({
-      // name: Yup.string()
-      //   .max(20, "El nombre no debe exceder los 20 caracteres")
-      //   .required("Debe digitar su nombre completo"),
-      // email: Yup.string()
-      //   .email("Por ingrese un correo válido")
-      //   .required("Debe digitar su correo electrónico"),
-      // password: Yup.string()
-      //   .required("Debe digitar una contraseña")
-      //   .matches(
-      //     passwordRegex,
-      //     "Contraseña debe tener una minúscula, una mayúscula y al menos un caracter no alfanumérico,(min 8 caracteres - max 16 caracteres)."
-      //   ),
+      name: Yup.string()
+        .max(20, "El nombre no debe exceder los 20 caracteres")
+        .required("Debe digitar su nombre completo"),
+      email: Yup.string()
+        .email("Por ingrese un correo válido")
+        .required("Debe digitar su correo electrónico"),
+      password: Yup.string()
+        .required("Debe digitar una contraseña")
+        .matches(
+          passwordRegex,
+          "Contraseña debe tener una minúscula, una mayúscula y al menos un caracter no alfanumérico,(min 8 caracteres - max 16 caracteres)."
+        ),
       photo: Yup.mixed()
         .required("Seleccione una foto de perfil")
         .test("fileFormat", "Solo archivos .jpg .png .webp", (value) => {
@@ -58,10 +56,9 @@ const Register = () => {
         }),
     }),
     onSubmit: async (values) => {
-      console.log(values)
-      // const photoProfile = await fileUpload(values.photo);
-      // values.photo = photoProfile;
-      // dispatch(actionRegisterWithEmailAndPassword(values));
+      const photoProfile = await fileUpload(values.photo);
+      values.photo = photoProfile;
+      dispatch(actionRegisterWithEmailAndPassword(values));
     },
   });
 
