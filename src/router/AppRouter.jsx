@@ -20,31 +20,28 @@ import { auth } from "../firebase/firebaseConfig";
 import { loginSucess } from "../redux/userAuth/userAuthSlice";
 
 const AppRouter = () => {
-  // const { user } = useSelector((store) => store.userAuth);
-  // const dispatch = useDispatch();
+  const { user } = useSelector((store) => store.userAuth);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (userCredential) => {
-  //     if (userCredential && !user) {
-  //       dispatch(
-  //         loginSucess({
-  //           id: userCredential.uid,
-  //           name: userCredential.displayName,
-  //           photo: userCredential.photoURL,
-  //           accessToken: userCredential.accessToken,
-  //         })
-  //       );
-  //     }
-  //   });
-  // }, [user, dispatch]);
+  useEffect(() => {
+    onAuthStateChanged(auth, (userCredential) => {
+      if (userCredential && !user) {
+        dispatch(
+          loginSucess({
+            id: userCredential.uid,
+            name: userCredential.displayName,
+            photo: userCredential.photoURL,
+            accessToken: userCredential.accessToken,
+          })
+        );
+      }
+    });
+  }, [user, dispatch]);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route element={<PublicRoutes />}>
-            <Route path="register" element={<Register />} />
-          </Route>
           <Route element={<PrivateRoutes />}>
             <Route index element={<Home />} />
             <Route path="detailsPost" element={<DetailsPost />} />
@@ -52,12 +49,12 @@ const AppRouter = () => {
             <Route path="successPlan" element={<SuccessPlan />} />
             <Route path="myProfile" element={<Profile />} />
             <Route path="configProfile" element={<ConfigProfile />} />
-            {/* <Route path="detailsPlan" element={<ViewDetails />} /> */}
+            <Route path="detailsPlan" element={<ViewDetails />} />
           </Route>
         </Route>
         <Route element={<PublicRoutes />}>
-          <Route path="/detailsPlan" element={<ViewDetails />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
         <Route element={<PrivateRoutes />}>
           <Route path="/formPlans" element={<FormTravelPlans />} />

@@ -56,7 +56,7 @@ const Register = () => {
         }),
     }),
     onSubmit: async (values) => {
-      const photoProfile = await fileUpload(values.photo);
+      const photoProfile = await fileUpload(img);
       values.photo = photoProfile;
       dispatch(actionRegisterWithEmailAndPassword(values));
     },

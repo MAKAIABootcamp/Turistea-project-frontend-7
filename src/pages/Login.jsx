@@ -11,7 +11,7 @@ import { loginFail } from "../redux/userAuth/userAuthSlice";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { isAuth, isLoading, error } = useSelector((store) => store.userAuth);
+  const { user, isAuth, isLoading, error } = useSelector((store) => store.userAuth);
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -26,7 +26,6 @@ const Login = () => {
       password: Yup.string().required("Debe digitar una contraseña"),
     }),
     onSubmit: async (values) => {
-      console.log("values", values);
       dispatch(actionLoginWithEmailAndPassword(values));
     },
   });
@@ -69,12 +68,11 @@ const Login = () => {
     });
   }
 
-  if (isAuth) {
+  if (isAuth && user) {
     Swal.fire({
-      position: "top-end",
       allowOutsideClick: false,
-      text: "Bienvenido",
-      icon: "success",
+      title: `Bienvenido ${user.name}`,
+      text: "Has ingresado correctamente a Turistea",
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/");
