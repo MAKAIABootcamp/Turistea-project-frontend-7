@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userAuthReducer from './userAuth/userAuthSlice'
+import userPerfilReducer from './configUser/userPerfil';
 
 const store = configureStore({
     reducer: {
-        userAuth:userAuthReducer,
+        userPerfil:userPerfilReducer,
+        userAuth:userAuthReducer
     },
     devTools: process.env.NODE_ENV !== "production"
 })
