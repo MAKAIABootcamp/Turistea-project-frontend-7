@@ -1,3 +1,4 @@
+
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { loginFail, loginRequest, loginSucess, logout } from "./userAuthSlice";
 import { auth } from "../../firebase/firebaseConfig";
