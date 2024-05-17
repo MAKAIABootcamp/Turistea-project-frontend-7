@@ -7,7 +7,7 @@ const FormTravelPlans = () => {
   return (
     <section className="flex justify-between w-full h-screen px-10 py-5 mb-4 md:px-20 md:py-10 sm:py-8 sm:px-16">
       <div className="px-1 w-2/5 md:w-5/12 sm:w-3/5 bg-secondary mr-2">
-        <nav class="flex items-center mb-4">
+        <nav className="flex items-center mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-4 h-4 fill-gray-input hover:fill-primary-color"
@@ -16,7 +16,7 @@ const FormTravelPlans = () => {
             <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
           </svg>
 
-          <Link class="ms-1 text-sm font-medium text-gray-input hover:text-primary-color md:ms-2">
+          <Link className="ms-1 text-sm font-medium text-gray-input hover:text-primary-color md:ms-2">
             Back
           </Link>
         </nav>
@@ -143,10 +143,10 @@ const FormTravelPlans = () => {
                   Hostal freesould
                 </Link>
                 <p className="text-gray-input text-xs md:text-sm">Palomino, La Guajira</p>
-                <p className="text-sm md:text-base font-semibold">
+                <span className="text-sm md:text-base font-semibold">
                   $92.000
                   <p className="inline font-normal text-gray-input">/noche</p>
-                </p>
+                </span>
               </div>
               <div className="w-fullflex justify-end">
                 <button
@@ -180,10 +180,10 @@ const FormTravelPlans = () => {
                   Hostal freesould
                 </Link>
                 <p className="text-gray-input text-xs md:text-sm">Palomino, La Guajira</p>
-                <p className="text-sm md:text-base font-semibold">
+                <span className="text-sm md:text-base font-semibold">
                   $92.000
                   <p className="inline font-normal text-gray-input">/noche</p>
-                </p>
+                </span>
               </div>
               <div className="w-fullflex justify-end">
                 <button
@@ -217,10 +217,10 @@ const FormTravelPlans = () => {
                   Hostal freesould
                 </Link>
                 <p className="text-gray-input text-xs md:text-sm">Palomino, La Guajira</p>
-                <p className="text-sm md:text-base font-semibold">
+                <span className="text-sm md:text-base font-semibold">
                   $92.000
                   <p className="inline font-normal text-gray-input">/noche</p>
-                </p>
+                </span>
               </div>
               <div className="w-fullflex justify-end">
                 <button

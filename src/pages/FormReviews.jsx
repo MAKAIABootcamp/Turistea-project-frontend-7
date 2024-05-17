@@ -3,6 +3,20 @@ import React from 'react';
 const FormReviews = () => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto  mt-10">
+      <h1>Publicacion</h1>
+      <div className="mb-4">
+          <label htmlFor="review-type" className="block text-sm font-medium text-gray-700">
+            Selecciona ubicación
+          </label>
+          <select
+            id="review-type"
+            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-highlight-color focus:border-highlight-color sm:text-sm"
+          >
+            <option className='text-gray-input'>Seleccionar</option>
+            {/* Aquí puedes agregar más opciones */}
+          </select>
+        </div>
+
       <h2 className="text-2xl font-semibold text-primary-color mb-6">Creación Reseña</h2>
       <form>
         <div className="mb-4">
@@ -47,7 +61,22 @@ const FormReviews = () => {
           ></textarea>
         </div>
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700">Insertar Imágenes Principales</label>
+          <label className="block text-sm font-medium text-gray-700">Insertar Imágen Principal</label>
+          <div className="flex space-x-4 mt-2">
+            {/* Botones para añadir imágenes */}
+            {Array.from({ length: 1 }).map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                className="w-20 h-20 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg focus:ring-2 focus:ring-highlight-color focus:outline-none"
+              >
+                <span className="text-2xl focus:ring-highlight-color">+</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700">Insertar Imágenes Secundarias</label>
           <div className="flex space-x-4 mt-2">
             {/* Botones para añadir imágenes */}
             {Array.from({ length: 4 }).map((_, index) => (
