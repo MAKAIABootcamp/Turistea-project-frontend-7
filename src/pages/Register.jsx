@@ -93,6 +93,10 @@ const Register = () => {
       allowOutsideClick: false,
       text: "Ha ocurrido un error al crear la cuenta",
       icon: "error",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(loginFail(null))
+      }
     });
   }
 

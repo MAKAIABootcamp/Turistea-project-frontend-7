@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { loginSucess } from "../redux/userAuth/userAuthSlice";
+import PhoneLogin from "../pages/PhoneLogin";
+import InsertCode from "../pages/InsertCode";
 
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);
@@ -41,25 +43,24 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route element={<PrivateRoutes />}>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="detailsPost" element={<DetailsPost />} />
-            <Route path="formReviews" element={<FormReviews />} />
-            <Route path="successPlan" element={<SuccessPlan />} />
-            <Route path="myProfile" element={<Profile />} />
             <Route path="configProfile" element={<ConfigProfile />} />
             <Route path="detailsPlan" element={<ViewDetails />} />
+            <Route path="formReviews" element={<FormReviews />} />
+            <Route path="myProfile" element={<Profile />} />
+            <Route path="successPlan" element={<SuccessPlan />} />
           </Route>
+          <Route path="/formPlans" element={<FormTravelPlans />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
         <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
-        <Route element={<PrivateRoutes />}>
-          <Route path="/formPlans" element={<FormTravelPlans />} />
-          <Route path="/cart" element={<Cart />} />
-        </Route>
+        <Route element={<PrivateRoutes />}></Route>
       </Routes>
     </BrowserRouter>
   );

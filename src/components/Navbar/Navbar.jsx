@@ -10,10 +10,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.userAuth);
 
-  const handleUserButton = (event) => {
-    event.preventDefault();
-    setShowUserMenu(true);
-  };
   const handleLogout = (event) => {
     event.preventDefault();
     dispatch(actionLogout());
@@ -45,13 +41,13 @@ const Navbar = () => {
               type="button"
               className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-transparent dark:focus:ring-gray-600"
               id="user-menu-button"
-              onClick={(e) => handleUserButton(e)}
+              onClick={() =>  setShowUserMenu(!showUserMenu)}
             >
               {user?.photo ? (
                 <img
                   className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-primary-color"
-                  src={user?.photo}
-                  alt="user photo"
+                  src={user.photo}
+                  alt={user.name}
                 />
               ) : (
                 <svg
@@ -103,10 +99,10 @@ const Navbar = () => {
               </div>
             ) : null}
           </div>
-
+          {/* boton menu de lps filtros*/}
           <button
             type="button"
-            onClick={()=> setShowUserMenu}
+            onClick={()=> setShowFilterMenu(!showFilterMenu)}
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden"
           >
             <svg
@@ -124,15 +120,17 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
+        {/* mostrar menu de los filtros */}
+        {showFilterMenu ? 
         <div
-          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          className="items-center justify-between w-full md:flex md:w-auto md:order-1"
           id="navbar-user"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <a
                 href="#"
-                className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-primary-color  md:p-0"
+                className="block py-2 px-3 text-white bg-primary-color rounded md:bg-transparent md:text-primary-color  md:p-0"
                 aria-current="page"
               >
                 Alojamiento
@@ -155,7 +153,10 @@ const Navbar = () => {
               </a>
             </li>
           </ul>
-        </div>
+        </div> : null
+        
+      }
+        
       </div>
     </nav>
   );

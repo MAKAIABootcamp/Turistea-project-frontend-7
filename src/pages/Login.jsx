@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import imgPrincipal from "../assets/imgLogin.jpg";
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { actionLoginWithEmailAndPassword } from "../redux/userAuth/userAuthActions";
+import {
+  actionLoginProvider,
+  actionLoginWithEmailAndPassword,
+} from "../redux/userAuth/userAuthActions";
 import Swal from "sweetalert2";
 import { loginFail } from "../redux/userAuth/userAuthSlice";
+import { googleProvider } from "../firebase/firebaseConfig";
+import PhoneLogin from "./PhoneLogin";
+import Cart from "./Cart";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { user, isAuth, isLoading, error } = useSelector((store) => store.userAuth);
+
+  const { user, isAuth, isLoading, error } = useSelector(
+    (store) => store.userAuth
+  );
   const dispatch = useDispatch();
+  const [openModal, setOpenModal] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -30,9 +40,14 @@ const Login = () => {
     },
   });
 
-  const handleLoginGoogle = () =>{
-
-  }
+  const handleLoginProvider = (provider) => {
+    if (provider) {
+      dispatch(actionLoginProvider(provider));
+    } else {
+      // navigate(`/PhoneLogin`);
+      setOpenModal(true);
+    }
+  };
 
   if (isLoading)
     return (
@@ -67,7 +82,7 @@ const Login = () => {
       icon: "error",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(loginFail(null))
+        dispatch(loginFail(null));
       }
     });
   }
@@ -145,9 +160,10 @@ const Login = () => {
           </Link>
         </p>
         <div className="mt-4">
-          <button 
-          // onClick={handleLoginGoogle()}
-          className="py-1 px-0.5 border border-highlight-color hover:border-primary-color bg-highlight-color hover:bg-primary-color rounded-full  ">
+          <button
+            onClick={() => handleLoginProvider(googleProvider)}
+            className="py-1 px-0.5 border border-highlight-color hover:border-primary-color bg-highlight-color hover:bg-primary-color rounded-full  "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-5 fill-secondary-color"
@@ -156,16 +172,20 @@ const Login = () => {
               <path d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"></path>
             </svg>
           </button>
-          <button className="py-1 mx-2 px-0.5 border border-highlight-color hover:border-primary-color bg-highlight-color hover:bg-primary-color rounded-full">
+          <button
+            onClick={() => handleLoginProvider()}
+            className="py-1 mx-2 px-0.5 border border-highlight-color hover:border-primary-color bg-highlight-color hover:bg-primary-color rounded-full"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-5 fill-secondary-color"
               viewBox="0 0 24 24"
-              >
+            >
               <path d="m20.487 17.14-4.065-3.696a1.001 1.001 0 0 0-1.391.043l-2.393 2.461c-.576-.11-1.734-.471-2.926-1.66-1.192-1.193-1.553-2.354-1.66-2.926l2.459-2.394a1 1 0 0 0 .043-1.391L6.859 3.513a1 1 0 0 0-1.391-.087l-2.17 1.861a1 1 0 0 0-.29.649c-.015.25-.301 6.172 4.291 10.766C11.305 20.707 16.323 21 17.705 21c.202 0 .326-.006.359-.008a.992.992 0 0 0 .648-.291l1.86-2.171a.997.997 0 0 0-.085-1.39z"></path>
             </svg>
           </button>
-              {/* <button className="mx-2 py-1 px-0.5 border border-primary-color bg-primary-color rounded-full">
+        
+          {/* <button className="mx-2 py-1 px-0.5 border border-primary-color bg-primary-color rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-6 h-5 fill-secondary-color"
@@ -176,6 +196,12 @@ const Login = () => {
               </button> */}
         </div>
       </aside>
+      {openModal ? (
+            <div className="absolute flex justify-center items-center bg-[#05050549] w-screen h-screen">
+              <PhoneLogin />
+            </div>
+          ) : null}
+
     </section>
   );
 };
