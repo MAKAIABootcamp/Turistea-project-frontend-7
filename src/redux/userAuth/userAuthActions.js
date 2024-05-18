@@ -1,5 +1,5 @@
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, getAuth } from "firebase/auth";
 import { loginFail, loginRequest, loginSucess, logout } from "./userAuthSlice";
 import { auth } from "../../firebase/firebaseConfig";
 
@@ -51,6 +51,7 @@ export const actionLoginWithEmailAndPassword  = ({email,password}) =>{
         name: user.displayName,
         photo: user.photoURL,
         accessToken: user.accessToken,
+        email: user.email,
       }))
     } catch (error) {
       console.error(error)
@@ -84,6 +85,7 @@ export const actionLoginProvider = (provider) => {
           name: user.displayName,
           photo: user.photoURL,
           accessToken: user.accessToken,
+          email:user.email,
         })
       )
 
@@ -94,3 +96,39 @@ export const actionLoginProvider = (provider) => {
     }
   }
 }
+
+export const actionEditUser = (idUser, editedUser) => {
+  return async (dispatch) => {
+    dispatch(loginRequest());
+    try {
+      const userRef = doc(dataBase, COLLECTION_NAME, idMascota);
+
+      await updateDoc(mascotaRef, editedMascota);
+      dispatch(
+        editMascota({
+          id: idMascota,
+          ...editedMascota,
+        })
+      );
+    } catch (error) {
+      console.error(error);
+      dispatch(mascotasFail(error.message));
+    }
+  };
+};
+
+export const updateUserProfile = (displayName, photoURL) => {
+  return async (dispatch) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      try {
+        await updateProfile(user, { displayName, photoURL });
+        dispatch({ type: "UPDATE_USER_PROFILE_SUCCESS", payload: { displayName, photoURL } });
+      } catch (error) {
+        dispatch({ type: "UPDATE_USER_PROFILE_ERROR", error });
+      }
+    }
+  };
+};
