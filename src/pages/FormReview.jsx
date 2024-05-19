@@ -253,7 +253,7 @@ const FormReview = () => {
           <button type="button" className="py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 mr-4">
             Cancelar
           </button>
-          <button type="submit" className="py-2 px-4 bg-highlight-color text-white rounded-md hover:bg-blue-600">
+          <button type="submit" className="py-2 px-4 bg-highlight-color text-white rounded-md hover:bg-primary-color">
             Crear
           </button>
         </div>
