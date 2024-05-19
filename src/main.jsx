@@ -1,10 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import AppRouter from './router/AppRouter'
-import './index.scss'  
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import store from './redux/review/store';
+import AppRouter from './router/AppRouter';
+import './index.scss'; // Asegúrate de que Tailwind CSS esté correctamente importado
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
-    <AppRouter />
-  </React.StrictMode>,
-)
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  </React.StrictMode>
+);
+
