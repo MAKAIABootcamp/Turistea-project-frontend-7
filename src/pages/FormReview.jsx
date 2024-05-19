@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { actionAddReseña } from '../redux/review/reviewActions';
+import { actionAddReview } from '../redux/review/reviewActions';
 import StarRating from '../components/StarRating';
 import fileUpload from '../services/fileUpload';
 
@@ -63,7 +63,7 @@ const FormReview = () => {
           secondaryImages: secondaryImagesUrls.filter(url => url !== null),
         };
         console.log("Review data to be dispatched:", reviewData);
-        dispatch(actionAddReseña(reviewData));
+        dispatch(actionAddReview(reviewData));
         Swal.fire({
           title: "Excelente!",
           text: "Has creado con éxito una reseña",
