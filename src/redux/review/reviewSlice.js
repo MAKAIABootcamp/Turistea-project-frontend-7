@@ -2,34 +2,34 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const reseñaSlice = createSlice({
-  name: 'reseñas',
+const reviewSlice = createSlice({
+  name: 'review',
   initialState: {
-    reseñas: [],
-    isLoadingReseñas: false,
-    errorReseñas: null,
+    review: [],
+    isLoadingReview: false,
+    errorReview: null,
   },
   reducers: {
-    reseñasRequest: (state) => {
-      state.isLoadingReseñas = true;
-      state.errorReseñas = null;
+    reviewRequest: (state) => {
+      state.isLoadingReview = true;
+      state.errorReview = null;
     },
-    addReseña: (state, action) => {
-      state.reseñas.push(action.payload);
-      state.isLoadingReseñas = false;
-      state.errorReseñas = null;
+    addreview: (state, action) => {
+      state.review.push(action.payload);
+      state.isLoadingReview = false;
+      state.errorReview = null;
     },
-    reseñasFail: (state, action) => {
-      state.isLoadingReseñas = false;
-      state.errorReseñas = action.payload;
+    reviewFail: (state, action) => {
+      state.isLoadingReview = false;
+      state.errorReview = action.payload;
     },
   },
 });
 
 export const {
-  reseñasRequest,
-  addReseña,
-  reseñasFail,
-} = reseñaSlice.actions;
+  reviewRequest,  
+  reviewFail, 
+  addreview,
+} = reviewSlice.actions;
 
-export default reseñaSlice.reducer;
+export default reviewSlice.reducer;
