@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
+import FormReview from "../pages/FormReview";
 
 const AppRouter = () => {
   return (
@@ -18,6 +19,7 @@ const AppRouter = () => {
           <Route index element={<Home />} />
           <Route path="detailsPost" element={<DetailsPost />} />
           <Route path="cart" element={<Cart />} />
+           <Route path="formReview" element={<FormReview/>} />
           <Route path="successPlan" element={<SuccessPlan />} />
         </Route>
       </Routes>
