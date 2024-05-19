@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { actionAddReseña } from '../redux/reseña/reviewActions';
+import { actionAddReseña } from '../redux/review/reviewActions';
 import StarRating from '../components/StarRating';
 import fileUpload from '../services/fileUpload';
 
@@ -263,4 +263,3 @@ const FormReview = () => {
 };
 
 export default FormReview;
-
