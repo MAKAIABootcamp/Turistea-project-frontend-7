@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLogout } from "../../redux/userAuth/userAuthActions";
 
-const Navbar = () => {
+const Navbar = ({luggage,filter}) => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [filterSelected,setFilterSelected]= useState(1)
+  const location = useLocation();
+
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.userAuth);
 
@@ -15,7 +18,14 @@ const Navbar = () => {
     dispatch(actionLogout());
   };
 
+  const handleFilterSelected = (event,btnNumber) => {
+    event.preventDefault();
+    filter(btnNumber);
+    setFilterSelected(btnNumber)
+  }
+
   return (
+    <>
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
@@ -25,8 +35,10 @@ const Navbar = () => {
           <img src={logo} className="h-8" alt="Logo" />
         </Link>
         <div className="relative flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          {/* este es el btotn de la maleta */}
-          <button className="mr-2">
+          {/* este es el boton de la maleta */}
+          <button
+            onClick={luggage}
+          className="mr-2">
             <svg
               className="w-6 h-6 fill-primary-color"
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +53,7 @@ const Navbar = () => {
               type="button"
               className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-transparent dark:focus:ring-gray-600"
               id="user-menu-button"
-              onClick={() =>  setShowUserMenu(!showUserMenu)}
+              onClick={() => {setShowUserMenu(!showUserMenu); setShowFilterMenu(false)}}
             >
               {user?.photo ? (
                 <img
@@ -99,66 +111,71 @@ const Navbar = () => {
               </div>
             ) : null}
           </div>
-          {/* boton menu de lps filtros*/}
-          <button
-            type="button"
-            onClick={()=> setShowFilterMenu(!showFilterMenu)}
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden"
-          >
-            <svg
-              className="w-5 h-5 stroke-primary-color hover: stroke-higthligth-color"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 17 14"
+
+          {location.pathname === "/" ? (
+            /* boton menu de los filtros*/
+            <button
+              type="button"
+              onClick={() => {setShowFilterMenu(!showFilterMenu); setShowUserMenu(false)}}
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
+              <svg
+                className="w-5 h-5 stroke-primary-color hover: stroke-higthligth-color"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
+          ) : null}
         </div>
-        {/* mostrar menu de los filtros */}
-        {showFilterMenu ? 
-        <div
-          className="items-center justify-between w-full md:flex md:w-auto md:order-1"
-          id="navbar-user"
-        >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-white bg-primary-color rounded md:bg-transparent md:text-primary-color  md:p-0"
-                aria-current="page"
-              >
-                Alojamiento
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-color md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Alimentación
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-color md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-              >
-                Planes
-              </a>
-            </li>
-          </ul>
-        </div> : null
-        
-      }
-        
+        {
+          /* mostrar menu de los filtros */
+        location.pathname === "/" ? (
+          <div
+            className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+              showFilterMenu ? "block" : "hidden"
+            }`}
+            id="navbar-user"
+          >
+            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-secondary-color md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white ">
+              <li>
+                <button
+                  onClick={(e) => handleFilterSelected(e,1)}
+                  className={`w-full block py-2 px-3 ${filterSelected === 1 ? 'text-secondary-color bg-primary-color md:bg-transparent md:text-primary-color ': 'text-gray-900 bg-secondary-color md:hover:bg-transparent md:hover:text-primary-color hover:bg-gray-100'} rounded  md:p-0 `}
+                  aria-current="page"
+                >
+                  Alojamiento
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={(e) => handleFilterSelected(e,2)}
+                  className={`w-full block py-2 px-3 ${filterSelected === 2 ? 'text-secondary-color bg-primary-color md:bg-transparent md:text-primary-color ': 'text-gray-900 bg-secondary-color md:hover:bg-transparent md:hover:text-primary-color hover:bg-gray-100'} rounded  md:p-0 `}
+                >
+                  Alimentación
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={(e) => handleFilterSelected(e,3)}
+                  className={`w-full block py-2 px-3 ${filterSelected === 3 ? 'text-secondary-color bg-primary-color md:bg-transparent md:text-primary-color ': 'text-gray-900 bg-secondary-color md:hover:bg-transparent md:hover:text-primary-color hover:bg-gray-100'} rounded  md:p-0 `}
+                >
+                  Planes
+                </button>
+              </li>
+            </ul>
+          </div>
+        ) : null}
       </div>
     </nav>
+    </>
   );
 };
 

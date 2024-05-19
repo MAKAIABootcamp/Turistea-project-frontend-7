@@ -7,8 +7,8 @@ const Cart = () => {
   return (
     <section className="flex w-full h-screen">
       <div className="w-1/2 md:w-3/4 sm:w-3/5 bg-[#05050549]"></div>
-      <div className=" px-4 w-1/2 md:w-1/3 sm:w-5/12 flex flex-col mt-6 items-center">
-        <div className="w-full">
+      <div className=" px-4 w-1/2 md:w-1/3 sm:w-5/12 flex flex-col items-center bg-secondary-color">
+        <div className="w-full mt-6">
           <h1 className="w-full mb-6 text-base sm:text-2xl md:text-3xl font-title text-primary-color ">
             Detalles de tu viaje
           </h1>

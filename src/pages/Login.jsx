@@ -13,7 +13,6 @@ import Swal from "sweetalert2";
 import { loginFail } from "../redux/userAuth/userAuthSlice";
 import { googleProvider } from "../firebase/firebaseConfig";
 import PhoneLogin from "./PhoneLogin";
-import Cart from "./Cart";
 
 const Login = () => {
   const navigate = useNavigate();

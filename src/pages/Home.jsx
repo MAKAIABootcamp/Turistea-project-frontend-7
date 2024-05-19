@@ -11,6 +11,7 @@ import popular3 from '../assets/HomeCards/PalacionEpiscopalQuibdo.jpg'
 import popular4 from '../assets/HomeCards/Safari-casanare.webp'
 
 const Home = () => {
+  // console.log("filter",filter)
   return (
     <section className="px-10 py-5 md:px-20 md:py-10 sm:py-8 sm:px-16">
       <figure className="w-full opacity-100 hover:opacity-75 relative">

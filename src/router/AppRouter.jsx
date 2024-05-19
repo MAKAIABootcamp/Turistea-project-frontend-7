@@ -18,8 +18,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { loginSucess } from "../redux/userAuth/userAuthSlice";
-import PhoneLogin from "../pages/PhoneLogin";
-import InsertCode from "../pages/InsertCode";
 
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);
@@ -34,6 +32,8 @@ const AppRouter = () => {
             name: userCredential.displayName,
             photo: userCredential.photoURL,
             accessToken: userCredential.accessToken,
+            email: userCredential.email || null,
+            phone: userCredential.phoneNumber || null,
           })
         );
       }
