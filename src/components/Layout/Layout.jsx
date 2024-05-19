@@ -19,11 +19,11 @@ const Layout = () => {
       <Footer/>
       
       {showLuggage ? (
-            <a
+            <span
             onClick={() => setShowLuggage(false)}
              className=" fixed top-0 flex justify-center items-center bg-[#05050549] w-screen h-screen">
               <Cart />
-            </a>
+            </span>
           ) : null}
     </div>
     

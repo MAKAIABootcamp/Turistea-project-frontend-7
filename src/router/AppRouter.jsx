@@ -7,7 +7,7 @@ import Login from "../pages/Login";
 import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
-import FormTravelPlans from "../components/FormTravelPlans/FormTravelPlans";
+import FormTravelPlans from "../pages/FormTravelPlans";
 import ConfigProfile from "../pages/ConfigProfile";
 import ViewDetails from "../pages/ViewDetails";
 import FormReviews from "../pages/FormReviews";

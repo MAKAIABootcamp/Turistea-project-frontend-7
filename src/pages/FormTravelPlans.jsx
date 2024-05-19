@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import product1 from "../../assets/Mote-Donde-Mingo.png";
-import product2 from "../../assets/Hostal-freesoul-Palomino-Colombia.jpg";
+import product2 from "../assets/Hostal-freesoul-Palomino-Colombia.jpg";
 
 const FormTravelPlans = () => {
   return (
