@@ -1,5 +1,8 @@
 import React from "react";
 import img from "../assets/imagensuccess.png";
+import { Link, useNavigate } from "react-router-dom";
+
+
 
 const SavingsPlan = () => (
   <section className="px-10 py-5 md:px-20 md:py-10 sm:py-8 sm:px-16">
@@ -99,12 +102,16 @@ const SavingsPlan = () => (
               </p>
             </div>
           </div>
+          
+          <Link to={`/detailsPlan`}>
           <button
             type="submit"
             className=" my-4 font-body text-xs md:text-base font-bold text-secondary-color bg-highlight-color hover:bg-primary-color hover:border border-primary-color font-semibold rounded-xl lg:w-1/3 px-5 py-2 text-center"
           >
             Ver detalles
           </button>
+          </Link>
+          
         </div>
       </div>
     </div>

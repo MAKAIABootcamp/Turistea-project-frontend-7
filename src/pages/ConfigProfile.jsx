@@ -109,13 +109,12 @@ const ConfigProfile = () => {
             </button>
           ) : (
             <>
-              <input type="file"  className="text-highlight-color text-xs font-body mt-10 hover:text-primary-color w-80 h-9 " onChange={(e) => handleChangefile(e)} />
+              <input type="file" className="text-highlight-color text-xs font-body mt-10 hover:text-primary-color w-80 h-9 " onChange={handleChangefile} />
 
               <span
                 className="text-highlight-color hover:text-primary-color cursor-pointer"
                 onClick={handleSave}
               >
-                
                 Guardar
               </span>
             </>
@@ -130,8 +129,7 @@ const ConfigProfile = () => {
                 className="text-highlight-color hover:text-primary-color cursor-pointer"
                 onClick={handleEdit}
               >
-                {" "}
-                Editar{" "}
+                Editar
               </span>
             ) : (
               <span

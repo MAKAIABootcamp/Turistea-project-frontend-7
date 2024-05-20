@@ -1,8 +1,201 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import product2 from "../assets/imagensuccess.png";
+import { getAuth } from "firebase/auth";
+import { collection, query, where, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
+import {
+  setCheckboxes,
+  toggleCheckbox,
+} from "../redux/planAhorro/savingsSlice";
+
+const calculateCheckboxes = (startDate, endDate, periodicity) => {
+  const parseDate = (dateStr) => {
+    const [day, month, year] = dateStr.split("/").map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  const checkboxes = [];
+  const start = parseDate(startDate);
+  const end = parseDate(endDate);
+
+  let currentDate = start;
+
+  const periodMap = {
+    Semanal: 7,
+    Quincenal: 15,
+    Mensual: 30,
+  };
+
+  const daysToAdd = periodMap[periodicity];
+
+  while (currentDate <= end) {
+    const nextDate = new Date(currentDate);
+    nextDate.setDate(currentDate.getDate() + daysToAdd);
+
+    if (nextDate > end) {
+      nextDate.setTime(end.getTime());
+    }
+
+    checkboxes.push({
+      dateRange: `${currentDate.toLocaleDateString(
+        "en-GB"
+      )} - ${nextDate.toLocaleDateString("en-GB")}`,
+      checked: false,
+    });
+
+    currentDate = new Date(nextDate);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return checkboxes;
+};
 
 const ViewDetails = () => {
+  const [infoAhorro, setAhorro] = useState([]);
+  const [reviews, setReviews] = useState("");
+  const [Periodicidad, setPeriodicidad] = useState("");
+  const [FechaInicio, setFechaInicio] = useState("");
+  const [FechaFinalizacion, setFechaFinalizacion] = useState("");
+  const [Valor, setValor] = useState("");
+  const [dataBoxes, setBoxes] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const dispatch = useDispatch();
+ 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (user) {
+        console.log("UID del usuario:", user.uid);
+
+        const planAhorroRef = collection(db, "PlanAhorro");
+        const q = query(planAhorroRef, where("idUser", "==", user.uid));
+
+        try {
+          const querySnapshot = await getDocs(q);
+
+          const data = [];
+          querySnapshot.forEach((doc) => {
+            data.push({ ...doc.data(), id: doc.id });
+          });
+          setAhorro(data);
+
+          if (querySnapshot.size === 0) {
+            console.log("No se encontraron documentos para el usuario.");
+          } else {
+            const ahorroData = data[0];
+            const { periodicidad, valor, dateInicial, dateFinal, id, idTravel } = ahorroData;
+            
+            if (id) {
+              console.log("Periodicidad:", periodicidad);
+              console.log("FechaInicio:", dateInicial);
+              console.log("FechaFinalizacion:", dateFinal);
+              
+              setPeriodicidad(periodicidad);
+              setFechaInicio(dateInicial);
+              setFechaFinalizacion(dateFinal);
+              setValor(valor);
+              fetchTravelData(idTravel);
+
+              const checkboxes = calculateCheckboxes(dateInicial, dateFinal, periodicidad);
+              setBoxes(checkboxes);
+              console.log(checkboxes);
+              dispatch(setCheckboxes(checkboxes));
+
+              const updateFirestore = async () => {
+                const docRef = doc(db, "PlanAhorro", id);
+                try {
+                  await updateDoc(docRef, {
+                    datesBox: checkboxes,
+                    countBox: checkboxes.length
+                  });
+                  console.log("Document successfully updated!");
+                } catch (error) {
+                  console.error("Error updating document: ", error);
+                }
+              };
+              updateFirestore();
+            } else {
+              console.error("Document ID is undefined.");
+            }
+          }
+        } catch (error) {
+          console.error("Error al obtener documentos:", error);
+        }
+      } else {
+        console.log("No hay usuario autenticado.");
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  const fetchTravelData = async (idTravel) => {
+    if (!idTravel) return;
+
+    try {
+      const travelDoc = await getDoc(doc(db, "Travels", idTravel));
+      if (travelDoc.exists()) {
+        const travelData = travelDoc.data();
+        const reviewIds = travelData.reviews;
+        if (reviewIds && reviewIds.length > 0) {
+          fetchReviews(reviewIds[0]);
+        }
+      } else {
+        console.log("No such document in Travels!");
+      }
+    } catch (error) {
+      console.error("Error fetching travel data: ", error);
+    }
+  };
+
+  const fetchReviews = async (reviewId) => {
+    if (!reviewId) return;
+
+    try {
+      const reviewDoc = await getDoc(doc(db, "Reviews", reviewId));
+      if (reviewDoc.exists()) {
+        setReviews(reviewDoc.data());
+      } else {
+        console.log("No such document in Reviews!");
+      }
+    } catch (error) {
+      console.error("Error fetching reviews: ", error);
+    }
+  };
+
+  const handleCheckboxChange = (index, checked) => {
+    const newBoxes = dataBoxes.map((box, i) => {
+      if (i === index) {
+        return { ...box, checked };
+      }
+      return box;
+    });
+    setBoxes(newBoxes);
+    dispatch(toggleCheckbox(index));
+    calculateProgress(newBoxes);
+  };
+
+  const calculateProgress = (checkboxes) => {
+    const total = checkboxes.length;
+    const checked = checkboxes.filter(box => box.checked).length;
+    const progressPercentage = (checked / total) * 100;
+    setProgress(progressPercentage);
+  };
+
+  useEffect(() => {
+    calculateProgress(dataBoxes);
+  }, [dataBoxes]);
+
+  console.log(reviews);
+
+
+
+
   return (
     <section className="flex justify-between w-full h-screen px-10 py-5 mb-4 md:px-20 md:py-10 sm:py-8 sm:px-16">
       <div className="rounded-lg shadow shadow-2xl p-6 border w-2/5 h-full md:w-1/2 sm:w-5/12 flex flex-col items-center">
@@ -15,71 +208,25 @@ const ViewDetails = () => {
           <li className="w-full flex p-4 mt-2 shadow-xl rounded-lg border">
             <div className="h-24 w-2/5 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
               <img
-                src={product2}
+                src={reviews.mainImage}
                 alt="producto2"
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="ml-4 w-2/5 flex flex-1 flex-row items-center">
               <div className="w-full flex flex-col">
-                <p className="text-gray-input text-xs md:text-sm">Hospedaje</p>
+                <p className="text-gray-input text-xs md:text-sm">{reviews.typeReviews ? reviews.typeReviews : "Sin información"}</p>
                 <Link className="text-sm md:text-base font-bold">
-                  Hostal freesould
+                {reviews.namePlace ? reviews.namePlace : "Sin información"}
                 </Link>
                 <p className="text-gray-input text-xs md:text-sm">
-                  Palomino, La Guajira
+                {reviews.nameCity ? reviews.nameCity : "Sin información"}
                 </p>
                 <p className="text-sm md:text-base font-semibold">
-                  $92.000
-                  <p className="inline font-normal text-gray-input">/noche</p>
-                </p>
-              </div>
-            </div>
-          </li>
-          <li className="w-full flex p-4 mt-2 shadow-xl rounded-lg border">
-            <div className="h-24 w-2/5 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-              <img
-                src={product2}
-                alt="producto2"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="ml-4 w-2/5 flex flex-1 flex-row items-center">
-              <div className="w-full flex flex-col">
-                <p className="text-gray-input text-xs md:text-sm">Hospedaje</p>
-                <Link className="text-sm md:text-base font-bold">
-                  Hostal freesould
-                </Link>
-                <p className="text-gray-input text-xs md:text-sm">
-                  Palomino, La Guajira
-                </p>
-                <p className="text-sm md:text-base font-semibold">
-                  $92.000
-                  <p className="inline font-normal text-gray-input">/noche</p>
-                </p>
-              </div>
-            </div>
-          </li>
-          <li className="w-full flex p-4 mt-2 shadow-xl rounded-lg border">
-            <div className="h-24 w-2/5 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-              <img
-                src={product2}
-                alt="producto2"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="ml-4 w-2/5 flex flex-1 flex-row items-center">
-              <div className="w-full flex flex-col">
-                <p className="text-gray-input text-xs md:text-sm">Hospedaje</p>
-                <Link className="text-sm md:text-base font-bold">
-                  Hostal freesould
-                </Link>
-                <p className="text-gray-input text-xs md:text-sm">
-                  Palomino, La Guajira
-                </p>
-                <p className="text-sm md:text-base font-semibold">
-                  $92.000
-                  <p className="inline font-normal text-gray-input">/noche</p>
+                {reviews.price ? reviews.price: "Sin información"}
+                  <span className="inline font-normal text-gray-input">
+                    /noche
+                  </span>
                 </p>
               </div>
             </div>
@@ -92,7 +239,7 @@ const ViewDetails = () => {
               Total
             </p>
             <p className="w-1/2 text-sm md:text-base font-semibold text-end font-body text-black-text">
-              $348.000
+              $400.000
             </p>
           </div>
         </div>
@@ -107,7 +254,7 @@ const ViewDetails = () => {
               Periodicidad:
             </h2>
             <p className="inline text-gray-cards text-body text-sm md:text-base">
-              Mensual
+              {Periodicidad ? Periodicidad : "Sin informacion"}
             </p>
           </div>
           <div className="flex items-center">
@@ -115,7 +262,7 @@ const ViewDetails = () => {
               Valor:
             </h2>
             <p className="inline text-gray-cards text-body text-sm md:text-base">
-              $125.000
+              {Valor ? Valor : "Sin informacion"}
             </p>
           </div>
           <div className="flex items-center">
@@ -123,7 +270,7 @@ const ViewDetails = () => {
               Fecha Inicio:
             </h2>
             <p className="inline text-gray-cards text-body text-sm md:text-base">
-              03 may 2024
+              {FechaInicio ? FechaInicio : "Sin informacion"}
             </p>
           </div>
           <div className="flex items-center">
@@ -131,67 +278,49 @@ const ViewDetails = () => {
               Fecha Finalización:
             </h2>
             <p className="inline text-gray-cards text-body text-sm md:text-base">
-              03 ago 2024
+              {FechaFinalizacion ? FechaFinalizacion : "Sin informacion"}
             </p>
           </div>
         </div>
+
         <div>
           <h2 className="text-body font-semibold text-lg md:text-xl mt-6 mb-4 text-black-text">
             Tu Progreso
           </h2>
-          <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-            <div className="bg-primary-color text-xs font-medium text-secondary-color text-center p-0.5 leading-none rounded-full w-[33%]">
-              33%
-            </div>
+          <div className="relative w-full bg-gray-300 rounded-full h-6">
+            <div
+              className="bg-primary-color h-6 rounded-full"
+              style={{ width: `${progress}%` }}
+            />
+            <span className="absolute left-0 right-0 text-center text-xs font-medium text-primary-color">
+              {Math.round(progress)}%
+            </span>
           </div>
-        </div>
-        <form>
           <h2 className="text-body font-semibold text-lg md:text-xl mt-6 mb-4 text-black-text">
             Marca los ahorros cumplidos
           </h2>
-
-          <div className="flex items-center">
-            <input
-              id="link-checkbox"
-              type="checkbox"
-              checked={true}
-              className="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
-            />
-            <label
-              for="link-checkbox"
-              className="ms-2 text-sm font-medium text-gray-900"
-            >
-              03 may 2024 - 03 jun 2024
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              id="link-checkbox"
-              type="checkbox"
-              value=""
-              className="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
-            />
-            <label
-              for="link-checkbox"
-              className="ms-2 text-sm font-medium text-gray-900"
-            >
-              03 jun 2024 - 03 jul 2024
-            </label>
-          </div>
-          <div className="flex items-center">
-            <input
-              id="link-checkbox"
-              type="checkbox"
-              className="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
-            />
-            <label
-              for="link-checkbox"
-              className="ms-2 text-sm font-medium text-gray-900"
-            >
-              03 jul 2024 - 03 ago 2024
-            </label>
-          </div>
-        </form>
+          {dataBoxes && dataBoxes.length > 0 ? (
+            <ul>
+              {dataBoxes.map((checkbox, index) => (
+                <li key={index}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={checkbox.checked}
+                      onChange={(e) =>
+                        handleCheckboxChange(index, e.target.checked)
+                      }
+                      className="w-4 h-4 text-primary-color bg-gray-100 border-gray-300 rounded focus:ring-transparent"
+                    />
+                    {checkbox.dateRange}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No hay datos de fechas disponibles.</p>
+          )}
+        </div>
       </div>
     </section>
   );
