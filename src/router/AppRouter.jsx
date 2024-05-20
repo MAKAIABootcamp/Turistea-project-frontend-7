@@ -7,6 +7,8 @@ import Login from "../pages/Login";
 import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
+import FormReview from "../pages/FormReview";
+import EditReview from '../components/EditReview';
 import FormTravelPlans from "../components/FormTravelPlans/FormTravelPlans";
 import ConfigProfile from "../pages/ConfigProfile";
 import ViewDetails from "../pages/ViewDetails";
@@ -18,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { loginSucess } from "../redux/userAuth/userAuthSlice";
+
 
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);
@@ -46,6 +49,10 @@ const AppRouter = () => {
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+             <Route path="detailsPost" element={<DetailsPost />} />
+               <Route path="myReviews" element={<MyReviews/>} />
+             <Route path="/edit-review/:reviewId" element={<EditReview />} />
+             <Route path="/cart" element={<Cart />} />
             <Route path="detailsPost" element={<DetailsPost />} />
             <Route path="configProfile" element={<ConfigProfile />} />
             <Route path="detailsPlan" element={<ViewDetails />} />
@@ -53,14 +60,16 @@ const AppRouter = () => {
             <Route path="myProfile" element={<Profile />} />
             <Route path="successPlan" element={<SuccessPlan />} />
           </Route>
-          <Route path="/formPlans" element={<FormTravelPlans />} />
-          <Route path="/cart" element={<Cart />} />
-        </Route>
-        <Route element={<PublicRoutes />}>
+      </Route>
+          <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Route>
-        <Route element={<PrivateRoutes />}></Route>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/formPlans" element={<FormTravelPlans />} />
+          
+        </Route>
+       
       </Routes>
     </BrowserRouter>
   );
