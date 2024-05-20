@@ -12,7 +12,7 @@ import EditReview from '../components/EditReview';
 import FormTravelPlans from "../components/FormTravelPlans/FormTravelPlans";
 import ConfigProfile from "../pages/ConfigProfile";
 import ViewDetails from "../pages/ViewDetails";
-import FormReviews from "../pages/FormReviews";
+import FormReview from "../pages/FormReview";
 import Profile from "../pages/Profile";
 import PublicRoutes from "./PublicRoutes";
 import PrivateRoutes from "./PrivateRoutes";
@@ -56,7 +56,7 @@ const AppRouter = () => {
             <Route path="detailsPost" element={<DetailsPost />} />
             <Route path="configProfile" element={<ConfigProfile />} />
             <Route path="detailsPlan" element={<ViewDetails />} />
-            <Route path="formReviews" element={<FormReviews />} />
+            <Route path="formReview" element={<FormReview />} />
             <Route path="myProfile" element={<Profile />} />
             <Route path="successPlan" element={<SuccessPlan />} />
           </Route>
