@@ -1,9 +1,10 @@
 const fileUpload = async (file) => {
+
     const cloudName = "dx3t6es3p";
     const uploadPreset = "turistea";
-  
+
     const urlCloudinary = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-  
+    
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", uploadPreset);
@@ -25,4 +26,7 @@ const fileUpload = async (file) => {
     }
   };
   
+
   export default fileUpload;
+
+
