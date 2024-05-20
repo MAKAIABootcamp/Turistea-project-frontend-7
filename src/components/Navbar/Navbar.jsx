@@ -6,14 +6,14 @@ import { actionLogout } from "../../redux/userAuth/userAuthActions";
 
 const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [showFilterMenu, setShowFilterMenu] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((store) => store.userAuth);
 
   const handleUserButton = (event) => {
     event.preventDefault();
-    setShowUserMenu(true);
+    setShowUserMenu((prev) => !prev); // Toggle the user menu
   };
+
   const handleLogout = (event) => {
     event.preventDefault();
     dispatch(actionLogout());
@@ -45,7 +45,7 @@ const Navbar = () => {
               type="button"
               className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-transparent dark:focus:ring-gray-600"
               id="user-menu-button"
-              onClick={(e) => handleUserButton(e)}
+              onClick={handleUserButton}
             >
               {user?.photo ? (
                 <img
@@ -64,7 +64,7 @@ const Navbar = () => {
                 </svg>
               )}
             </button>
-            {showUserMenu ? (
+            {showUserMenu && (
               <div
                 className="absolute top-8 right-0 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                 id="user-dropdown"
@@ -93,7 +93,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <button
-                      onClick={(e) => handleLogout(e)}
+                      onClick={handleLogout}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                     >
                       Cerrar Sesion
@@ -101,12 +101,12 @@ const Navbar = () => {
                   </li>
                 </ul>
               </div>
-            ) : null}
+            )}
           </div>
 
           <button
             type="button"
-            onClick={()=> setShowUserMenu}
+            onClick={() => setShowUserMenu(false)}
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden"
           >
             <svg

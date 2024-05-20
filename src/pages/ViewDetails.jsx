@@ -68,6 +68,7 @@ const ViewDetails = () => {
     const fetchData = async () => {
       const auth = getAuth();
       const user = auth.currentUser;
+      console.log(user)
 
       if (user) {
         console.log("UID del usuario:", user.uid);
