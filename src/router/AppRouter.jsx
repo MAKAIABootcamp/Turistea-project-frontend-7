@@ -1,5 +1,11 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useCallback, useEffect } from "react";
+import {
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useBeforeUnload,
+} from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import Home from "../pages/Home";
 import Register from "../pages/Register";
@@ -22,6 +28,25 @@ import { loginSucess } from "../redux/userAuth/userAuthSlice";
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  //Nos aseguramos de guardar la última ruta en la que estuvimos antes de que sucediera la recarga
+
+  const savePath = useCallback(() => {
+    sessionStorage.setItem("currentRoute", JSON.stringify(location.pathname));
+  }, [location.pathname]);
+
+  useEffect(() => {
+    savePath();
+  },[savePath])
+
+  useEffect(() => {
+    const storeRoute = JSON.parse(sessionStorage.getItem("currentRoute"));
+    if (storeRoute) {
+      navigate(storeRoute);
+    }
+  }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (userCredential) => {
@@ -41,28 +66,26 @@ const AppRouter = () => {
   }, [user, dispatch]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<PrivateRoutes />}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="detailsPost" element={<DetailsPost />} />
-            <Route path="configProfile" element={<ConfigProfile />} />
-            <Route path="detailsPlan" element={<ViewDetails />} />
-            <Route path="formReviews" element={<FormReviews />} />
-            <Route path="myProfile" element={<Profile />} />
-            <Route path="successPlan" element={<SuccessPlan />} />
-          </Route>
-          <Route path="/formPlans" element={<FormTravelPlans />} />
-          <Route path="/cart" element={<Cart />} />
+    <Routes>
+      <Route element={<PrivateRoutes />}>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="detailsPost" element={<DetailsPost />} />
+          <Route path="configProfile" element={<ConfigProfile />} />
+          <Route path="detailsPlan" element={<ViewDetails />} />
+          <Route path="formReviews" element={<FormReviews />} />
+          <Route path="myProfile" element={<Profile />} />
+          <Route path="successPlan" element={<SuccessPlan />} />
         </Route>
-        <Route element={<PublicRoutes />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
-        <Route element={<PrivateRoutes />}></Route>
-      </Routes>
-    </BrowserRouter>
+        <Route path="/formPlans" element={<FormTravelPlans />} />
+        <Route path="/cart" element={<Cart />} />
+      </Route>
+      <Route element={<PublicRoutes />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+      <Route element={<PrivateRoutes />}></Route>
+    </Routes>
   );
 };
 

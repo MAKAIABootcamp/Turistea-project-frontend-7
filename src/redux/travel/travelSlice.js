@@ -1,39 +1,44 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialTravel={
-    travel:[],
-    isLoadingTravel: false,
-    errorTravel:null,
+    travels:[],
+    luggage:[],
+    isLoadingTravels: false,
+    errorTravels:null,
 }
 
 const travelSlice = createSlice({
     name:'travel',
     initialState: initialTravel,
     reducers:{
-        travelRequest:(state) => {
-            state.isLoadingTravel = true;
-            state.errorTravel=null;
+        travelsRequest:(state) => {
+            state.isLoadingTravels = true;
+            state.errorTravels=null;
         },
-        fillTravel: (state, action) =>{
-            state.travel = action.payload;
-            state.isLoadingTravel = false;
-            state.errorTravel = null;
+        fillTravels: (state, action) =>{
+            state.travels = action.payload;
+            state.isLoadingTravels = false;
+            state.errorTravels = null;
         },
         travelFail:(state,action) => {
-            state.isLoadingTravel = false;
-            state.errorTravel = action.payload;
+            state.isLoadingTravels = false;
+            state.errorTravels = action.payload;
         },
         addTravel:(state,action) => {
-            state.travel.push(action.payload);
-            state.isLoadingTravel=false;
+            state.travels.push(action.payload);
+            state.isLoadingTravels=false;
+        },
+        addTravel:(state,action) => {
+            state.travels.push(action.payload);
+            state.isLoadingTravels=false;
         },
         updateTravel:(state,action) => {
-            state.travel = state.travel.map (item => action.payload.id == item.id ? {...item,...action.payload} : item );
-            state.isLoadingTravel=false;
+            state.travels = state.travels.map (item => action.payload.id == item.id ? {...item,...action.payload} : item );
+            state.isLoadingTravels=false;
         },
         deleteTravel: (state,action) => {
-            state.isLoadingTravel = false;
-            state.travel = state.travel.filter (item => item.id != action.payload);
+            state.isLoadingTravels = false;
+            state.travels = state.travels.filter (item => item.id != action.payload);
         }
     }
 })

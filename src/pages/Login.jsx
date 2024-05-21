@@ -124,7 +124,7 @@ const Login = () => {
             />
             {formik.touched.email && formik.errors.email ? (
               <span className="text-highlight-color text-xs font-semibold">
-                {formik.errors.name}
+                {formik.errors.email}
               </span>
             ) : null}
           </div>

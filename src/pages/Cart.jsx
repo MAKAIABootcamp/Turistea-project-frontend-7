@@ -3,29 +3,35 @@ import { Link, useNavigate } from "react-router-dom";
 import product1 from "../assets/HomeCards/Mote-Donde-Mingo.png";
 import product2 from "../assets/HomeCards/Hostal-freesoul-Palomino-Colombia.jpg";
 import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTravel } from "../redux/travel/travelSlice";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const reviewsInLuggage = [
-    {
-      id: 122,
-      image: product1,
-      name: "Mote de queso",
-      price: 30000,
-      category: "Alimentación",
-    },
-    {
-      id: 34562,
-      image: product2,
-      name: "Hostal freesould",
-      price: 92000,
-      category: "Alojamiento",
-    },
-  ];
+  const {travel} = useSelector ( store => store.travel)
+  const dispatch = useDispatch();
+  
+  console.log(travel)
+  // const reviewsInLuggage = [
+  //   {
+  //     id: 122,
+  //     image: product1,
+  //     name: "Mote de queso",
+  //     price: 30000,
+  //     category: "Alimentación",
+  //   },
+  //   {
+  //     id: 34562,
+  //     image: product2,
+  //     name: "Hostal freesould",
+  //     price: 92000,
+  //     category: "Alojamiento",
+  //   },
+  // ];
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    reviewsInLuggage.length >0 ? navigate (`/formPlans`):
+    travel.length >0 ? navigate (`/formPlans`):
     Swal.fire({
       allowOutsideClick: false,
       text: "Debe agregar experiencias a su maleta",
@@ -49,14 +55,14 @@ const Cart = () => {
         <div>
           <ul role="list" className="mb-6 divide-y divide-gray-200 px-4">
             {
-              reviewsInLuggage.length >0 ?
-            reviewsInLuggage?.map((review) => (
-              <li key={review.id}  className="w-full flex py-6">
+              travel.length >0 ?
+            travel?.map((review,index) => (
+              <li key={index}  className="w-full flex py-6">
                 <div className="w-2/5 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                   <img
                     src={review.image}
                     alt={review.name}
-                    className="h-full w-full object-cover object-center"
+                    className="h-20 w-full object-cover object-center"
                   />
                 </div>
                 <div className=" w-1/3 ml-4 flex flex-1 flex-col">
@@ -70,6 +76,7 @@ const Cart = () => {
                     <p className="text-gray-500">{review.category}</p>
                     <div className="flex">
                       <button
+                        onClick={() => dispatch(deleteTravel(review.id))}
                         type="button"
                         className="w-6 h-6 stroke-primary-color fill-secondary-color hover:fill-primary-color "
                       >

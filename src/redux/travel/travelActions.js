@@ -4,7 +4,7 @@ import { database } from "../../firebase/firebaseConfig";
 const COLLECTION_NAME='Travels'
 const collectionRef=collection(database, COLLECTION_NAME)
 
-const actionAddTravel = (newTravel) =>{
+export const actionAddTravel = (newTravel) =>{
     return async (dispatch) => {
         dispatch(travelRequest())
         try {
