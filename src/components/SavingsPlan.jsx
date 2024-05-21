@@ -74,7 +74,7 @@ const SavingsPlan = () => (
                 Fecha de finalizacion:
               </h4>
               <p className="inline font-normal text-xs md:text-sm text-gray-input">
-                26 may 2024
+              20/05/2024
               </p>
             </div>
             <div className="flex items-center">
@@ -82,7 +82,7 @@ const SavingsPlan = () => (
                 Valor del ahorro:
               </h4>
               <p className="inline font-normal text-xs md:text-sm text-gray-input">
-                $120.000
+                $100.000
               </p>
             </div>
             <div className="flex items-center">
@@ -90,7 +90,7 @@ const SavingsPlan = () => (
                 Periodicidad:
               </h4>
               <p className="inline font-normal text-xs md:text-sm text-gray-input">
-                Quincenal
+                Mensual
               </p>
             </div>
             <div className="flex items-center">

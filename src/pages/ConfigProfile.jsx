@@ -13,6 +13,7 @@ import { getAuth, updateProfile, deleteUser } from "firebase/auth";
 import { updateUserProfile } from "../redux/userAuth/userAuthActions";
 import fileUpload from "../services/fileUpload";
 const supportedFormats = ["jpg", "png", "webp"];
+import Swal from 'sweetalert2'
 const ConfigProfile = () => {
   const auth = getAuth();
   const user = auth.currentUser;
@@ -70,17 +71,23 @@ const ConfigProfile = () => {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmation = window.confirm(
-      "Estas seguro que quieres eliminar tu cuenta? Esta acción no se puede revertir."
-    );
-    if (confirmation) {
-      try {
-        await deleteUser(user);
-        navigate("/login");
-      } catch (error) {
-        console.error("Error al eliminar la cuenta:", error);
+    Swal.fire({
+      title: "¿Estas seguro que quieres eliminar tu cuenta? Esta acción no se puede revertir.",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Eliminar",
+      denyButtonText: `Cancelar`
+    }).then(async (result) => { // Añade async aquí
+      if (result.isConfirmed) {
+        Swal.fire("Se eliminó tu cuenta exitosamente", "", "success");
+        try {
+          await deleteUser(user);
+          navigate("/login");
+        } catch (error) {
+          console.error("Error al eliminar la cuenta:", error);
+        }
       }
-    }
+    });
   };
 
   if (!user) {
@@ -88,14 +95,14 @@ const ConfigProfile = () => {
   }
 
   return (
-    <div className="flex flex-row gap-4 h-full w-full justify-evenly">
+    <div className="flex flex-row flex-wrap  gap-4 h-full w-full justify-evenly">
       <section className="mt-12">
         <h2 className="text-2xl text-primary-color font-title text-center leading-10 font-medium">
           Ajustes de la Cuenta
         </h2>
         <nav className="flex flex-col w-72 gap-5 pt-7 font-body text-m h-72 bg-white rounded-lg items-center shadow shadow-gray-300 mt-7">
           <li
-            className="list-none text-black bg-white h-10 px-2 pt-2 mx-2 hover:bg-blue-100 w-5/6 rounded-lg cursor-pointer"
+            className="list-none text-black bg-white h-10 px-1 pt-2 mx-2 hover:bg-blue-100 w-5/6 rounded-lg cursor-pointer"
             onClick={() => setCurrentSection('personalInfo')}
           >
             <FontAwesomeIcon
@@ -106,7 +113,7 @@ const ConfigProfile = () => {
           </li>
           
           <li
-            className="list-none text-black bg-white h-10 px-2 pt-2 mx-2 hover:bg-blue-100 w-5/6 rounded-lg cursor-pointer"
+            className="list-none text-black bg-white h-10 px-1 pt-2 mx-2 hover:bg-blue-100 w-5/6 rounded-lg cursor-pointer"
             onClick={handleDeleteAccount}
           >
             <FontAwesomeIcon
@@ -121,7 +128,7 @@ const ConfigProfile = () => {
       {currentSection === 'personalInfo' && (
         <section className="w-4/6 h-full font-body mb-10">
           <div className="relative my-5 mx-5">
-            <img className="w-40 h-40 rounded-full" src={photoURL} alt="User Profile" />
+            <img className="w-40 h-40 rounded-full cover" src={photoURL} alt="User Profile" />
 
             {!editing ? (
               <button className="bg-highlight-color w-8 h-8 absolute top-32 left-3 rounded-full">
