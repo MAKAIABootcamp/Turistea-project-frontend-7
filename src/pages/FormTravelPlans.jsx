@@ -7,15 +7,15 @@ import SelectDate from "../components/SelectDate";
 
 const FormTravelPlans = () => {
   const navigate = useNavigate();
-  const [dateSelected, setDateSelected] = useState();
-  const { travel } = useSelector((store) => store.travel);
+  const [dateSelected, setDateSelected] = useState('');
+  const [frecuency, setFrecuency] = useState('');
+  const { luggage } = useSelector((store) => store.travels);
 
   const formik = useFormik({
     initialValues: {
       days: "",
       persons: "",
       extra: "",
-      frecuency:""
     },
     validationSchema: Yup.object({
       days: Yup.string().required(" ingrese un dia"),
@@ -32,9 +32,9 @@ const FormTravelPlans = () => {
   };
   return (
     <section className="flex justify-between w-full h-screen px-10 py-5 mb-4 md:px-20 md:py-10 sm:py-8 sm:px-16">
-      <div className="px-1 w-2/5 bg-secondary mr-2 border">
+      <div className="px-1 w-1/2 lg:w-2/5 bg-secondary mr-2 border">
         <nav className="flex items-center mb-4">
-          <button className="flex" onClick={() => navigate(-1)}>
+          <button className="flex items-center " onClick={() => navigate(-1)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-4 h-4 fill-gray-input hover:fill-primary-color"
@@ -65,7 +65,7 @@ const FormTravelPlans = () => {
             <SelectDate className="border border-red-500"  getDate={handleDateSelected} />
           </div>
           <div className="w-full flex justify-start gap-6 items-center">
-            <div className="w-2/5 flex">
+            <div className="w-2/5 flex items-center justify-around">
               <label
                 htmlFor="persons"
                 className="w-3/4 text-black-text font-body text-sm md:text-lg"
@@ -76,7 +76,7 @@ const FormTravelPlans = () => {
                 name="persons"
                 type="number"
                 placeholder="1"
-                className="w-2/6 p-2 ms-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block w-full"
+                className="w-2/6 h-3/4 p-2 ms-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block"
                 {...formik.getFieldProps("persons")}
               />
               {formik.touched.persons && formik.errors.persons ? (
@@ -85,7 +85,7 @@ const FormTravelPlans = () => {
               </span>
             ) : null}
             </div>
-            <div className="w-2/5 flex flex">
+            <div className="w-2/5 flex items-center justify-around">
               <label
                 htmlFor="days"
                 className="w-3/4 text-black-text font-body text-sm md:text-lg"
@@ -96,7 +96,7 @@ const FormTravelPlans = () => {
                 name="days"
                 type="number"
                 placeholder="1"
-                className="w-2/6 p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block w-1/2"
+                className="w-2/6 h-3/4 p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block"
                 {...formik.getFieldProps("days")}
               />
               {formik.touched.days && formik.errors.days ? (
@@ -112,19 +112,23 @@ const FormTravelPlans = () => {
           <div className="flex justify-start gap-4 items-center">
             <button
               type="submit"
-              className="p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards hover:text-highlight-color hover:font-bold hover:border-2 dtext-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color"
+              onClick={(e)=>{e.preventDefault(); setFrecuency("Semanal")}}
+              className={`p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards ${frecuency == "Semanal" ? 'text-highlight-color font-bold border-2 ring-highlight-color border-highlight-color' :'' } hover:text-highlight-color hover:font-bold hover:border-2 text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color`}
             >
               Semanal
             </button>
             <button
               type="submit"
-              className="p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards hover:text-highlight-color hover:font-bold hover:border-2 text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color"
+              onClick={(e)=>{e.preventDefault(); setFrecuency("Quincenal")}}
+              className={`p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards ${frecuency == "Quincenal" ? 'text-highlight-color font-bold border-2 ring-highlight-color border-highlight-color' :'' } hover:text-highlight-color hover:font-bold hover:border-2 text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color`}
             >
+              
               Quincenal
             </button>
             <button
+              onClick={(e)=>{e.preventDefault(); setFrecuency("Mensual")}}
               type="submit"
-              className="p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards hover:text-highlight-color hover:font-bold hover:border-2 text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color"
+              className={`p-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards ${frecuency == "Mensual" ? 'text-highlight-color font-bold border-2 ring-highlight-color border-highlight-color' :'' } hover:text-highlight-color hover:font-bold hover:border-2 text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color`}
             >
               Mensual
             </button>
@@ -158,14 +162,14 @@ const FormTravelPlans = () => {
           </button>
         </form>
       </div>
-      <div className=" w-2/5 rounded-lg shadow shadow-2xl p-6 border flex flex-col items-center">
+      <div className=" w-1/2 lg:w-2/5 rounded-lg shadow shadow-2xl p-6 border flex flex-col items-center">
         <div className="w-full">
           <h2 className="w-full mb-2 text-lg md:text-2xl font-title text-highlight-color ">
             Resumen de mi viaje
           </h2>
         </div>
         <ul className="overflow-auto mb-2 w-full">
-          {travel?.map((review) => (
+          {luggage?.map((review) => (
             <li
               key={review.id}
               className="w-full flex p-4 mt-2 shadow-xl rounded-lg border"

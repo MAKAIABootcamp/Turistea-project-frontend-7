@@ -13,7 +13,6 @@ const SelectDate = (props) => {
   });
 
   const handleValueChange = (newValue) => {
-    console.log("newValue:", newValue);
     setValue(newValue);
     props.getDate(newValue.startDate)
   };

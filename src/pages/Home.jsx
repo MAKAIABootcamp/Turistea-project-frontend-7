@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import banner from "../assets/Termales-Santa-Rosa-de-Cabal.jpg";
 import popular1 from "../assets/HomeCards/Mote-Donde-Mingo.png";
 import popular2 from "../assets/HomeCards/Golden-Glamping-guatavita.jpg";
@@ -6,167 +6,54 @@ import popular3 from "../assets/HomeCards/PalacionEpiscopalQuibdo.jpg";
 import popular4 from "../assets/HomeCards/Safari-casanare.webp";
 import { useDispatch, useSelector } from "react-redux";
 import { addLuggage } from "../redux/travel/travelSlice";
-import { actionGetReviews } from "../redux/review/reviewActions";
+import {
+  actionGetReviews,
+  actionMultipleFilterReviews,
+} from "../redux/review/reviewActions";
 
 const Home = () => {
-  const reviews = [
-    {
-      id: 122,
-      description: "precios bajos, se tardo 1 hora comida",
-      ecology: true,
-      lowCost: false,
-      mainImage:
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237018/turistea/wvrypvuuuom1tgx8gool.jpg",
-      namePlace: "El coste",
-      price: 50000,
-      score: 4,
-      secondaryImages: [
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/cddomcjyyzxwcr3pubzk.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/nljnsocevst4w4afugz8.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/sijkpawn5hra0v87pe5b.jpg",
-      ],
-      title: "Experiencia gastronimica inolvidable",
-      typeReviews: "Alimentación",
-    },
-    {
-      id: 34562,
-      description: "precios bajos, se tardo 1 hora comida",
-      ecology: false,
-      lowCost: true,
-      mainImage:
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237018/turistea/wvrypvuuuom1tgx8gool.jpg",
-      namePlace: "El coste",
-      price: 20000,
-      score: 4,
-      secondaryImages: [
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/cddomcjyyzxwcr3pubzk.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/nljnsocevst4w4afugz8.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/sijkpawn5hra0v87pe5b.jpg",
-      ],
-      title: "Experiencia gastronimica inolvidable",
-      typeReviews: "Alimentación",
-    },
-    {
-      id: 32122,
-      description: "precios bajos, se tardo 1 hora comida",
-      ecology: true,
-      lowCost: true,
-      mainImage:
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237018/turistea/wvrypvuuuom1tgx8gool.jpg",
-      namePlace: "El coste",
-      price: 18000,
-      score: 4,
-      secondaryImages: [
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/cddomcjyyzxwcr3pubzk.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/nljnsocevst4w4afugz8.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/sijkpawn5hra0v87pe5b.jpg",
-      ],
-      title: "Experiencia gastronimica inolvidable",
-      typeReviews: "Alimentación",
-    },
-    {
-      id: 4562,
-      description:
-        "El hotel cumplió completamente con nuestras expectativas. Las habitaciones son amplias e iluminadas. El personal del hotel estuvo siempre muy pendiente para resolver nuestras inquietudes y ayudarnos durante toda nuestra estancia. La piscina es súper agradable.",
-      ecology: false,
-      lowCost: true,
-      mainImage:
-        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/383088716.jpg?k=71be6006eb487737236630d250d423bb581c936592f0b9574ae43d08e1155829&o=&hp=1",
-      namePlace: "Hotel desierto De la Tatacoa",
-      price: 80000,
-      score: 4.5,
-      secondaryImages: [
-        "https://images.trvl-media.com/lodging/45000000/44300000/44297400/44297371/62d9100a.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill",
-        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/383087830.jpg?k=f2d57476739bf3c33c2e8ea12b530e2a763a215e27b3e8daa5fbbf6f602d680a&o=&hp=1",
-        "https://lh5.googleusercontent.com/proxy/_PVZblzyTcXia7BGeUp99DB349B6aZKujzKQ-7WBWUDl_nmpkr8oRkuHMiPj4iUWzQim6CV-vZ2xscr7-5dNe-1mEF3UCXwIzuukyZJCA82j-vS-8MaKtC_R1tZKWhwNLTNGnk6wEJ6ciY7qLxETiWaydjNlAA=w252-h314-k-no",
-      ],
-      title: "Hospedaje en las cercanías del desierto de la tatacoa",
-      typeReviews: "Alojamiento",
-    },
-    {
-      id: 8122,
-      description: "precios bajos, se tardo 1 hora comida",
-      ecology: true,
-      lowCost: true,
-      mainImage:
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237018/turistea/wvrypvuuuom1tgx8gool.jpg",
-      namePlace: "El coste",
-      price: 20000,
-      score: 4,
-      secondaryImages: [
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/cddomcjyyzxwcr3pubzk.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/nljnsocevst4w4afugz8.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716237020/turistea/sijkpawn5hra0v87pe5b.jpg",
-      ],
-      title: "Experiencia gastronimica inolvidable",
-      typeReviews: "Alimentación",
-    },
-    {
-      id: 62389,
-      description:
-        "El hotel cumplió completamente con nuestras expectativas. Las habitaciones son amplias e iluminadas. El personal del hotel estuvo siempre muy pendiente para resolver nuestras inquietudes y ayudarnos durante toda nuestra estancia. La piscina es súper agradable.",
-      ecology: false,
-      lowCost: true,
-      mainImage:
-        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/383088716.jpg?k=71be6006eb487737236630d250d423bb581c936592f0b9574ae43d08e1155829&o=&hp=1",
-      namePlace: "Hotel desierto De la Tatacoa",
-      price: 70000,
-      score: 4.5,
-      secondaryImages: [
-        "https://images.trvl-media.com/lodging/45000000/44300000/44297400/44297371/62d9100a.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill",
-        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/383087830.jpg?k=f2d57476739bf3c33c2e8ea12b530e2a763a215e27b3e8daa5fbbf6f602d680a&o=&hp=1",
-        "https://lh5.googleusercontent.com/proxy/_PVZblzyTcXia7BGeUp99DB349B6aZKujzKQ-7WBWUDl_nmpkr8oRkuHMiPj4iUWzQim6CV-vZ2xscr7-5dNe-1mEF3UCXwIzuukyZJCA82j-vS-8MaKtC_R1tZKWhwNLTNGnk6wEJ6ciY7qLxETiWaydjNlAA=w252-h314-k-no",
-      ],
-      title: "Hospedaje en las cercanías del desierto de la tatacoa",
-      typeReviews: "Alojamiento",
-    },
-    {
-      id: 99123,
-      description: "tour guiado, es importante llevar dulce",
-      ecology: true,
-      lowCost: false,
-      mainImage:
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716166871/turistea/qessbzoorrrn2txuik6b.png",
-      namePlace: "Tour al nevado",
-      price: 300000,
-      score: 4,
-      secondaryImages: [
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716166872/turistea/kneypnnhctjyved3afvv.png",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716166872/turistea/v02d1t2b2twxaptawx1i.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716166872/turistea/tidjvo6sippahdpmqpog.jpg",
-      ],
-      title: "El mejor pero algo costoso",
-      typeReviews: "Planes",
-    },
-    {
-      id: 987654,
-      description: "tour guiado, es importante llevar dulce",
-      ecology: true,
-      lowCost: true,
-      mainImage:
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716166871/turistea/qessbzoorrrn2txuik6b.png",
-      namePlace: "Tour al nevado",
-      price: 150000,
-      score: 4,
-      secondaryImages: [
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716166872/turistea/kneypnnhctjyved3afvv.png",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716166872/turistea/v02d1t2b2twxaptawx1i.jpg",
-        "https://res.cloudinary.com/dx3t6es3p/image/upload/v1716166872/turistea/tidjvo6sippahdpmqpog.jpg",
-      ],
-      title: "El mejor pero algo costoso",
-      typeReviews: "Planes",
-    },
-  ];
-  
+
   const dispatch = useDispatch();
   const [category, setCategory] = useState();
-  const { filterReviews, isLoadingReviews } = useSelector((store) => store.reviews);
-   console.log(isLoadingReviews)
+  const [filters, setFilters] = useState({});
+  const { filterReviews, isLoadingReviews, reviews } = useSelector(
+    (store) => store.reviews
+  );
+  const [filteredByCategory, setFilteredByCategory] = useState([]);
+   
+  console.log(isLoadingReviews)
 
-  // useEffect(() => {
-  //   dispatch(actionGetReviews());
-  // }, []);
- 
+  const handleMultipleFilters = (filters) => {
+    if (Object.entries(filters).length) {
+      dispatch(actionMultipleFilterReviews(filters));
+    } else {
+      dispatch(actionGetReviews());
+    }
+  };
+
+  const fetchMultipleFilter = useCallback(() => {
+    handleMultipleFilters(filters);
+    console.log(filters);
+  }, [filters]);
+
+  useEffect(() => {
+    setFilteredByCategory(reviews);
+  }, [reviews]);
+
+  useEffect(() => {
+    if (filterReviews) {
+      setFilters(() => ({ ...filters, typeReviews: filterReviews }));
+    }
+  }, [filterReviews]);
+
+  useEffect(() => {
+    dispatch(actionGetReviews());
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchMultipleFilter();
+  }, [fetchMultipleFilter]);
+
   if (isLoadingReviews)
     return (
       <div className="flex px-12">
@@ -191,82 +78,95 @@ const Home = () => {
         <h2 className="ms-2">Cargando...</h2>
       </div>
     );
-  
-  let filteredReviews = [...reviews];
-  console.log(filteredReviews)
-  switch (filterReviews) {
-    case 1:
-      filteredReviews = filteredReviews.filter(
-        (item) => item.typeReviews.toLowerCase() == "alojamiento"
-      );
-      break;
-    case 2:
-      filteredReviews = filteredReviews.filter(
-        (item) => item.typeReviews.toLowerCase() == "alimentación"
-      );
 
-      break;
-    case 3:
-      filteredReviews = filteredReviews.filter(
-        (item) => item.typeReviews.toLowerCase() == "planes"
-      );
-      break;
-    default:
-      break;
-  }
+  // const handleFilterCategory = (category) => {
+  //   setCategory(category);
+  //   switch (category) {
+  //     case 1:
+  //       setFilteredByCategory(
+  //         filteredReviews.filter((item) => item.ecology == true)
+  //       );
+  //       break;
+  //     case 2:
+  //       setFilteredByCategory(
+  //         filteredReviews.filter((item) => item.lowCost == true)
+  //       );
 
-  
-
-  const [filteredByCategory, setFilteredByCategory] = useState([
-    ...filteredReviews,
-  ]);
-
-  console.log(filteredByCategory)
-
-  const handleFilterCategory = (category) => {
-    setCategory(category);
-    switch (category) {
-      case 1:
-        setFilteredByCategory(
-          filteredReviews.filter((item) => item.ecology == true)
-        );
-        break;
-      case 2:
-        setFilteredByCategory(
-          filteredReviews.filter((item) => item.lowCost == true)
-        );
-
-        break;
-      default:
-        setFilteredByCategory([...filteredReviews]);
-        break;
-    }
-  };
+  //       break;
+  //     default:
+  //       setFilteredByCategory([...filteredReviews]);
+  //       break;
+  //   }
+  // };
 
   const handleSort = (e) => {
-    console.log(e.target.value);
     switch (e.target.value) {
       case "lowPrice":
         setFilteredByCategory(
-          filteredReviews.slice().sort((a, b) => a.price - b.price)
+          reviews.slice().sort((a, b) => a.price - b.price)
         );
         break;
       case "highPrice":
         setFilteredByCategory(
-          filteredReviews.slice().sort((a, b) => b.price - a.price)
+          reviews.slice().sort((a, b) => b.price - a.price)
         );
         break;
       case "score":
         setFilteredByCategory(
-          filteredReviews.slice().sort((a, b) => b.score - a.score)
+          reviews.slice().sort((a, b) => b.score - a.score)
         );
         break;
 
       default:
-        setFilteredByCategory([...filteredReviews]);
+        setFilteredByCategory([...reviews]);
         break;
     }
   };
+
+  // const handleSort = (e) => {
+  //   const { value } = e.target;
+  //   switch (value) {
+  //     case "lowPrice":
+  //       setFilters(() => {
+  //         const newState = { ...filters };
+  //         if (filters?.score) {
+  //           delete newState.score;
+  //         }
+  //         return {
+  //           ...newState,
+  //           price: "asc",
+  //         };
+  //       });
+  //       break;
+  //     case "highPrice":
+  //       setFilters(() => {
+  //         const newState = { ...filters };
+  //         if (filters?.score) {
+  //           delete newState.score;
+  //         }
+  //         return {
+  //           ...newState,
+  //           price: "desc",
+  //         };
+  //       });
+  //       break;
+  //     case "score":
+  //       setFilters(() => {
+  //         const newState = { ...filters };
+  //         if (filters?.price) {
+  //           delete newState.price;
+  //         }
+  //         return {
+  //           ...newState,
+  //           score: "desc",
+  //         };
+  //       });
+  //       break;
+  //     default:
+  //       setFilters({ ...filters });
+  //       break;
+  //   }
+  // };
 
   return (
     <section className="px-10 py-5 md:px-20 md:py-10 sm:py-8 sm:px-16">
@@ -299,7 +199,19 @@ const Home = () => {
             </p>
           </button> */}
           <button
-            onClick={() => handleFilterCategory(category == 1 ? 0 : 1)}
+            onClick={() => {
+              setCategory(category === 1 ? 0 : 1);
+              setFilters(() => {
+                let newState = { ...filters };
+                filters?.ecology ? delete newState.ecology :null;
+                if (filters?.lowCost) {
+                  delete newState.lowCost;
+                } else {
+                  newState = { ...filters, lowCost: true };
+                }
+                return newState;
+              });
+            }}
             className="flex items-center flex-row mr-3"
           >
             <svg
@@ -321,7 +233,19 @@ const Home = () => {
           </button>
 
           <button
-            onClick={() => handleFilterCategory(category == 2 ? 0 : 2)}
+            onClick={() => {
+              setCategory(category === 2 ? 0 : 2);
+              setFilters(() => {
+                let newState = { ...filters };
+                filters?.lowCost ? delete newState.lowCost :null;
+                if (filters?.ecology) {
+                  delete newState.ecology;
+                } else {
+                  newState = { ...filters, ecology: true };
+                }
+                return newState;
+              });
+            }}
             className="flex items-center flex-row"
           >
             <svg

@@ -156,9 +156,9 @@ const Navbar = ({ luggage }) => {
                 <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-secondary-color md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white ">
                   <li>
                     <button
-                      onClick={(e) => handleFilterSelected(e, null)}
+                      onClick={(e) => handleFilterSelected(e, 'all')}
                       className={`w-full block py-2 px-3 ${
-                        filterReviews === null
+                        filterReviews === "all"
                           ? "text-secondary-color bg-primary-color md:bg-transparent md:text-primary-color "
                           : "text-gray-900 bg-secondary-color md:hover:bg-transparent md:hover:text-primary-color hover:bg-gray-100"
                       } rounded  md:p-0 `}
@@ -169,9 +169,9 @@ const Navbar = ({ luggage }) => {
                   </li>
                   <li>
                     <button
-                      onClick={(e) => handleFilterSelected(e, 1)}
+                      onClick={(e) => handleFilterSelected(e, "Alojamiento")}
                       className={`w-full block py-2 px-3 ${
-                        filterReviews === 1
+                        filterReviews === "Alojamiento"
                           ? "text-secondary-color bg-primary-color md:bg-transparent md:text-primary-color "
                           : "text-gray-900 bg-secondary-color md:hover:bg-transparent md:hover:text-primary-color hover:bg-gray-100"
                       } rounded  md:p-0 `}
@@ -182,9 +182,9 @@ const Navbar = ({ luggage }) => {
                   </li>
                   <li>
                     <button
-                      onClick={(e) => handleFilterSelected(e, 2)}
+                      onClick={(e) => handleFilterSelected(e, "Alimentación")}
                       className={`w-full block py-2 px-3 ${
-                        filterReviews === 2
+                        filterReviews === "Alimentación"
                           ? "text-secondary-color bg-primary-color md:bg-transparent md:text-primary-color "
                           : "text-gray-900 bg-secondary-color md:hover:bg-transparent md:hover:text-primary-color hover:bg-gray-100"
                       } rounded  md:p-0 `}
@@ -194,9 +194,9 @@ const Navbar = ({ luggage }) => {
                   </li>
                   <li>
                     <button
-                      onClick={(e) => handleFilterSelected(e, 3)}
+                      onClick={(e) => handleFilterSelected(e, "Planes")}
                       className={`w-full block py-2 px-3 ${
-                        filterReviews === 3
+                        filterReviews === "Planes"
                           ? "text-secondary-color bg-primary-color md:bg-transparent md:text-primary-color "
                           : "text-gray-900 bg-secondary-color md:hover:bg-transparent md:hover:text-primary-color hover:bg-gray-100"
                       } rounded  md:p-0 `}
