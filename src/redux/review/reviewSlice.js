@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../../firebase/firebaseConfig';
+import { database } from '../../firebase/firebaseConfig';
 
 const reviewSlice = createSlice({
   name: 'review',
@@ -43,7 +43,7 @@ export default reviewSlice.reducer;
 // Thunk for deleting a review
 export const deleteReviewAsync = (reviewId) => async (dispatch) => {
   try {
-    await deleteDoc(doc(db, 'Reviews', reviewId));
+    await deleteDoc(doc(database, 'Reviews', reviewId));
     dispatch(deleteReview(reviewId));
   } catch (error) {
     dispatch(reviewFail(error.message));

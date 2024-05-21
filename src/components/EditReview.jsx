@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { doc, getDoc, updateDoc } from 'firebase/firestore'; // Importa updateDoc
-import { db } from '../firebase/firebaseConfig';
+import { database } from '../firebase/firebaseConfig';
 import { actionUpdateReview } from '../redux/review/reviewActions';
 import StarRating from '../components/StarRating';
 import fileUpload from '../services/fileUpload';
@@ -27,7 +27,7 @@ const EditReview = () => {
 
         console.log('Fetching document with reviewId:', reviewId); // Para depuración
 
-        const docRef = doc(db, 'Reviews', reviewId);
+        const docRef = doc(database, 'Reviews', reviewId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -117,7 +117,7 @@ const EditReview = () => {
         dispatch(actionUpdateReview(reviewId, updatedReviewData));
 
         // Actualiza el documento en Firestore
-        const docRef = doc(db, 'Reviews', reviewId);
+        const docRef = doc(database, 'Reviews', reviewId);
         await updateDoc(docRef, updatedReviewData);
 
         Swal.fire({

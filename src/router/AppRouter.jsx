@@ -12,7 +12,6 @@ import EditReview from '../components/EditReview';
 import FormTravelPlans from "../components/FormTravelPlans/FormTravelPlans";
 import ConfigProfile from "../pages/ConfigProfile";
 import ViewDetails from "../pages/ViewDetails";
-import FormReview from "../pages/FormReview";
 import Profile from "../pages/Profile";
 import PublicRoutes from "./PublicRoutes";
 import PrivateRoutes from "./PrivateRoutes";
