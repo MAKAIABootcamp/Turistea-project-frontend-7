@@ -4,34 +4,19 @@ import product1 from "../assets/HomeCards/Mote-Donde-Mingo.png";
 import product2 from "../assets/HomeCards/Hostal-freesoul-Palomino-Colombia.jpg";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTravel } from "../redux/travel/travelSlice";
+import { deleteLuggage, deleteTravel } from "../redux/travel/travelSlice";
 
 const Cart = () => {
-  const navigate = useNavigate();
-  const {travel} = useSelector ( store => store.travel)
+  const {luggage} = useSelector ( store => store.travels)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
-  console.log(travel)
-  // const reviewsInLuggage = [
-  //   {
-  //     id: 122,
-  //     image: product1,
-  //     name: "Mote de queso",
-  //     price: 30000,
-  //     category: "Alimentación",
-  //   },
-  //   {
-  //     id: 34562,
-  //     image: product2,
-  //     name: "Hostal freesould",
-  //     price: 92000,
-  //     category: "Alojamiento",
-  //   },
-  // ];
+  console.log(luggage)
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    travel.length >0 ? navigate (`/formPlans`):
+    luggage?.length >0 ? navigate (`/formPlans`):
     Swal.fire({
       allowOutsideClick: false,
       text: "Debe agregar experiencias a su maleta",
@@ -55,28 +40,28 @@ const Cart = () => {
         <div>
           <ul role="list" className="mb-6 divide-y divide-gray-200 px-4">
             {
-              travel.length >0 ?
-            travel?.map((review,index) => (
+              luggage && luggage.length >0 ?
+            luggage?.map((review,index) => (
               <li key={index}  className="w-full flex py-6">
                 <div className="w-2/5 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                   <img
-                    src={review.image}
-                    alt={review.name}
-                    className="h-20 w-full object-cover object-center"
+                    src={review.mainImage}
+                    alt={review.namePlace}
+                    className="h-20 w-full object-cover"
                   />
                 </div>
                 <div className=" w-1/3 ml-4 flex flex-1 flex-col">
                   <div className="flex justify-between text-base font-medium text-gray-900">
                     <h3>
-                      <Link href="#">{review.name}</Link>
+                      <p>{review.namePlace}</p>
                     </h3>
                     <p className="ml-4">${review.price}</p>
                   </div>
                   <div className="flex items-end justify-between text-sm">
-                    <p className="text-gray-500">{review.category}</p>
+                    <p className="text-gray-500">{review.typeReviews}</p>
                     <div className="flex">
                       <button
-                        onClick={() => dispatch(deleteTravel(review.id))}
+                        onClick={() => dispatch(deleteLuggage(review.id))}
                         type="button"
                         className="w-6 h-6 stroke-primary-color fill-secondary-color hover:fill-primary-color "
                       >

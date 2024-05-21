@@ -20,13 +20,17 @@ const travelSlice = createSlice({
             state.isLoadingTravels = false;
             state.errorTravels = null;
         },
-        travelFail:(state,action) => {
+        travelsFail:(state,action) => {
             state.isLoadingTravels = false;
             state.errorTravels = action.payload;
         },
-        addTravel:(state,action) => {
-            state.travels.push(action.payload);
+        addLuggage:(state,action) => {
+            state.luggage.push(action.payload);
             state.isLoadingTravels=false;
+        },
+        deleteLuggage: (state,action) => {
+            state.isLoadingTravels = false;
+            state.luggage = state.luggage.filter (item => item.id != action.payload);
         },
         addTravel:(state,action) => {
             state.travels.push(action.payload);
@@ -43,5 +47,5 @@ const travelSlice = createSlice({
     }
 })
 
-export const {TravelFail,TravelRequest,fillTravel,addTravel,updateTravel,deleteTravel} = travelSlice.actions;
+export const {travelsFail,travelsRequest,fillTravels,addTravel,updateTravel,deleteTravel,addLuggage,updateLuggage,deleteLuggage} = travelSlice.actions;
 export default travelSlice.reducer;

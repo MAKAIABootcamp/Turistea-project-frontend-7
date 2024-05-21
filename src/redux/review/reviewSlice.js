@@ -19,7 +19,6 @@ const reviewsSlice = createSlice({
             state.reviews = action.payload;
             state.isLoadingReviews = false;
             state.errorReviews = null;
-            state.filterReviews = 1;
         },
         reviewsFail:(state,action) => {
             state.isLoadingReviews = false;
@@ -36,9 +35,12 @@ const reviewsSlice = createSlice({
         deleteReviews: (state,action) => {
             state.isLoadingReviews = false;
             state.reviews = state.reviews.filter (item => item.id != action.payload);
+        },
+        selectedFilter:(state,action) => {
+            state.filterReviews = action.payload
         }
     }
 })
 
-export const {reviewsFail,reviewsRequest,fillReviews,addReviews,updateReviews,deleteReviews} = reviewsSlice.actions;
+export const {reviewsFail,reviewsRequest,fillReviews,addReviews,updateReviews,deleteReviews,selectedFilter} = reviewsSlice.actions;
 export default reviewsSlice.reducer;

@@ -6,15 +6,14 @@ import Cart from "../../pages/Cart";
 
 const Layout = () => {
   const [showLuggage, setShowLuggage] = useState(false);
-  const [filterSelected, setFilterSelected] = useState(1);
+
   const handleShowLuggage = () => {
     setShowLuggage(true)
   };
-
   
   return (
     <div>
-      <Navbar luggage={handleShowLuggage} filter={(num)=> setFilterSelected(num)} />
+      <Navbar luggage={handleShowLuggage} />
       <Outlet/>
       <Footer/>
       

@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc, getDocs } from "firebase/firestore"; 
 import { database } from "../../firebase/firebaseConfig";
 import { fillReviews, reviewsFail, reviewsRequest } from "./reviewSlice";
 
@@ -21,3 +21,23 @@ const actionAddReview = (newReview) =>{
 
     }
 }
+
+export const actionGetReviews = () => {
+  return async (dispatch) => {
+    dispatch(reviewsRequest());
+    const reviews = [];
+    try {
+      const querySnapshot = await getDocs(collectionRef);
+      querySnapshot.forEach((doc) => {
+        reviews.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      dispatch(fillReviews(reviews));
+    } catch (error) {
+      console.error(error);
+      dispatch(reviewsFail(error.message));
+    }
+  };
+};
