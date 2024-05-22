@@ -84,7 +84,7 @@ Realizar las siguientes instalaciones necesarias.
    ```sh
    npm run dev
    ```
-### Enlace a la Aplicación Turistea
+## Enlace a la Aplicación Turistea
 <!-- CONTACT -->
 ## Desarrolladores
 
