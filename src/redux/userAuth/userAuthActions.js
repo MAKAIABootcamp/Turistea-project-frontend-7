@@ -132,3 +132,4 @@ export const updateUserProfile = (displayName, photoURL) => {
     }
   };
 };
+

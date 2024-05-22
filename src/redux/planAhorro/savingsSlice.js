@@ -16,6 +16,7 @@ const savingsSlice = createSlice({
       const index = action.payload;
       if (index >= 0 && index < state.datesBox.length) {
         state.datesBox[index].checked = !state.datesBox[index].checked;
+        
       } else {
         console.error("Invalid index for toggleCheckbox:", index);
       }

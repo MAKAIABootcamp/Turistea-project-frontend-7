@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import product2 from "../assets/imagensuccess.png";
 import { getAuth } from "firebase/auth";
-import { collection, query, where, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, getDoc, updateDoc, documentId } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import {
   setCheckboxes,
@@ -12,7 +12,7 @@ import {
 
 const calculateCheckboxes = (startDate, endDate, periodicity) => {
   const parseDate = (dateStr) => {
-    const [day, month, year] = dateStr.split("/").map(Number);
+    const [year, month, day] = dateStr.split("-").map(Number);
     return new Date(year, month - 1, day);
   };
 
@@ -58,14 +58,16 @@ const ViewDetails = () => {
   const [Periodicidad, setPeriodicidad] = useState("");
   const [FechaInicio, setFechaInicio] = useState("");
   const [FechaFinalizacion, setFechaFinalizacion] = useState("");
-  const [Valor, setValor] = useState("");
+  const [cuota, setCuota] = useState("");
   const [Total, setotal] = useState(" ");
   const [dataBoxes, setBoxes] = useState([]);
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
-
+  
+  let documentId2;
 
   useEffect(() => {
+    
     const fetchData = async () => {
       const auth = getAuth();
       const user = auth.currentUser;
@@ -74,44 +76,46 @@ const ViewDetails = () => {
       if (user) {
         console.log("UID del usuario:", user.uid);
 
-        const planAhorroRef = collection(db, "PlanAhorro");
-        const q = query(planAhorroRef, where("idUser", "==", user.uid));
+        const SavingsPlan = collection(db, "SavingsPlan");
+        const q = query(SavingsPlan, where("userId", "==", user.uid));
 
         try {
           const querySnapshot = await getDocs(q);
-
+          console.log(q)
           const data = [];
           querySnapshot.forEach((doc) => {
+            documentId2 = doc.id;
             data.push({ ...doc.data(), id: doc.id });
           });
           setAhorro(data);
-
+          console.log(infoAhorro);
+          console.log(documentId2)
           if (querySnapshot.size === 0) {
             console.log("No se encontraron documentos para el usuario.");
           } else {
             const ahorroData = data[0];
-            const { periodicidad, valor, dateInicial, dateFinal, id, idTravel, total } = ahorroData;
-
-            if (id) {
-              console.log("Periodicidad:", periodicidad);
-              console.log("FechaInicio:", dateInicial);
-              console.log("FechaFinalizacion:", dateFinal);
-
-              setPeriodicidad(periodicidad);
-              setFechaInicio(dateInicial);
-              setFechaFinalizacion(dateFinal);
-              setValor(valor);
-              setotal(total);
-              fetchTravelData(idTravel);
+            const { frecuency, dateStart, dateEnd, travels, total, savings } = ahorroData;
 
 
-              const checkboxes = calculateCheckboxes(dateInicial, dateFinal, periodicidad);
-              setBoxes(checkboxes);
-              console.log(checkboxes);
-              dispatch(setCheckboxes(checkboxes));
+            console.log("Periodicidad:", frecuency);
+            console.log("FechaInicio:", dateStart);
+            console.log("FechaFinalizacion:", dateEnd);
 
+
+            setPeriodicidad(frecuency);
+            setFechaInicio(dateStart);
+            setFechaFinalizacion(dateEnd);
+            setCuota(savings)
+            setotal(total);
+            setReviews(travels[0]);
+            const checkboxes = calculateCheckboxes(dateStart, dateEnd, frecuency);
+            setBoxes(checkboxes);
+            console.log(checkboxes);
+            dispatch(setCheckboxes(checkboxes));
+
+            if (documentId2) {
               const updateFirestore = async () => {
-                const docRef = doc(db, "PlanAhorro", id);
+                const docRef = doc(db, "SavingsPlan", documentId2);
 
                 try {
                   await updateDoc(docRef, {
@@ -120,71 +124,47 @@ const ViewDetails = () => {
                   });
                   console.log("Document successfully updated!");
                 } catch (error) {
+                  
                   console.error("Error updating document: ", error);
                 }
               };
               updateFirestore();
-            } else {
-              console.error("Document ID esta indefinido.");
             }
           }
+
+
         } catch (error) {
-          console.error("Error al obtener documentos:", error);
+          console.error("No se encontró el Plan de Ahorros", error);
         }
-      } else {
-        console.log("No hay usuario autenticado.");
-      }
+
+      };
     };
 
     fetchData();
   }, [dispatch]);
 
-  const fetchTravelData = async (idTravel, idUser) => {
-    if (!idTravel) return;
-
-    try {
-      const travelDoc = await getDoc(doc(db, "Travels", idTravel));
-
-      if (travelDoc.exists()) {
-        const travelData = travelDoc.data();
-        const reviewIds = travelData.reviews;
-        if (reviewIds && reviewIds.length > 0) {
-          fetchReviews(reviewIds[0]);
-        }
-      } else {
-        console.log("No se encontró la información Travels!");
-      }
-    } catch (error) {
-      console.error("Error al cargar los datos: ", error);
-    }
-  };
-
-  const fetchReviews = async (reviewId) => {
-    if (!reviewId) return;
-
-    try {
-      const reviewDoc = await getDoc(doc(db, "Reviews", reviewId));
-      if (reviewDoc.exists()) {
-        setReviews(reviewDoc.data());
-      } else {
-        console.log("No se encuentra la información en Reviews!");
-      }
-    } catch (error) {
-      console.error("Error al cargar los datos: ", error);
-    }
-  };
-
-  const handleCheckboxChange = (index, checked) => {
+  const handleCheckboxChange = async (index, checked) => {
+    console.log(checked);
+  
     const newBoxes = dataBoxes.map((box, i) => {
       if (i === index) {
+
         return { ...box, checked };
+
       }
       return box;
+
     });
     setBoxes(newBoxes);
+
     dispatch(toggleCheckbox(index));
     calculateProgress(newBoxes);
+    
+    
+
   };
+  
+
 
   const calculateProgress = (checkboxes) => {
     const total = checkboxes.length;
@@ -197,7 +177,6 @@ const ViewDetails = () => {
     calculateProgress(dataBoxes);
   }, [dataBoxes]);
 
-  console.log(reviews);
 
 
 
@@ -227,12 +206,25 @@ const ViewDetails = () => {
                     {review.namePlace ? review.namePlace : "Sin información"}
                   </Link>
                   <p className="text-gray-input text-xs md:text-sm">
-                    {review.nameCity ? review.nameCity : "Sin información"}
+                    {review.location ? review.location : "Sin información"}
                   </p>
                   <p className="text-sm md:text-base font-semibold">
                     {review.price ? review.price : "Sin información"}
                     <span className="inline font-normal text-gray-input">
-                      /día
+                      /
+                      {
+                        review.typeReviews ? (
+                          review.typeReviews.toLowerCase() === "alojamiento"
+                            ? "noche"
+                            : review.typeReviews.toLowerCase() === "alimentación"
+                              ? "plato"
+                              : review.typeReviews.toLowerCase() === "planes"
+                                ? "actividad"
+                                : null
+                        ) : null
+                      }
+
+
                     </span>
                   </p>
                 </div>
@@ -270,8 +262,9 @@ const ViewDetails = () => {
               Valor:
             </h2>
             <p className="inline text-gray-cards text-body text-sm md:text-base">
-              {Valor ? Valor : "Sin informacion"}
+              {cuota ? cuota : "Sin informacion"}
             </p>
+
           </div>
           <div className="flex items-center">
             <h2 className="mr-2 text-body font-semibold text-lg md:text-xl text-primary-color">

@@ -76,19 +76,21 @@ const ConfigProfile = () => {
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: "Eliminar",
-      denyButtonText: `Cancelar`
-    }).then(async (result) => { // Añade async aquí
+      denyButtonText: "Cancelar"
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire("Se eliminó tu cuenta exitosamente", "", "success");
         try {
-          await deleteUser(user);
-          navigate("/login");
+          
+          await deleteUser(auth.currentUser); 
+          navigate("/login"); 
+          Swal.fire("Se eliminó tu cuenta exitosamente", "", "success");
         } catch (error) {
           console.error("Error al eliminar la cuenta:", error);
+          Swal.fire("Hubo un error al eliminar tu cuenta", "", "error");
         }
       }
     });
-  };
+  }
 
   if (!user) {
     return <p>Informacion del usuario no registrado.</p>;
