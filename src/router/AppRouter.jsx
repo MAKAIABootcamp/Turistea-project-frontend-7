@@ -5,6 +5,7 @@ import {
   useLocation,
   useNavigate,
   useBeforeUnload,
+  Router,
 } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import Home from "../pages/Home";
@@ -24,9 +25,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { loginSucess } from "../redux/userAuth/userAuthSlice";
-import '../index.scss'
+import "../index.scss";
 import SobreNosotros from "../pages/SobreNosotros";
-import MyReview from "../components/MyReview";
+import EditReview from "../components/EditReview";
 
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);
@@ -34,14 +35,13 @@ const AppRouter = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-
   const savePath = useCallback(() => {
     sessionStorage.setItem("currentRoute", JSON.stringify(location.pathname));
   }, [location.pathname]);
 
   useEffect(() => {
     savePath();
-  },[savePath])
+  }, [savePath]);
 
   useEffect(() => {
     const storeRoute = JSON.parse(sessionStorage.getItem("currentRoute"));
@@ -78,9 +78,10 @@ const AppRouter = () => {
           <Route path="formReviews" element={<FormReviews />} />
           <Route path="myProfile" element={<Profile />} />
           <Route path="successPlan" element={<SuccessPlan />} />
-          <Route path="aboutUs" element={ <SobreNosotros/>} />
+          <Route path="aboutUs" element={<SobreNosotros />} />
+          <Route path="/editReview/:reviewId" element={<EditReview />} />
+          <Route path="/formPlans" element={<FormTravelPlans />} />
         </Route>
-        <Route path="/formPlans" element={<FormTravelPlans />} />
         <Route path="/cart" element={<Cart />} />
       </Route>
       <Route element={<PublicRoutes />}>

@@ -365,7 +365,7 @@ const Home = () => {
                   <div className="w-full flex gap-4">
                     <div className="w-1/2 sm:w-3/5 me-1">
                       <p className="text-gray-cards text-sm md:text-base">
-                        Guainia
+                        {item.location}
                       </p>
                     </div>
                     <div className="flex items-start justify-end ">

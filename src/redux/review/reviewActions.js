@@ -12,6 +12,7 @@ import {
   reviewsFail,
   reviewsRequest,
   filterReviews,
+  addReviews,
 } from "./reviewSlice";
 
 const COLLECTION_NAME = "Reviews";
@@ -89,6 +90,21 @@ export const actionMultipleFilterReviews = (filters) => {
       dispatch(filterReviews(reviews));
     } catch (error) {
       console.error(error);
+      dispatch(reviewsFail(error.message));
+    }
+  };
+};
+
+export const actionUpdateReview = (updatedReview) => {
+  return async (dispatch) => {
+    dispatch(reviewsRequest());
+    try {
+      const docRef = doc(database, COLLECTION_NAME, updatedReview.id);
+      await updateDoc(docRef, updatedReview);
+      dispatch(addReviews(updatedReview));
+      console.log("Review successfully updated with ID:", updatedReview.id);
+    } catch (error) {
+      console.error("Error updating review in Firestore:", error);
       dispatch(reviewsFail(error.message));
     }
   };
