@@ -236,7 +236,7 @@ const Home = () => {
                     className="w-full h-20 md:h-80 sm:h-60 object-cover hover:opacity-75"
                     src={item.mainImage}
                     alt={item.namePlace}
-                    onClick={() => handleImageClick({ images: [item.mainImage], namePlace: item.namePlace, score: item.score })}
+                    onClick={() => handleImageClick(item)}
                   />
                   <button
                     onClick={() => dispatch(addLuggage(item))}
@@ -301,9 +301,7 @@ const Home = () => {
       <ImageGalleryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        images={selectedReview ? selectedReview.images : []}
-        namePlace={selectedReview ? selectedReview.namePlace : ""}
-        score={selectedReview ? selectedReview.score : ""}
+        review={selectedReview}
       />
     </section>
   );

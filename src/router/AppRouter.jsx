@@ -28,6 +28,7 @@ import { loginSucess } from "../redux/userAuth/userAuthSlice";
 import "../index.scss";
 import SobreNosotros from "../pages/SobreNosotros";
 import EditReview from "../components/EditReview";
+import Modal from 'react-modal';
 
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);
@@ -66,6 +67,7 @@ const AppRouter = () => {
       }
     });
   }, [user, dispatch]);
+  Modal.setAppElement('#root');
 
   return (
     <Routes>
