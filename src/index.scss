@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    input[type="number"] {
+        appearance: textfield; /* Para Firefox */
+        -moz-appearance: textfield; /* Para Firefox */
+        -webkit-appearance: textfield; /* Para Safari */
+        ::-webkit-inner-spin-button,
+        ::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+        }
+      }
+      
+}
