@@ -35,7 +35,7 @@ const Register = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-        .max(20, "El nombre no debe exceder los 20 caracteres")
+        .max(30, "El nombre no debe exceder los 20 caracteres")
         .required("Debe digitar su nombre completo"),
       email: Yup.string()
         .email("Por ingrese un correo válido")

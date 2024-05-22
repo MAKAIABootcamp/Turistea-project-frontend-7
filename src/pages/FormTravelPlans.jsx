@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { differenceInDays, format } from "date-fns";
+import React, { useEffect, useState } from "react";
+import {
+  differenceInDays,
+  differenceInMonths,
+  differenceInWeeks,
+  format,
+} from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -15,10 +20,11 @@ const FormTravelPlans = () => {
   const [savingValue, setSavingValue] = useState(null);
   const [frecuency, setFrecuency] = useState("");
   const { luggage } = useSelector((store) => store.travels);
-  const {isLoadingTravelPlans,errorTravelPlans, travelPlansFail , success} = useSelector ((store) => store.travelsPlan )
+  const { isLoadingTravelPlans, errorTravelPlans, travelPlansFail, success } =
+    useSelector((store) => store.travelsPlan);
   const { user } = useSelector((store) => store.userAuth);
-  
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch();  
 
   const calculateSubtotal = (persons, days) => {
     let accumulator = 0;
@@ -32,31 +38,55 @@ const FormTravelPlans = () => {
     const today = new Date();
     const datePlan = new Date(date);
 
-    const daysDifference = differenceInDays(datePlan, today);
-    // console.log(daysDifference, "dias");
+    const weeks = differenceInWeeks(datePlan, today);
+    const months = differenceInMonths(datePlan, today);
+    const biweekly = parseInt(weeks / 2);
 
-    const months = daysDifference / 30 ;
-    const biweekly = months * 2;
-    const weeks = months * 4;
-
-    let valueSaving =null
+    let valueSaving = null;
 
     switch (frecuency) {
       case "Semanal":
-        valueSaving =total / weeks;
+        if (weeks != 0){
+          valueSaving = total / weeks;
+        }else{
+          Swal.fire({
+            position: "top-end",
+            allowOutsideClick: false,
+            text: "no hay dias suficientes para ahorrar por semana ",
+          })
+        }
         break;
       case "Quincenal":
-        valueSaving = total / biweekly;
+        if (biweekly != 0){
+          valueSaving = total / biweekly;
+        }else{
+          Swal.fire({
+            position: "top-end",
+            allowOutsideClick: false,
+            text: "no hay dias suficientes para ahorrar por quincena ",
+          })
+        }
         break;
       case "Mensual":
-        valueSaving = total / months;
+        if (months != 0){
+          valueSaving = total / months;
+        }else{
+          Swal.fire({
+            position: "top-end",
+            allowOutsideClick: false,
+            text: "no hay dias suficientes para ahorrar por mes ",
+          })
+        }
         break;
     }
-     if (valueSaving != null) { valueSaving = Number.isInteger(valueSaving) ? valueSaving : valueSaving.toFixed(2);}
-    return  valueSaving
+    if (valueSaving != null) {
+      valueSaving = Number.isInteger(valueSaving)
+        ? valueSaving
+        : valueSaving.toFixed(2);
+    }
+    return valueSaving;
   };
 
-    
   const handleDateSelected = (date) => {
     setDateSelected(date);
   };
@@ -66,7 +96,8 @@ const FormTravelPlans = () => {
       days: "",
       persons: "",
       extra: "",
-      savings:""
+      savings: "",
+      namePlan: "",
     },
     validationSchema: Yup.object({
       days: Yup.number()
@@ -78,22 +109,23 @@ const FormTravelPlans = () => {
       extra: Yup.number()
         .min(20000, "Debe ser como mínimo 20000")
         .required("Ingrese un valor extra"),
+      namePlan: Yup.string()
+        .required("Ingrese un nombre para su plan")
+        .max(30, "El nombre no debe exceder los 30 caracteres")
+        .min(10, "El nombre no debe superar los 10 caracteres"),
     }),
     onSubmit: async (values) => {
-      
-      if (dateSelected != "" && frecuency != "" && luggage.length>0 ) {
+      if (dateSelected != "" && frecuency != "" && luggage.length > 0 && savingValue != "") {
         values.dateEnd = dateSelected;
-        values.dateStart = format(new Date(), 'yyyy-MM-dd');
+        values.dateStart = format(new Date(), "yyyy-MM-dd");
         values.frecuency = frecuency;
         values.subtotal = calculateSubtotal(values.persons, values.days);
         values.total = values.subtotal + values.extra;
-        values.savings= calculateValueSaving(values.total, values.frecuency, values.date);
-        values.travels= luggage;
-        values.userId= user.id
-        console.log (savings)
-        // dispatch(actionAddTravelPlans(values))
-      }
-      else{
+        values.savings = savingValue ;
+        values.travels = luggage;
+        values.userId = user.id;
+        dispatch(actionAddTravelPlans(values))
+      } else {
         Swal.fire({
           position: "top-end",
           allowOutsideClick: false,
@@ -103,6 +135,14 @@ const FormTravelPlans = () => {
       }
     },
   });
+
+  useEffect(() => {
+    if (formik.values.persons && formik.values.days && frecuency && dateSelected) {
+      const total = calculateSubtotal(formik.values.persons, formik.values.days) + (formik.values.extra || 0);
+      const saving = calculateValueSaving(total, frecuency, dateSelected);
+      setSavingValue(saving);
+    }
+  }, [formik.values.persons, formik.values.days, formik.values.extra, frecuency, dateSelected]);
 
   if (isLoadingTravelPlans)
     return (
@@ -137,17 +177,17 @@ const FormTravelPlans = () => {
       icon: "error",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(travelPlansFail(null))
+        dispatch(travelPlansFail(null));
       }
     });
-  };
+  }
 
   if (success) {
     Swal.fire({
       allowOutsideClick: false,
       title: `Creado`,
       text: "Has creado correctamente tu plan de ahorros",
-      icon:"success"
+      icon: "success",
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/myProfile");
@@ -177,9 +217,29 @@ const FormTravelPlans = () => {
           Confirma tu plan de ahorros
         </h1>
         <form className="w-full p-2 ms-2" onSubmit={formik.handleSubmit}>
-          <h2 className="font-body font-semibold text-lg md:text-xl mb-8 text-primary-color text-start">
+          {/* <h2 className="font-body font-semibold text-lg md:text-xl mb-8 text-primary-color text-start">
             ¿Como deseas viajar?
-          </h2>
+          </h2> */}
+          <div className="mb-6 flex flex-col items-start ">
+            <label
+              htmlFor="namePlan"
+              className="font-body text-base md:text-lg text-black-text"
+            >
+              Nombre de tu plan de ahorros
+            </label>
+            <input
+              name="namePlan"
+              type="text"
+              placeholder="plan para viajar a ...."
+              className="w-5/6 p-2 mt-2 text-center font-body md:text-lg sm:text-sm bg-secondary-color border border-highlight-color text-gray-cards text-sm rounded-lg focus:ring-highlight-color focus:border-highlight-color block"
+              {...formik.getFieldProps("namePlan")}
+            />
+            {formik.touched.namePlan && formik.errors.namePlan ? (
+              <span className="text-highlight-color text-xs font-semibold">
+                {formik.errors.namePlan}
+              </span>
+            ) : null}
+          </div>
           <div className="w-full flex mb-4 justify-center items-center">
             <label
               htmlFor="date"
@@ -308,7 +368,7 @@ const FormTravelPlans = () => {
           </button>
         </form>
       </div>
-      <div className=" w-1/2 lg:w-2/5 rounded-lg shadow shadow-2xl p-6 border flex flex-col items-center">
+      <div className=" mt-6 w-1/2 lg:w-2/5 rounded-lg shadow shadow-2xl p-6 border flex flex-col items-center">
         <div className="w-full">
           <h2 className="w-full mb-2 text-lg md:text-2xl font-title text-highlight-color ">
             Resumen de mi viaje
@@ -336,7 +396,7 @@ const FormTravelPlans = () => {
                     {review.namePlace}
                   </Link>
                   <p className="text-gray-input text-xs md:text-sm">
-                    Palomino, La Guajira
+                    {review.location.toCap}
                   </p>
                   <span className="text-sm md:text-base font-semibold">
                     ${review.price.toLocaleString("es-ES")}
@@ -408,7 +468,10 @@ const FormTravelPlans = () => {
                 Valor del ahorro
               </p>
               <p className="w-1/2 text-xs md:text-sm text-end font-semibold font-body text-black-text">
-                ${calculateValueSaving(calculateSubtotal(formik.values.persons, formik.values.days) + formik.values.extra, frecuency, dateSelected)}
+                $
+                {
+                  savingValue ?? 0
+                }
               </p>
             </div>
           </div>

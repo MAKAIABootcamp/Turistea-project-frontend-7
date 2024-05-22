@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const Footer = () => {
   const location = useLocation();
 
-  return location.pathname === "/myProfile" ? null : (
+  return location.pathname === "/myProfile" || location.pathname === "/formPlans" ? null : (
     <footer className="bg-white dark:bg-gray-900">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <hr className="my-4 border-gray-200 sm:mx-auto" />

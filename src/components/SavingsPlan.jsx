@@ -88,7 +88,7 @@ const SavingsPlan = () => {
               <div className="w-full flex flex-col justify-between p-4 leading-normal">
                 <div className="mb-4 pb-2 flex justify-between border-b-2 border-primary-color">
                   <h3 className="font-body text-primary-color font-semibold text-sm md:text-lg">
-                    Plan ciudad
+                    {plan.namePlan}
                   </h3>
                   <div className="flex gap-2">
                     <button>
