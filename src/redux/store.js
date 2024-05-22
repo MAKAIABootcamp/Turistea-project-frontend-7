@@ -3,7 +3,7 @@ import userAuthReducer from './userAuth/userAuthSlice'
 import reviewsReducer from './review/reviewSlice';
 import travelPlansReducer from './travelPlan/travelPlanSlice';
 import travelsReducer from './travel/travelSlice'
-import savingsReducer from './planAhorro/savingsSlice'
+import savingsReducer from './planSavings/savingsSlice'
 const store = configureStore({
     reducer: {
         userAuth:userAuthReducer,

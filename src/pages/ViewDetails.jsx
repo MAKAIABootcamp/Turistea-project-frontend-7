@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import product2 from "../assets/imagensuccess.png";
+import { Link,  useParams} from "react-router-dom";
 import { getAuth } from "firebase/auth";
-import { collection, query, where, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
+import {getDoc, doc, updateDoc } from "firebase/firestore";
 import { database } from "../firebase/firebaseConfig";
-import {
-  setCheckboxes,
-  toggleCheckbox,
-} from "../redux/planAhorro/savingsSlice";
+import { setCheckboxes, toggleCheckbox } from "../redux/planSavings/savingsSlice";
+import { useDispatch } from "react-redux";
 
 const calculateCheckboxes = (startDate, endDate, periodicity) => {
   const parseDate = (dateStr) => {
-    const [day, month, year] = dateStr.split("/").map(Number);
+    const [year, month, day] = dateStr.split("-").map(Number);
     return new Date(year, month - 1, day);
   };
 
@@ -53,128 +49,58 @@ const calculateCheckboxes = (startDate, endDate, periodicity) => {
 };
 
 const ViewDetails = () => {
-  const [infoAhorro, setAhorro] = useState([]);
+  const {idPlan} = useParams();
+  const idPlanVerdadero = String(idPlan.substring(1));
   const [reviews, setReviews] = useState([]);
   const [Periodicidad, setPeriodicidad] = useState("");
   const [FechaInicio, setFechaInicio] = useState("");
   const [FechaFinalizacion, setFechaFinalizacion] = useState("");
-  const [Valor, setValor] = useState("");
+  const [cuota, setCuota] = useState("");
   const [Total, setotal] = useState(" ");
+  const [idDocumento, setDocumento] = useState("");
   const [dataBoxes, setBoxes] = useState([]);
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
-
+  
+  
 
   useEffect(() => {
     const fetchData = async () => {
       const auth = getAuth();
       const user = auth.currentUser;
-      console.log(user)
 
       if (user) {
-        console.log("UID del usuario:", user.uid);
-
-        const planAhorroRef = collection(database, "PlanAhorro");
-        const q = query(planAhorroRef, where("idUser", "==", user.uid));
+        const docRef = doc(database, "SavingsPlan", idPlanVerdadero);
 
         try {
-          const querySnapshot = await getDocs(q);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const ahorroData = docSnap.data();
+            const { frecuency, dateStart, dateEnd, travels, total, savings, datesBox } = ahorroData;
 
-          const data = [];
-          querySnapshot.forEach((doc) => {
-            data.push({ ...doc.data(), id: doc.id });
-          });
-          setAhorro(data);
-
-          if (querySnapshot.size === 0) {
-            console.log("No se encontraron documentos para el usuario.");
+            setPeriodicidad(frecuency);
+            setFechaInicio(dateStart);
+            setFechaFinalizacion(dateEnd);
+            setCuota(savings);
+            setotal(total);
+            setReviews(travels || []);
+            setBoxes(datesBox || calculateCheckboxes(dateStart, dateEnd, frecuency));
+            dispatch(setCheckboxes(datesBox || calculateCheckboxes(dateStart, dateEnd, frecuency)));
           } else {
-            const ahorroData = data[0];
-            const { periodicidad, valor, dateInicial, dateFinal, id, idTravel, total } = ahorroData;
-
-            if (id) {
-              console.log("Periodicidad:", periodicidad);
-              console.log("FechaInicio:", dateInicial);
-              console.log("FechaFinalizacion:", dateFinal);
-
-              setPeriodicidad(periodicidad);
-              setFechaInicio(dateInicial);
-              setFechaFinalizacion(dateFinal);
-              setValor(valor);
-              setotal(total);
-              fetchTravelData(idTravel);
-
-
-              const checkboxes = calculateCheckboxes(dateInicial, dateFinal, periodicidad);
-              setBoxes(checkboxes);
-              console.log(checkboxes);
-              dispatch(setCheckboxes(checkboxes));
-
-              const updateFirestore = async () => {
-                const docRef = doc(database, "PlanAhorro", id);
-
-                try {
-                  await updateDoc(docRef, {
-                    datesBox: checkboxes,
-                    countBox: checkboxes.length
-                  });
-                  console.log("Document successfully updated!");
-                } catch (error) {
-                  console.error("Error updating document: ", error);
-                }
-              };
-              updateFirestore();
-            } else {
-              console.error("Document ID esta indefinido.");
-            }
+            console.log("No such document!");
           }
         } catch (error) {
-          console.error("Error al obtener documentos:", error);
+          console.error("Error fetching document: ", error);
         }
-      } else {
-        console.log("No hay usuario autenticado.");
       }
     };
 
     fetchData();
-  }, [dispatch]);
+  }, [idDocumento, dispatch]);
 
-  const fetchTravelData = async (idTravel, idUser) => {
-    if (!idTravel) return;
-
-    try {
-      const travelDoc = await getDoc(doc(database, "Travels", idTravel));
-
-      if (travelDoc.exists()) {
-        const travelData = travelDoc.data();
-        const reviewIds = travelData.reviews;
-        if (reviewIds && reviewIds.length > 0) {
-          fetchReviews(reviewIds[0]);
-        }
-      } else {
-        console.log("No se encontró la información Travels!");
-      }
-    } catch (error) {
-      console.error("Error al cargar los datos: ", error);
-    }
-  };
-
-  const fetchReviews = async (reviewId) => {
-    if (!reviewId) return;
-
-    try {
-      const reviewDoc = await getDoc(doc(database, "Reviews", reviewId));
-      if (reviewDoc.exists()) {
-        setReviews(reviewDoc.data());
-      } else {
-        console.log("No se encuentra la información en Reviews!");
-      }
-    } catch (error) {
-      console.error("Error al cargar los datos: ", error);
-    }
-  };
-
-  const handleCheckboxChange = (index, checked) => {
+  const handleCheckboxChange = async (index, checked) => {
+    
+  
     const newBoxes = dataBoxes.map((box, i) => {
       if (i === index) {
         return { ...box, checked };
@@ -182,9 +108,27 @@ const ViewDetails = () => {
       return box;
     });
     setBoxes(newBoxes);
-    dispatch(toggleCheckbox(index));
-    calculateProgress(newBoxes);
+
+    const progreso = (newBoxes.filter(box => box.checked).length / newBoxes.length) * 100;
+    setProgress(progreso);
+
+    
+
+    if (idDocumento) {
+      const docRef = doc(database, "SavingsPlan", idDocumento);
+      try {
+        await updateDoc(docRef, {
+          datesBox: newBoxes,
+          progreso: progreso
+        });
+        
+      } catch (error) {
+        console.error("Error al actualizar el progreso ", error);
+      }
+    }
   };
+  
+
 
   const calculateProgress = (checkboxes) => {
     const total = checkboxes.length;
@@ -195,9 +139,10 @@ const ViewDetails = () => {
 
   useEffect(() => {
     calculateProgress(dataBoxes);
+
+  
   }, [dataBoxes]);
 
-  console.log(reviews);
 
 
 
@@ -210,36 +155,53 @@ const ViewDetails = () => {
             Mi Viaje
           </h2>
         </div>
-        <ul className="overflow-auto mb-2 w-full">
-          {Array(reviews).map((review, index) => (
-            <li key={index} className="w-full flex p-4 mt-2 shadow-xl rounded-lg border">
-              <div className="h-24 w-2/4 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                <img
-                  src={review.mainImage}
-                  alt="producto2"
-                  className="h-full w-full object-cover object-center"
-                />
-              </div>
-              <div className="ml-4 w-2/5 flex flex-1 flex-row items-center">
-                <div className="w-full flex flex-col">
-                  <p className="text-gray-input text-xs md:text-sm">{review.typeReviews ? review.typeReviews : "Sin información"}</p>
-                  <Link className="text-sm md:text-base font-bold">
-                    {review.namePlace ? review.namePlace : "Sin información"}
-                  </Link>
-                  <p className="text-gray-input text-xs md:text-sm">
-                    {review.nameCity ? review.nameCity : "Sin información"}
-                  </p>
-                  <p className="text-sm md:text-base font-semibold">
-                    {review.price ? review.price : "Sin información"}
-                    <span className="inline font-normal text-gray-input">
-                      /día
-                    </span>
-                  </p>
+        
+        {Array.isArray(reviews) && reviews.length > 0 ? (
+          reviews.map((review, index) => (
+            <ul key={index} className="overflow-auto mb-2 w-full">
+              <li className="w-full flex p-4 mt-2 shadow-xl rounded-lg border">
+                <div className="h-24 w-2/4 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                  <img
+                    src={review.mainImage}
+                    alt="producto2"
+                    className="h-full w-full object-cover object-center"
+                  />
                 </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+                <div className="ml-4 w-2/5 flex flex-1 flex-row items-center">
+                  <div className="w-full flex flex-col">
+                    <p className="text-gray-input text-xs md:text-sm">
+                      {review.typeReviews ? review.typeReviews : "Sin información"}
+                    </p>
+                    <Link className="text-sm md:text-base font-bold">
+                      {review.namePlace ? review.namePlace : "Sin información"}
+                    </Link>
+                    <p className="text-gray-input text-xs md:text-sm">
+                      {review.location ? review.location : "Sin información"}
+                    </p>
+                    <p className="text-sm md:text-base font-semibold">
+                      {review.price ? review.price : "Sin información"}
+                      <span className="inline font-normal text-gray-input">
+                        /
+                        {review.typeReviews ? (
+                          review.typeReviews.toLowerCase() === "alojamiento"
+                            ? "noche"
+                            : review.typeReviews.toLowerCase() === "alimentación"
+                            ? "plato"
+                            : review.typeReviews.toLowerCase() === "planes"
+                            ? "actividad"
+                            : null
+                        ) : null}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          ))
+        ) : (
+          <p>No hay datos de viajes disponibles.</p>
+        )}
+        
 
         <div className="w-full flex flex-col pt-4 mt-6 border-t border-gray-input">
           <div className="w-full flex justify-between">
@@ -270,8 +232,9 @@ const ViewDetails = () => {
               Valor:
             </h2>
             <p className="inline text-gray-cards text-body text-sm md:text-base">
-              {Valor ? Valor : "Sin informacion"}
+              {cuota ? cuota : "Sin informacion"}
             </p>
+
           </div>
           <div className="flex items-center">
             <h2 className="mr-2 text-body font-semibold text-lg md:text-xl text-primary-color">

@@ -153,9 +153,9 @@ const FormReview = () => {
             <option value="Seleccionar" className="hidden">
               Seleccionar
             </option>
-            <option value="Alimentación">Alojamiento</option>
-            <option value="Hospedaje">Alimentación </option>
-            <option value="Actividad">Planes</option>
+            <option value="Alojamiento">Alojamiento</option>
+            <option value="Alimentación">Alimentación </option>
+            <option value="Planes">Planes</option>
           </select>
           {formik.touched.typeReviews && formik.errors.typeReviews ? (
             <div className="text-red-500 text-xs mt-1">

@@ -1,19 +1,20 @@
 import React from "react";
-import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch} from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
-  faBell,
   faTrashCan,
 } from "@fortawesome/free-regular-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAuth, updateProfile, deleteUser } from "firebase/auth";
 import { updateUserProfile } from "../redux/userAuth/userAuthActions";
 import fileUpload from "../services/fileUpload";
-const supportedFormats = ["jpg", "png", "webp"];
 import Swal from 'sweetalert2'
+
+const supportedFormats = ["jpg", "png", "webp"];
+
 const ConfigProfile = () => {
   const auth = getAuth();
   const user = auth.currentUser;
@@ -76,19 +77,21 @@ const ConfigProfile = () => {
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: "Eliminar",
-      denyButtonText: `Cancelar`
-    }).then(async (result) => { // Añade async aquí
+      denyButtonText: "Cancelar"
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire("Se eliminó tu cuenta exitosamente", "", "success");
         try {
-          await deleteUser(user);
-          navigate("/login");
+          
+          await deleteUser(auth.currentUser); 
+          navigate("/login"); 
+          Swal.fire("Se eliminó tu cuenta exitosamente", "", "success");
         } catch (error) {
           console.error("Error al eliminar la cuenta:", error);
+          Swal.fire("Hubo un error al eliminar tu cuenta", "", "error");
         }
       }
     });
-  };
+  }
 
   if (!user) {
     return <p>Informacion del usuario no registrado.</p>;

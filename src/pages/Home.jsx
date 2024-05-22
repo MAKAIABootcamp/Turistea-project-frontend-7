@@ -182,7 +182,7 @@ const Home = () => {
       </figure>
 
       <div className=" my-2 sm:my-10 flex flex-col sm:flex-row justify-center items-center w-full h-15 sm:h-10">
-        <div className="h-full flex my-2 justify-center w-3/5 md:w-2/6 flex border border-highlight-color p-1 sm:py-0 rounded-lg sm:my-0">
+        <div className="h-full flex my-2 justify-center md:w-2/6 flex border border-highlight-color p-1 sm:py-0 rounded-lg sm:my-0">
           {/* <button className="flex items-center flex-row mr-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -323,9 +323,9 @@ const Home = () => {
           filteredByCategory?.map((item) => (
             <div
               key={item.id}
-              className="w-1/3 lg:w-1/4 md:w-1/3 sm:w-1/2 xs:w-full"
+              className="w-1/3 lg:w-1/4 md:w-1/3 sm:w-1/3"
             >
-              <div className="mx-1 my-2 md:mx-2 md:my-4 max-w-sm rounded overflow-hidden shadow-lg">
+              <div className="mx-1 my-2  md:mx-2 md:my-4 max-w-sm rounded overflow-hidden shadow-lg">
                 <div className="relative">
                   <img
                     className="w-full h-20 md:h-80 sm:h-60 object-cover hover:opacity-75"
@@ -346,7 +346,19 @@ const Home = () => {
                   </button>
                 </div>
                 <div className=" p-2 md:p-4">
-                  <h3 className="font-bold text-base md:text-xl  mb-1">
+                <div className="flex items-start justify-end ">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 fill-primary-color"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
+                      </svg>
+                      <p className="text-black-text text-xs md:text-base">
+                        {item.score}
+                      </p>
+                    </div>
+                  <h3 className=" truncate font-bold text-base md:text-xl  mb-1">
                     {item.namePlace}
                   </h3>
                   <div className="w-full font-bold text-xs md:text-lg mb-1 ">
@@ -368,18 +380,7 @@ const Home = () => {
                         {item.location}
                       </p>
                     </div>
-                    <div className="flex items-start justify-end ">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 fill-primary-color"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M21.947 9.179a1.001 1.001 0 0 0-.868-.676l-5.701-.453-2.467-5.461a.998.998 0 0 0-1.822-.001L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.213 4.107-1.49 6.452a1 1 0 0 0 1.53 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082c.297-.268.406-.686.278-1.065z"></path>
-                      </svg>
-                      <p className="text-black-text text-xs md:text-base">
-                        {item.score}
-                      </p>
-                    </div>
+                    
                   </div>
                   <p className="text-gray-cards text-xs md:text-base sm:text-sm mb-2">
                     Reseña por: user3Register

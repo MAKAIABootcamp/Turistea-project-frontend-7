@@ -205,8 +205,8 @@ const EditReview = () => {
               Seleccionar
             </option>
             <option value="Alimentación">Alimentación</option>
-            <option value="Hospedaje">Hospedaje</option>
-            <option value="Actividad">Actividad</option>
+            <option value="Alojamiento">Alojamiento</option>
+            <option value="Planes">Planes</option>
           </select>
           {formik.touched.typeReviews && formik.errors.typeReviews ? (
             <div className="text-red-500 text-xs mt-1">

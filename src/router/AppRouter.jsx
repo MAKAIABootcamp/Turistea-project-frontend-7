@@ -74,7 +74,7 @@ const AppRouter = () => {
           <Route index element={<Home />} />
           <Route path="detailsPost" element={<DetailsPost />} />
           <Route path="configProfile" element={<ConfigProfile />} />
-          <Route path="detailsPlan" element={<ViewDetails />} />
+          <Route path="detailsPlan/:idPlan" element={<ViewDetails />} />
           <Route path="formReviews" element={<FormReviews />} />
           <Route path="myProfile" element={<Profile />} />
           <Route path="successPlan" element={<SuccessPlan />} />

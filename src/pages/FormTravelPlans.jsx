@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -12,7 +12,7 @@ import { actionAddTravelPlans } from "../redux/travelPlan/travelPlanActions";
 const FormTravelPlans = () => {
   const navigate = useNavigate();
   const [dateSelected, setDateSelected] = useState("");
-  const [savingValue, setSavingValue] = useState("");
+  const [savingValue, setSavingValue] = useState(null);
   const [frecuency, setFrecuency] = useState("");
   const { luggage } = useSelector((store) => store.travels);
   const {isLoadingTravelPlans,errorTravelPlans, travelPlansFail , success} = useSelector ((store) => store.travelsPlan )
@@ -43,7 +43,7 @@ const FormTravelPlans = () => {
 
     switch (frecuency) {
       case "Semanal":
-        valueSaving =total / weeks, "sem";
+        valueSaving =total / weeks;
         break;
       case "Quincenal":
         valueSaving = total / biweekly;
@@ -52,7 +52,8 @@ const FormTravelPlans = () => {
         valueSaving = total / months;
         break;
     }
-    return  Math.round(valueSaving)
+     if (valueSaving != null) { valueSaving = Number.isInteger(valueSaving) ? valueSaving : valueSaving.toFixed(2);}
+    return  valueSaving
   };
 
     
@@ -82,14 +83,15 @@ const FormTravelPlans = () => {
       
       if (dateSelected != "" && frecuency != "" && luggage.length>0 ) {
         values.dateEnd = dateSelected;
-        values.dateStart = new Date();
+        values.dateStart = format(new Date(), 'yyyy-MM-dd');
         values.frecuency = frecuency;
         values.subtotal = calculateSubtotal(values.persons, values.days);
         values.total = values.subtotal + values.extra;
         values.savings= calculateValueSaving(values.total, values.frecuency, values.date);
         values.travels= luggage;
         values.userId= user.id
-        dispatch(actionAddTravelPlans(values))
+        console.log (savings)
+        // dispatch(actionAddTravelPlans(values))
       }
       else{
         Swal.fire({
