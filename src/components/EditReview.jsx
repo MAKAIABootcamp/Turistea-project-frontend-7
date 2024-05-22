@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { doc, getDoc, updateDoc } from 'firebase/firestore'; // Importa updateDoc
-import { database } from '../firebase/firebaseConfig';
+import { db } from '../firebase/firebaseConfig';
 import { actionUpdateReview } from '../redux/review/reviewActions';
 import StarRating from '../components/StarRating';
 import fileUpload from '../services/fileUpload';
@@ -27,7 +27,7 @@ const EditReview = () => {
 
         console.log('Fetching document with reviewId:', reviewId); // Para depuración
 
-        const docRef = doc(database, 'Reviews', reviewId);
+        const docRef = doc(db, 'Reviews', reviewId);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -41,8 +41,9 @@ const EditReview = () => {
             secondaryImages: review.secondaryImages || [null, null, null],
             price: review.price || '',
             score: review.score || 0,
-            ecology: review.ecology || '',
-            lowCost: review.lowCost || '',
+            ecology: review.ecology || false,
+            lowCost: review.lowCost || false,
+            location: review.location || ''
           });
           setPrimaryImage(review.mainImage || null);
           setSecondaryImages(review.secondaryImages || [null, null, null]);
@@ -85,8 +86,9 @@ const EditReview = () => {
       secondaryImages: [],
       price: '',
       score: 0,
-      ecology: '',
-      lowCost: '',
+      ecology: false,
+      lowCost: false,
+      location:'',
     },
     validationSchema: Yup.object({
       namePlace: Yup.string().required('La ubicación es obligatoria'),
@@ -97,6 +99,7 @@ const EditReview = () => {
       score: Yup.number().required('La calificación es obligatoria').min(1, 'Selecciona al menos una estrella'),
       ecology: Yup.string().required('Seleccionar si es ecológico es obligatorio'),
       lowCost: Yup.string().required('Seleccionar si es de bajo costo es obligatorio'),
+      location: Yup.string().required('La ubicación es obligatoria'),
     }),
     onSubmit: async (values) => {
       try {
@@ -117,7 +120,7 @@ const EditReview = () => {
         dispatch(actionUpdateReview(reviewId, updatedReviewData));
 
         // Actualiza el documento en Firestore
-        const docRef = doc(database, 'Reviews', reviewId);
+        const docRef = doc(db, 'Reviews', reviewId);
         await updateDoc(docRef, updatedReviewData);
 
         Swal.fire({
@@ -265,41 +268,59 @@ const EditReview = () => {
           ) : null}
         </div>
         <div className="mb-4">
-          <label htmlFor="ecology" className="block text-sm font-medium text-gray-700">
+  <label className="block text-sm font-medium text-gray-700">
+    Características
+  </label>
+  <div className="mt-1">
+        <div className="flex items-center mb-2">
+          <input
+            id="ecology"
+            name="ecology"
+            type="checkbox"
+            className="h-4 w-4 text-primary-color border-gray-300 rounded focus:ring-highlight-color"
+            checked={formik.values.ecology}
+            onChange={formik.handleChange}
+          />
+          <label htmlFor="ecology" className="ml-2 block text-sm text-gray-900">
             Ecológico
           </label>
-          <select
-            id="ecology"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-highlight-color focus:border-highlight-color sm:text-sm"
-            {...formik.getFieldProps('ecology')}
-          >
-            <option value="" disabled>
-              Seleccionar
-            </option>
-            <option value="True">True</option>
-            <option value="False">False</option>
-          </select>
-          {formik.touched.ecology && formik.errors.ecology ? (
-            <div className="text-red-500 text-xs mt-1">{formik.errors.ecology}</div>
-          ) : null}
         </div>
-        <div className="mb-4">
-          <label htmlFor="lowCost" className="block text-sm font-medium text-gray-700">
+        <div className="flex items-center">
+          <input
+            id="lowCost"
+            name="lowCost"
+            type="checkbox"
+            className="h-4 w-4 text-primary-color border-gray-300 rounded focus:ring-highlight-color"
+            checked={formik.values.lowCost}
+            onChange={formik.handleChange}
+          />
+          <label htmlFor="lowCost" className="ml-2 block text-sm text-gray-900">
             Bajo costo
           </label>
-          <select
-            id="lowCost"
+        </div>
+        </div>
+  {formik.touched.ecology && formik.errors.ecology ? (
+    <div className="text-red-500 text-xs mt-1">{formik.errors.ecology}</div>
+  ) : null}
+  {formik.touched.lowCost && formik.errors.lowCost ? (
+    <div className="text-red-500 text-xs mt-1">{formik.errors.lowCost}</div>
+  ) : null}
+  
+</div>
+
+<div className="mb-4">
+          <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+          Departamento y ciudad
+          </label>
+          <input
+            type="text"
+            id="location"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-highlight-color focus:border-highlight-color sm:text-sm"
-            {...formik.getFieldProps('lowCost')}
-          >
-            <option value="" disabled>
-              Seleccionar
-            </option>
-            <option value="True">True</option>
-            <option value="False">False</option>
-          </select>
-          {formik.touched.lowCost && formik.errors.lowCost ? (
-            <div className="text-red-500 text-xs mt-1">{formik.errors.lowCost}</div>
+            placeholder="Enter location"
+            {...formik.getFieldProps('location')}
+          />
+          {formik.touched.location && formik.errors.location ? (
+            <div className="text-red-500 text-xs mt-1">{formik.errors.location}</div>
           ) : null}
         </div>
         <div className="flex justify-end mt-6">
