@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,6 +10,7 @@ import fileUpload from '../services/fileUpload';
 
 const FormReview = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [primaryImage, setPrimaryImage] = useState(null);
   const [secondaryImages, setSecondaryImages] = useState([null, null, null]);
 
@@ -39,7 +41,8 @@ const FormReview = () => {
       price: '',
       score: 0,
       ecology: '',
-      lowCost: '' 
+      lowCost: '',
+      location: '' 
     },
     validationSchema: Yup.object({
       namePlace: Yup.string().required('La ubicación es obligatoria'),
@@ -50,6 +53,8 @@ const FormReview = () => {
       score: Yup.number().required('La calificación es obligatoria').min(1, 'Selecciona al menos una estrella'),
       ecology: Yup.string().required('Seleccionar si es ecológico es obligatorio').notOneOf(['Seleccionar'], 'Debes seleccionar una opción'),
       lowCost: Yup.string().required('Seleccionar si es de bajo costo es obligatorio').notOneOf(['Seleccionar'], 'Debes seleccionar una opción'),
+      location: Yup.string().required('La ubicación es obligatoria').required('La ubicación es obligatoria'),
+
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
@@ -72,6 +77,7 @@ const FormReview = () => {
           resetForm();
           setPrimaryImage(null);
           setSecondaryImages([null, null, null]);
+          navigate('/MyReviews'); // Redirigir a MyReview después de la alerta de éxito
         });
       } catch (error) {
         console.error("Error submitting form:", error);
@@ -117,9 +123,9 @@ const FormReview = () => {
             {...formik.getFieldProps('typeReviews')}
           >
             <option value="Seleccionar" disabled>Seleccionar</option>
-            <option value="Alimentación">Alimentación</option>
-            <option value="Hospedaje">Hospedaje</option>
-            <option value="Actividad">Actividad</option>
+            <option value="Alimentación">Alojamiento</option>
+            <option value="Hospedaje">Alimentación </option>
+            <option value="Actividad">Planes</option>
           </select>
           {formik.touched.typeReviews && formik.errors.typeReviews ? (
             <div className="text-red-500 text-xs mt-1">{formik.errors.typeReviews}</div>
@@ -187,7 +193,7 @@ const FormReview = () => {
             Precio
           </label>
           <input
-            type="text"
+            type="number"
             id="price"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-highlight-color focus:border-highlight-color sm:text-sm"
             placeholder="Enter item description"
@@ -205,52 +211,61 @@ const FormReview = () => {
           ) : null}
         </div>
         <div className="mb-4">
-          <label htmlFor="ecology" className="block text-sm font-medium text-gray-700">
-            Ecológico
+  <label className="block text-sm font-medium text-gray-700">
+    Características
+  </label>
+  <div className="mt-1">
+    <div className="flex items-center mb-2">
+      <input
+        id="ecology"
+        name="ecology"
+        type="checkbox"
+        className="h-4 w-4 text-primary-color border-gray-300 rounded focus:ring-highlight-color"
+        {...formik.getFieldProps('ecology')}
+      />
+      <label htmlFor="ecology" className="ml-2 block text-sm text-gray-900">
+        Ecológico
+      </label>
+    </div>
+    <div className="flex items-center">
+      <input
+        id="lowCost"
+        name="lowCost"
+        type="checkbox"
+        className="h-4 w-4 text-primary-color border-gray-300 rounded focus:ring-highlight-color"
+        {...formik.getFieldProps('lowCost')}
+      />
+      <label htmlFor="lowCost" className="ml-2 block text-sm text-gray-900">
+        Bajo costo
+      </label>
+    </div>
+  </div>
+  {formik.touched.ecology && formik.errors.ecology ? (
+    <div className="text-red-500 text-xs mt-1">{formik.errors.ecology}</div>
+  ) : null}
+  {formik.touched.lowCost && formik.errors.lowCost ? (
+    <div className="text-red-500 text-xs mt-1">{formik.errors.lowCost}</div>
+  ) : null}
+  
+</div>
+<div className="mb-4">
+          <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+          Departamento y ciudad
           </label>
-          <select
-            id="ecology"
+          <input
+            type="text"
+            id="location"
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-highlight-color focus:border-highlight-color sm:text-sm"
-            {...formik.getFieldProps('ecology')}
-          >
-            <option value="Seleccionar" disabled>Seleccionar</option>
-            <option value="True">True</option>
-            <option value="False">False</option>
-          </select>
-          {formik.touched.ecology && formik.errors.ecology ? (
-            <div className="text-red-500 text-xs mt-1">{formik.errors.ecology}</div>
+            placeholder="Enter location"
+            {...formik.getFieldProps('location')}
+          />
+          {formik.touched.location && formik.errors.location ? (
+            <div className="text-red-500 text-xs mt-1">{formik.errors.location}</div>
           ) : null}
         </div>
-        <div className="mb-4">
-          <label htmlFor="lowCost" className="block text-sm font-medium text-gray-700">
-            Bajo costo
-          </label>
-          <select
-            id="lowCost"
-            className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-highlight-color focus:border-highlight-color sm:text-sm"
-            {...formik.getFieldProps('lowCost')}
-          >
-            <option value="Seleccionar" disabled>Seleccionar</option>
-            <option value="True">True</option>
-            <option value="False">False</option>
-          </select>
-          {formik.touched.lowCost && formik.errors.lowCost ? (
-            <div className="text-red-500 text-xs mt-1">{formik.errors.lowCost}</div>
-          ) : null}
-        </div>
-        <div className="flex items-center space-x-2 mb-6">
-          <button
-            type="button"
-            className="flex items-center justify-center space-x-2 bg-white border border-gray-300 text-gray-700 py-2 px-4 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-highlight-color focus:ring-opacity-50"
-          >
-            <span>Añadir otra reseña</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z" fill="#ffa317" />
-            </svg>
-          </button>
-        </div>
+
         <div className="flex justify-end mt-6">
-          <button type="button" className="py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 mr-4">
+          <button type="button" className="py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 mr-4"onClick={() => navigate('/myreviews')}>
             Cancelar
           </button>
           <button type="submit" className="py-2 px-4 bg-highlight-color text-white rounded-md hover:bg-primary-color">
