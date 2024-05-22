@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 const today = new Date();
-today.setDate(today.getDate()+30);
+today.setDate(today.getDate()+32);
 
 const max = new Date();
 max.setMonth(max.getMonth() + 18);

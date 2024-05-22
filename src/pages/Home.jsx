@@ -20,8 +20,6 @@ const Home = () => {
     (store) => store.reviews
   );
   const [filteredByCategory, setFilteredByCategory] = useState([]);
-   
-  console.log(isLoadingReviews)
 
   const handleMultipleFilters = (filters) => {
     if (Object.entries(filters).length) {
@@ -33,7 +31,7 @@ const Home = () => {
 
   const fetchMultipleFilter = useCallback(() => {
     handleMultipleFilters(filters);
-    console.log(filters);
+    // console.log(filters);
   }, [filters]);
 
   useEffect(() => {
@@ -352,7 +350,7 @@ const Home = () => {
                     {item.namePlace}
                   </h3>
                   <div className="w-full font-bold text-xs md:text-lg mb-1 ">
-                    ${item.price}
+                    ${item.price.toLocaleString('es-ES')}
                     <p className="inline font-normal">
                       /
                       {item.typeReviews.toLowerCase() == "alojamiento"

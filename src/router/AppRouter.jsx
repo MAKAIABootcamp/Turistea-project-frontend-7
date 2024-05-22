@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { loginSucess } from "../redux/userAuth/userAuthSlice";
+import '../index.scss'
 
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);

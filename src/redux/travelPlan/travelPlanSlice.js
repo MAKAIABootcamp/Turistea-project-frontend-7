@@ -4,6 +4,7 @@ const initialTravelPlans={
     travelPlans:[],
     isLoadingTravelPlans: false,
     errorTravelPlans:null,
+    success:false,
 }
 
 const travelPlansSlice = createSlice({
@@ -18,6 +19,7 @@ const travelPlansSlice = createSlice({
             state.travelPlans = action.payload;
             state.isLoadingTravelPlans = false;
             state.errorTravelPlans = null;
+            state.success = true;
         },
         travelPlansFail:(state,action) => {
             state.isLoadingTravelPlans = false;
@@ -38,5 +40,5 @@ const travelPlansSlice = createSlice({
     }
 })
 
-export const {TravelPlansFail,TravelPlansRequest,fillTravelPlans,addTravelPlans,updateTravelPlans,deleteTravelPlans} = travelPlansSlice.actions;
+export const {travelPlansFail,travelPlansRequest,fillTravelPlans,addTravelPlans,updateTravelPlans,deleteTravelPlans} = travelPlansSlice.actions;
 export default travelPlansSlice.reducer;

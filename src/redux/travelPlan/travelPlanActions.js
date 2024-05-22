@@ -1,10 +1,11 @@
 import { collection, addDoc } from "firebase/firestore"; 
 import { database } from "../../firebase/firebaseConfig";
+import { fillTravelPlans, travelPlansFail, travelPlansRequest } from "./travelPlanSlice";
 
 const COLLECTION_NAME='SavingsPlan'
 const collectionRef=collection(database, COLLECTION_NAME)
 
-const actionAddTravelPlans = (newTravelPlans) =>{
+export const actionAddTravelPlans = (newTravelPlans) =>{
     return async (dispatch) => {
         dispatch(travelPlansRequest())
         try {
