@@ -1,9 +1,9 @@
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
-import { database } from "../../firebase/firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { reviewRequest, reviewFail, addReview } from "./reviewSlice";
 
 const COLLECTION_NAME = "Reviews";
-const collectionRef = collection(database, COLLECTION_NAME);
+const collectionRef = collection(db, COLLECTION_NAME);
 
 export const actionAddReview = (newReview) => {
   return async (dispatch) => {
@@ -29,7 +29,7 @@ export const actionUpdateReview = (updatedReview) => {
   return async (dispatch) => {
     dispatch(reviewRequest());
     try {
-      const docRef = doc(database, COLLECTION_NAME, updatedReview.id);
+      const docRef = doc(db, COLLECTION_NAME, updatedReview.id);
       await updateDoc(docRef, updatedReview);
       dispatch(addReview(updatedReview));
       console.log("Review successfully updated with ID:", updatedReview.id);
@@ -43,7 +43,7 @@ export const actionUpdateReview = (updatedReview) => {
 // Acción para eliminar una reseña
 export const actionDeleteReview = (reviewId) => async (dispatch) => {
   try {
-    await deleteDoc(doc(database, 'Reviews', reviewId));
+    await deleteDoc(doc(db, 'Reviews', reviewId));
     dispatch({
       type: 'detele_review',
       payload: reviewId,
