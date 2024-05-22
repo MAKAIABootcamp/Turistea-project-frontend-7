@@ -4,20 +4,27 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "node_modules/flowbite-react/lib/esm/**/*.js",
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js"
   ],
   theme: {
     colors: {
-      "primary-color": "#2196f3",
+      "primary-color": "#4CAF50",
       "secondary-color": "#ffffff",
-      "bg-input": "rgba(33, 150, 243, 0.09)",
-      "text-input": "#BCC1CA",
+      "bg-input": "rgba(76, 175, 80, 0.15)",
+      "gray-input": "#BCC1CA",
+      "gray-cards":"#9095A0",
       "black-text": "#323842",
       "highlight-color": "#ffa317",
+      "primary-line":"#1DD75B"
     },
+
+   
+
     extend: {
       fontFamily: {
-        lato: [ "Lato", "sans-serif"],
-        montserrat: ["Montserrat", "sans-serif"],
+        title: [ "Lato", "sans-serif"],
+        body: ["Montserrat", "sans-serif"],
+        pacifico: ["Pacifico", "cursive"],
       },
     },
   },
