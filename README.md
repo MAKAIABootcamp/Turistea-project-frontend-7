@@ -17,6 +17,7 @@
         <li><a href="#installation">Instalaciones</a></li>
       </ul>
     </li>   
+    <li><a href="#Enlace a la Aplicación Turistea">Aplicacion Turistea</a></li>
     <li><a href="#contact">Autores</a></li>
     <li><a href="#acknowledgments">Referencias</a></li>
   </ol>
@@ -83,9 +84,9 @@ Realizar las siguientes instalaciones necesarias.
    ```sh
    npm run dev
    ```
-
+### Enlace a la Aplicación Turistea
 <!-- CONTACT -->
-## Autores
+## Desarrolladores
 
 Andrea Guerrero: [https://github.com/annath29](https://github.com/annath29)
 
