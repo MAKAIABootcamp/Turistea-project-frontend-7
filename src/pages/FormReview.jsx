@@ -51,7 +51,7 @@ const FormReview = () => {
         .max(106, "El Titulo no debe pasar de los 106 caracteres")
         .required("El titulo es obligatorio"),
       description: Yup.string()
-        .max(300, "La reseña no debe pasar de los 300 caracteres")
+        .max(500, "La reseña no debe pasar de los 500 caracteres")
         .required("La reseña es obligatoria"),
       price: Yup.string().required("El precio es obligatorio"),
       score: Yup.number()
