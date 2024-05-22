@@ -17,7 +17,7 @@ import {
 const COLLECTION_NAME = "Reviews";
 const collectionRef = collection(database, COLLECTION_NAME);
 
-const actionAddReview = (newReview) => {
+export const actionAddReview = (newReview) => {
   return async (dispatch) => {
     dispatch(reviewsRequest());
     try {

@@ -13,11 +13,10 @@ import Login from "../pages/Login";
 import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
-import SobreNosotros from "../pages/SobreNosotros";
 import FormTravelPlans from "../pages/FormTravelPlans";
 import ConfigProfile from "../pages/ConfigProfile";
 import ViewDetails from "../pages/ViewDetails";
-import FormReviews from "../pages/FormReviews";
+import FormReviews from "../pages/FormReview";
 import Profile from "../pages/Profile";
 import PublicRoutes from "./PublicRoutes";
 import PrivateRoutes from "./PrivateRoutes";
@@ -26,6 +25,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { loginSucess } from "../redux/userAuth/userAuthSlice";
 import '../index.scss'
+import SobreNosotros from "../pages/SobreNosotros";
+import MyReview from "../components/MyReview";
 
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);
@@ -33,7 +34,6 @@ const AppRouter = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  //Nos aseguramos de guardar la última ruta en la que estuvimos antes de que sucediera la recarga
 
   const savePath = useCallback(() => {
     sessionStorage.setItem("currentRoute", JSON.stringify(location.pathname));

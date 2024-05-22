@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import product2 from "../assets/imagensuccess.png";
 import { getAuth } from "firebase/auth";
 import { collection, query, where, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
+import { database } from "../firebase/firebaseConfig";
 import {
   setCheckboxes,
   toggleCheckbox,
@@ -74,7 +74,7 @@ const ViewDetails = () => {
       if (user) {
         console.log("UID del usuario:", user.uid);
 
-        const planAhorroRef = collection(db, "PlanAhorro");
+        const planAhorroRef = collection(database, "PlanAhorro");
         const q = query(planAhorroRef, where("idUser", "==", user.uid));
 
         try {
@@ -111,7 +111,7 @@ const ViewDetails = () => {
               dispatch(setCheckboxes(checkboxes));
 
               const updateFirestore = async () => {
-                const docRef = doc(db, "PlanAhorro", id);
+                const docRef = doc(database, "PlanAhorro", id);
 
                 try {
                   await updateDoc(docRef, {
@@ -143,7 +143,7 @@ const ViewDetails = () => {
     if (!idTravel) return;
 
     try {
-      const travelDoc = await getDoc(doc(db, "Travels", idTravel));
+      const travelDoc = await getDoc(doc(database, "Travels", idTravel));
 
       if (travelDoc.exists()) {
         const travelData = travelDoc.data();
@@ -163,7 +163,7 @@ const ViewDetails = () => {
     if (!reviewId) return;
 
     try {
-      const reviewDoc = await getDoc(doc(db, "Reviews", reviewId));
+      const reviewDoc = await getDoc(doc(database, "Reviews", reviewId));
       if (reviewDoc.exists()) {
         setReviews(reviewDoc.data());
       } else {
