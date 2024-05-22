@@ -10,9 +10,9 @@ import {
   actionGetReviews,
   actionMultipleFilterReviews,
 } from "../redux/review/reviewActions";
+import ImageGalleryModal from "../components/ImageGalleryModal"; // Asegúrate de importar el componente
 
 const Home = () => {
-
   const dispatch = useDispatch();
   const [category, setCategory] = useState();
   const [filters, setFilters] = useState({});
@@ -20,6 +20,8 @@ const Home = () => {
     (store) => store.reviews
   );
   const [filteredByCategory, setFilteredByCategory] = useState([]);
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleMultipleFilters = (filters) => {
     if (Object.entries(filters).length) {
@@ -31,7 +33,6 @@ const Home = () => {
 
   const fetchMultipleFilter = useCallback(() => {
     handleMultipleFilters(filters);
-    // console.log(filters);
   }, [filters]);
 
   useEffect(() => {
@@ -77,25 +78,10 @@ const Home = () => {
       </div>
     );
 
-  // const handleFilterCategory = (category) => {
-  //   setCategory(category);
-  //   switch (category) {
-  //     case 1:
-  //       setFilteredByCategory(
-  //         filteredReviews.filter((item) => item.ecology == true)
-  //       );
-  //       break;
-  //     case 2:
-  //       setFilteredByCategory(
-  //         filteredReviews.filter((item) => item.lowCost == true)
-  //       );
-
-  //       break;
-  //     default:
-  //       setFilteredByCategory([...filteredReviews]);
-  //       break;
-  //   }
-  // };
+  const handleImageClick = (item) => {
+    setSelectedReview(item);
+    setIsModalOpen(true);
+  };
 
   const handleSort = (e) => {
     switch (e.target.value) {
@@ -114,57 +100,11 @@ const Home = () => {
           reviews.slice().sort((a, b) => b.score - a.score)
         );
         break;
-
       default:
         setFilteredByCategory([...reviews]);
         break;
     }
   };
-
-  // const handleSort = (e) => {
-  //   const { value } = e.target;
-  //   switch (value) {
-  //     case "lowPrice":
-  //       setFilters(() => {
-  //         const newState = { ...filters };
-  //         if (filters?.score) {
-  //           delete newState.score;
-  //         }
-  //         return {
-  //           ...newState,
-  //           price: "asc",
-  //         };
-  //       });
-  //       break;
-  //     case "highPrice":
-  //       setFilters(() => {
-  //         const newState = { ...filters };
-  //         if (filters?.score) {
-  //           delete newState.score;
-  //         }
-  //         return {
-  //           ...newState,
-  //           price: "desc",
-  //         };
-  //       });
-  //       break;
-  //     case "score":
-  //       setFilters(() => {
-  //         const newState = { ...filters };
-  //         if (filters?.price) {
-  //           delete newState.price;
-  //         }
-  //         return {
-  //           ...newState,
-  //           score: "desc",
-  //         };
-  //       });
-  //       break;
-  //     default:
-  //       setFilters({ ...filters });
-  //       break;
-  //   }
-  // };
 
   return (
     <section className="px-10 py-5 md:px-20 md:py-10 sm:py-8 sm:px-16">
@@ -182,20 +122,7 @@ const Home = () => {
       </figure>
 
       <div className=" my-2 sm:my-10 flex flex-col sm:flex-row justify-center items-center w-full h-15 sm:h-10">
-        <div className="h-full flex my-2 justify-center md:w-2/6 flex border border-highlight-color p-1 sm:py-0 rounded-lg sm:my-0">
-          {/* <button className="flex items-center flex-row mr-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-8 h-8 mr-2 stroke-primary-color fill-secondary-color"
-              viewBox="0 0 24 24"
-            >
-              <path d="M14.844 20H6.5C5.121 20 4 18.879 4 17.5S5.121 15 6.5 15h7c1.93 0 3.5-1.57 3.5-3.5S15.43 8 13.5 8H8.639a9.812 9.812 0 0 1-1.354 2H13.5c.827 0 1.5.673 1.5 1.5s-.673 1.5-1.5 1.5h-7C4.019 13 2 15.019 2 17.5S4.019 22 6.5 22h9.593a10.415 10.415 0 0 1-1.249-2zM5 2C3.346 2 2 3.346 2 5c0 3.188 3 5 3 5s3-1.813 3-5c0-1.654-1.346-3-3-3zm0 4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 5 6.5z"></path>
-              <path d="M19 14c-1.654 0-3 1.346-3 3 0 3.188 3 5 3 5s3-1.813 3-5c0-1.654-1.346-3-3-3zm0 4.5a1.5 1.5 0 1 1 .001-3.001A1.5 1.5 0 0 1 19 18.5z"></path>
-            </svg>
-            <p className="font-body md:text-lg sm:text-sm text-black-text">
-              Destino
-            </p>
-          </button> */}
+        <div className="h-full flex my-2 justify-center w-3/5 md:w-2/6 flex border border-highlight-color p-1 sm:py-0 rounded-lg sm:my-0">
           <button
             onClick={() => {
               setCategory(category === 1 ? 0 : 1);
@@ -264,18 +191,6 @@ const Home = () => {
             </p>
           </button>
         </div>
-        {/* <button className="h-full flex  w-1/4 md:w-2/6 flex items-center border border-highlight-color p-1 sm:py-0 rounded-lg sm:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className=" w-6 h-6 sm:w-8 sm:h-8 stroke-secondary-color fill-primary-color"
-            viewBox="0 0 24 24"
-          >
-            <path d="M21 3H5a1 1 0 0 0-1 1v2.59c0 .523.213 1.037.583 1.407L10 13.414V21a1.001 1.001 0 0 0 1.447.895l4-2c.339-.17.553-.516.553-.895v-5.586l5.417-5.417c.37-.37.583-.884.583-1.407V4a1 1 0 0 0-1-1zm-6.707 9.293A.996.996 0 0 0 14 13v5.382l-2 1V13a.996.996 0 0 0-.293-.707L6 6.59V5h14.001l.002 1.583-5.71 5.71z"></path>
-          </svg>
-          <p className="font-body text-sm md:text-lg sm:text-base text-black-text">
-            Filtrar
-          </p>
-        </button> */}
         <div className="h-full mb-2 sm:mb-0 md:w-1/6 mx-3">
           <label htmlFor="sort"></label>
           <select
@@ -306,16 +221,6 @@ const Home = () => {
             </option>
           </select>
         </div>
-        {/* <button className="h-3/4 bg-primary-color rounded-full flex justify-center items-center p-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-8 h-8 sm:w-6 sm:h-6 stroke-primary-color fill-secondary-color"
-            viewBox="0 0 24 24"
-          >
-            <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
-            <path d="M11.412 8.586c.379.38.588.882.588 1.414h2a3.977 3.977 0 0 0-1.174-2.828c-1.514-1.512-4.139-1.512-5.652 0l1.412 1.416c.76-.758 2.07-.756 2.826-.002z"></path>
-          </svg>
-        </button> */}
       </div>
 
       <div className="flex justify-center flex-wrap">
@@ -331,6 +236,7 @@ const Home = () => {
                     className="w-full h-20 md:h-80 sm:h-60 object-cover hover:opacity-75"
                     src={item.mainImage}
                     alt={item.namePlace}
+                    onClick={() => handleImageClick(item)}
                   />
                   <button
                     onClick={() => dispatch(addLuggage(item))}
@@ -390,78 +296,14 @@ const Home = () => {
             </div>
           ))
         ) : (
-          <p> No hay reseñas para mostrar</p>
+          <p>No hay reseñas para mostrar</p>
         )}
       </div>
-
-      <div
-        className={`md:flex-row p-5 md:p-20  ${
-          filteredByCategory.length > 0 ? "flex" : "hidden"
-        }`}
-      >
-        <figure className="w-1/3 m-2 opacity-100 hover:opacity-75 relative">
-          <img
-            className="w-full h-full object-cover rounded-md"
-            src={popular2}
-            alt="popular2"
-          />
-          <figcaption className="rounded-b-md absolute inset-0 flex flex-col justify-center px-4 w-full h-1/4 top-3/4 bg-[#05050550]">
-            <h3 className="font-bold font-body text-secondary-color  text-sm md:text-xl">
-              Experiencia de glamping en Guatavita
-            </h3>
-            <p className="text-secondary-color text-sm md:text-base  ">
-              12 comentarios
-            </p>
-          </figcaption>
-        </figure>
-        <div className="w-1/3 m-2">
-          <figure className="w-full mb-2 opacity-100 hover:opacity-75 relative">
-            <img
-              className="w-full md:h-80 sm:h-60 object-cover rounded-md"
-              src={popular1}
-              alt="popular1"
-            />
-            <figcaption className=" rounded-b-md absolute inset-0 flex flex-col  justify-start px-4 pt-2 w-full h-1/3 top-2/3 bg-[#05050550]">
-              <h3 className="font-bold font-body text-secondary-color text-sm md:text-xl">
-                El mote de queso más popular
-              </h3>
-              <p className="text-secondary-color text-xs md:text-sm ">
-                10 comentarios
-              </p>
-            </figcaption>
-          </figure>
-          <figure className="w-full mt-2 opacity-100 hover:opacity-75 relative">
-            <img
-              className="w-full md:h-80 sm:h-60 object-cover rounded-md"
-              src={popular3}
-              alt="popular3"
-            />
-            <figcaption className="rounded-b-md absolute inset-0 flex flex-col justify-center px-4 pt-2 w-full  h-1/3 top-2/3 bg-[#05050550]">
-              <h3 className="font-bold font-body text-secondary-color  text-sm md:text-xl">
-                Palacio en Quibdo
-              </h3>
-              <p className="text-secondary-color text-xs md:text-sm ">
-                15 comentarios
-              </p>
-            </figcaption>
-          </figure>
-        </div>
-        <figure className="w-1/3 m-2 opacity-100 hover:opacity-75 relative">
-          <img
-            className="w-full h-full object-cover rounded-md"
-            src={popular4}
-            alt="popular4"
-          />
-          <figcaption className="rounded-b-md absolute inset-0 flex flex-col justify-center px-4 w-full h-1/4 top-3/4 bg-[#05050550]">
-            <h3 className="font-bold font-body text-secondary-color  text-sm md:text-xl">
-              Safari en Casanare
-            </h3>
-            <p className="text-secondary-color text-sm md:text-base ">
-              20 comentarios
-            </p>
-          </figcaption>
-        </figure>
-      </div>
+      <ImageGalleryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        review={selectedReview}
+      />
     </section>
   );
 };
