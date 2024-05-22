@@ -15,7 +15,7 @@ const Footer = () => {
             <p className="inline font-bold  mr-1 md:mr-2">.</p>
             <Link className="hover:underline mr-2  md:mr-4">Privacy</Link>
             <p className="inline font-bold  mr-1 md:mr-2">.</p>
-            <Link className="hover:underline mr-2 md:mr-4">About us</Link>
+            <Link  to={`/aboutUs`}  className="hover:underline mr-2 md:mr-4">About us</Link>
           </span>
         </div>
       </div>

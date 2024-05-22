@@ -81,7 +81,8 @@ const FormTravelPlans = () => {
     onSubmit: async (values) => {
       
       if (dateSelected != "" && frecuency != "" && luggage.length>0 ) {
-        values.date = dateSelected;
+        values.dateEnd = dateSelected;
+        values.dateStart = new Date();
         values.frecuency = frecuency;
         values.subtotal = calculateSubtotal(values.persons, values.days);
         values.total = values.subtotal + values.extra;

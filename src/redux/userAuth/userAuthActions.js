@@ -121,3 +121,19 @@ export const actionLoginPhoneWithCode = (code) => {
     }
   };
 };
+
+export const updateUserProfile = (displayName, photoURL) => {
+  return async (dispatch) => {
+    // const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+      try {
+        await updateProfile(user, { displayName, photoURL });
+        dispatch({ type: "UPDATE_USER_PROFILE_SUCCESS", payload: { displayName, photoURL } });
+      } catch (error) {
+        dispatch({ type: "UPDATE_USER_PROFILE_ERROR", error });
+      }
+    }
+  };
+};

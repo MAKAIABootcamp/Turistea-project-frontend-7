@@ -13,6 +13,7 @@ import Login from "../pages/Login";
 import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
+import SobreNosotros from "../pages/SobreNosotros";
 import FormTravelPlans from "../pages/FormTravelPlans";
 import ConfigProfile from "../pages/ConfigProfile";
 import ViewDetails from "../pages/ViewDetails";
@@ -77,6 +78,7 @@ const AppRouter = () => {
           <Route path="formReviews" element={<FormReviews />} />
           <Route path="myProfile" element={<Profile />} />
           <Route path="successPlan" element={<SuccessPlan />} />
+          <Route path="aboutUs" element={ <SobreNosotros/>} />
         </Route>
         <Route path="/formPlans" element={<FormTravelPlans />} />
         <Route path="/cart" element={<Cart />} />
