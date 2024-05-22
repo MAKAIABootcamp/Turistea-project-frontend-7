@@ -95,12 +95,12 @@ const ConfigProfile = () => {
   }
 
   return (
-    <div className="flex flex-row flex-wrap  gap-4 h-full w-full justify-evenly">
-      <section className="mt-12">
+    <div className="flex flex-row max-[680px]:flex-col gap-4 h-full w-full justify-evenly">
+      <section className="mt-12 max-[680px]:px-10">
         <h2 className="text-2xl text-primary-color font-title text-center leading-10 font-medium">
           Ajustes de la Cuenta
         </h2>
-        <nav className="flex flex-col w-72 gap-5 pt-7 font-body text-m h-72 bg-white rounded-lg items-center shadow shadow-gray-300 mt-7">
+        <nav className="flex flex-col w-72 max-[680px]:w-full gap-5 pt-7 font-body text-m h-72 bg-white rounded-lg items-center shadow shadow-gray-300 mt-7">
           <li
             className="list-none text-black bg-white h-10 px-1 pt-2 mx-2 hover:bg-blue-100 w-5/6 rounded-lg cursor-pointer"
             onClick={() => setCurrentSection('personalInfo')}
@@ -126,8 +126,8 @@ const ConfigProfile = () => {
       </section>
 
       {currentSection === 'personalInfo' && (
-        <section className="w-4/6 h-full font-body mb-10">
-          <div className="relative my-5 mx-5">
+        <section className="w-4/6 h-full max-[680px]:w-full max-[680px]:px-10 font-body mb-10">
+          <div className="relative my-5 mx-5 max-[680px]:justify-center">
             <img className="w-40 h-40 rounded-full cover" src={photoURL} alt="User Profile" />
 
             {!editing ? (

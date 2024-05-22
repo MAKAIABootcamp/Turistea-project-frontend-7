@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import DetailsPost from "../pages/DetailsPost";
 import Cart from "../pages/Cart";
 import SuccessPlan from "../pages/SuccessPlan";
+import SobreNosotros from "../pages/SobreNosotros";
 import FormTravelPlans from "../components/FormTravelPlans/FormTravelPlans";
 import ConfigProfile from "../pages/ConfigProfile";
 import ViewDetails from "../pages/ViewDetails";
@@ -18,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { loginSucess } from "../redux/userAuth/userAuthSlice";
+
 
 const AppRouter = () => {
   const { user } = useSelector((store) => store.userAuth);
@@ -50,11 +52,13 @@ const AppRouter = () => {
             <Route path="myProfile" element={<Profile />} />
             <Route path="configProfile" element={<ConfigProfile />} />
             <Route path="detailsPlan" element={<ViewDetails />} />
+            <Route path="sobreNosotros" element={<SobreNosotros/>} />
           </Route>
         </Route>
         <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          
         </Route>
         <Route element={<PrivateRoutes />}>
           <Route path="/formPlans" element={<FormTravelPlans />} />

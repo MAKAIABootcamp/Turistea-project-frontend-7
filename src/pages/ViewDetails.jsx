@@ -59,6 +59,7 @@ const ViewDetails = () => {
   const [FechaInicio, setFechaInicio] = useState("");
   const [FechaFinalizacion, setFechaFinalizacion] = useState("");
   const [Valor, setValor] = useState("");
+  const [Total, setotal] = useState(" ");
   const [dataBoxes, setBoxes] = useState([]);
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ const ViewDetails = () => {
             console.log("No se encontraron documentos para el usuario.");
           } else {
             const ahorroData = data[0];
-            const { periodicidad, valor, dateInicial, dateFinal, id, idTravel } = ahorroData;
+            const { periodicidad, valor, dateInicial, dateFinal, id, idTravel, total} = ahorroData;
             
             if (id) {
               console.log("Periodicidad:", periodicidad);
@@ -100,7 +101,9 @@ const ViewDetails = () => {
               setFechaInicio(dateInicial);
               setFechaFinalizacion(dateFinal);
               setValor(valor);
+              setotal(total);
               fetchTravelData(idTravel);
+              
 
               const checkboxes = calculateCheckboxes(dateInicial, dateFinal, periodicidad);
               setBoxes(checkboxes);
@@ -109,6 +112,7 @@ const ViewDetails = () => {
 
               const updateFirestore = async () => {
                 const docRef = doc(db, "PlanAhorro", id);
+                
                 try {
                   await updateDoc(docRef, {
                     datesBox: checkboxes,
@@ -121,7 +125,7 @@ const ViewDetails = () => {
               };
               updateFirestore();
             } else {
-              console.error("Document ID is undefined.");
+              console.error("Document ID esta indefinido.");
             }
           }
         } catch (error) {
@@ -135,11 +139,12 @@ const ViewDetails = () => {
     fetchData();
   }, [dispatch]);
 
-  const fetchTravelData = async (idTravel) => {
+  const fetchTravelData = async (idTravel, idUser) => {
     if (!idTravel) return;
 
     try {
       const travelDoc = await getDoc(doc(db, "Travels", idTravel));
+      
       if (travelDoc.exists()) {
         const travelData = travelDoc.data();
         const reviewIds = travelData.reviews;
@@ -147,10 +152,10 @@ const ViewDetails = () => {
           fetchReviews(reviewIds[0]);
         }
       } else {
-        console.log("No such document in Travels!");
+        console.log("No se encontró la información Travels!");
       }
     } catch (error) {
-      console.error("Error fetching travel data: ", error);
+      console.error("Error al cargar los datos: ", error);
     }
   };
 
@@ -162,10 +167,10 @@ const ViewDetails = () => {
       if (reviewDoc.exists()) {
         setReviews(reviewDoc.data());
       } else {
-        console.log("No such document in Reviews!");
+        console.log("No se encuentra la información en Reviews!");
       }
     } catch (error) {
-      console.error("Error fetching reviews: ", error);
+      console.error("Error al cargar los datos: ", error);
     }
   };
 
@@ -198,8 +203,8 @@ const ViewDetails = () => {
 
 
   return (
-    <section className="flex justify-between w-full h-screen px-10 py-5 mb-4 md:px-20 md:py-10 sm:py-8 sm:px-16">
-      <div className="rounded-lg shadow shadow-2xl p-6 border w-2/5 h-full md:w-1/2 sm:w-5/12 flex flex-col items-center">
+    <section className="flex justify-between w-full h-screen px-10 py-5 mb-4 md:px-10 md:py-10 sm:flex-col sm:justify-center md:flex-row sm:px-10 max-[760px]:flex-col  " >
+      <div className="rounded-lg w-1/2 shadow shadow-2xl p-6 border h-full md:w-1/2 flex flex-col items-center max-[760px]:w-full">
         <div className="w-full">
           <h2 className="font-semibold w-full mb-2 text-lg md:text-2xl font-title text-highlight-color ">
             Mi Viaje
@@ -207,7 +212,7 @@ const ViewDetails = () => {
         </div>
         <ul className="overflow-auto mb-2 w-full">
           <li className="w-full flex p-4 mt-2 shadow-xl rounded-lg border">
-            <div className="h-24 w-2/5 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+            <div className="h-24 w-2/4 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
               <img
                 src={reviews.mainImage}
                 alt="producto2"
@@ -226,7 +231,7 @@ const ViewDetails = () => {
                 <p className="text-sm md:text-base font-semibold">
                 {reviews.price ? reviews.price: "Sin información"}
                   <span className="inline font-normal text-gray-input">
-                    /noche
+                    /día
                   </span>
                 </p>
               </div>
@@ -240,12 +245,12 @@ const ViewDetails = () => {
               Total
             </p>
             <p className="w-1/2 text-sm md:text-base font-semibold text-end font-body text-black-text">
-              $400.000
+            {Total ? `${Total}` : "Sin informacion"}
             </p>
           </div>
         </div>
       </div>
-      <div className="px-1 w-2/5 md:w-5/12 sm:w-3/5 bg-secondary mr-2">
+      <div className="px-5 w-1/2 md:w-5/12  bg-secondary max-[760px]:w-full max-[760px]:mt-10 ">
         <h1 className="w-full mb-6 text-base sm:text-2xl md:text-3xl font-title text-highlight-color">
           Tu Ahorro
         </h1>

@@ -4,6 +4,7 @@ import logo from "../../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLogout } from "../../redux/userAuth/userAuthActions";
 
+
 const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const dispatch = useDispatch();
@@ -153,6 +154,15 @@ const Navbar = () => {
               >
                 Planes
               </a>
+            </li>
+            <li>
+            <Link
+                to={`/sobreNosotros`}
+                className = "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-color md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+            >
+             Sobre Nosotros 
+            </Link>
+              
             </li>
           </ul>
         </div>

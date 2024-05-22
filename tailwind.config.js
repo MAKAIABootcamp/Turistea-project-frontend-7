@@ -16,6 +16,9 @@ export default {
       "highlight-color": "#ffa317",
       "primary-line":"#1DD75B"
     },
+
+   
+
     extend: {
       fontFamily: {
         title: [ "Lato", "sans-serif"],
