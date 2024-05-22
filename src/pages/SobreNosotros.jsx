@@ -98,7 +98,7 @@ const SobreNosotros = () => {
 
                 <li>
                     <div className="flex items-center gap-x-6">
-                        <img className="size-48 rounded-full  object-cover " src="https://media.licdn.com/dms/image/C4E03AQE3EigP-zFYtw/profile-displayphoto-shrink_400_400/0/1623639364351?e=2147483647&v=beta&t=GPFqPzx2bZwcKQg6btsb8tmjGhSFMkZlH_2P9kkQHd8" alt="" />
+                        <img className="size-48 rounded-full  object-cover " src="src/assets/jerson.jpg" alt="" />
                         <div>
                             <h3 className="text-base font-semibold leading-9 tracking-tight text-primary-color font-body"> Jerson Romano   </h3>
                             <p className="text-sm font-semibold leading-6 text-black">Desarrollador Front End </p>

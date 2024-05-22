@@ -54,7 +54,7 @@ const calculateCheckboxes = (startDate, endDate, periodicity) => {
 
 const ViewDetails = () => {
   const [infoAhorro, setAhorro] = useState([]);
-  const [reviews, setReviews] = useState("");
+  const [reviews, setReviews] = useState([]);
   const [Periodicidad, setPeriodicidad] = useState("");
   const [FechaInicio, setFechaInicio] = useState("");
   const [FechaFinalizacion, setFechaFinalizacion] = useState("");
@@ -63,7 +63,7 @@ const ViewDetails = () => {
   const [dataBoxes, setBoxes] = useState([]);
   const [progress, setProgress] = useState(0);
   const dispatch = useDispatch();
- 
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,20 +90,20 @@ const ViewDetails = () => {
             console.log("No se encontraron documentos para el usuario.");
           } else {
             const ahorroData = data[0];
-            const { periodicidad, valor, dateInicial, dateFinal, id, idTravel, total} = ahorroData;
-            
+            const { periodicidad, valor, dateInicial, dateFinal, id, idTravel, total } = ahorroData;
+
             if (id) {
               console.log("Periodicidad:", periodicidad);
               console.log("FechaInicio:", dateInicial);
               console.log("FechaFinalizacion:", dateFinal);
-              
+
               setPeriodicidad(periodicidad);
               setFechaInicio(dateInicial);
               setFechaFinalizacion(dateFinal);
               setValor(valor);
               setotal(total);
               fetchTravelData(idTravel);
-              
+
 
               const checkboxes = calculateCheckboxes(dateInicial, dateFinal, periodicidad);
               setBoxes(checkboxes);
@@ -112,7 +112,7 @@ const ViewDetails = () => {
 
               const updateFirestore = async () => {
                 const docRef = doc(db, "PlanAhorro", id);
-                
+
                 try {
                   await updateDoc(docRef, {
                     datesBox: checkboxes,
@@ -144,7 +144,7 @@ const ViewDetails = () => {
 
     try {
       const travelDoc = await getDoc(doc(db, "Travels", idTravel));
-      
+
       if (travelDoc.exists()) {
         const travelData = travelDoc.data();
         const reviewIds = travelData.reviews;
@@ -211,32 +211,34 @@ const ViewDetails = () => {
           </h2>
         </div>
         <ul className="overflow-auto mb-2 w-full">
-          <li className="w-full flex p-4 mt-2 shadow-xl rounded-lg border">
-            <div className="h-24 w-2/4 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-              <img
-                src={reviews.mainImage}
-                alt="producto2"
-                className="h-full w-full object-cover object-center"
-              />
-            </div>
-            <div className="ml-4 w-2/5 flex flex-1 flex-row items-center">
-              <div className="w-full flex flex-col">
-                <p className="text-gray-input text-xs md:text-sm">{reviews.typeReviews ? reviews.typeReviews : "Sin información"}</p>
-                <Link className="text-sm md:text-base font-bold">
-                {reviews.namePlace ? reviews.namePlace : "Sin información"}
-                </Link>
-                <p className="text-gray-input text-xs md:text-sm">
-                {reviews.nameCity ? reviews.nameCity : "Sin información"}
-                </p>
-                <p className="text-sm md:text-base font-semibold">
-                {reviews.price ? reviews.price: "Sin información"}
-                  <span className="inline font-normal text-gray-input">
-                    /día
-                  </span>
-                </p>
+          {Array(reviews).map((review, index) => (
+            <li key={index} className="w-full flex p-4 mt-2 shadow-xl rounded-lg border">
+              <div className="h-24 w-2/4 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                <img
+                  src={review.mainImage}
+                  alt="producto2"
+                  className="h-full w-full object-cover object-center"
+                />
               </div>
-            </div>
-          </li>
+              <div className="ml-4 w-2/5 flex flex-1 flex-row items-center">
+                <div className="w-full flex flex-col">
+                  <p className="text-gray-input text-xs md:text-sm">{review.typeReviews ? review.typeReviews : "Sin información"}</p>
+                  <Link className="text-sm md:text-base font-bold">
+                    {review.namePlace ? review.namePlace : "Sin información"}
+                  </Link>
+                  <p className="text-gray-input text-xs md:text-sm">
+                    {review.nameCity ? review.nameCity : "Sin información"}
+                  </p>
+                  <p className="text-sm md:text-base font-semibold">
+                    {review.price ? review.price : "Sin información"}
+                    <span className="inline font-normal text-gray-input">
+                      /día
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </li>
+          ))}
         </ul>
 
         <div className="w-full flex flex-col pt-4 mt-6 border-t border-gray-input">
@@ -245,7 +247,7 @@ const ViewDetails = () => {
               Total
             </p>
             <p className="w-1/2 text-sm md:text-base font-semibold text-end font-body text-black-text">
-            {Total ? `${Total}` : "Sin informacion"}
+              {Total ? `${Total}` : "Sin informacion"}
             </p>
           </div>
         </div>
