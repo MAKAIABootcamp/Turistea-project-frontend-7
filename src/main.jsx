@@ -9,8 +9,7 @@ import store from "./redux/store";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <BrowserRouter basename="/Turistea-project-frontend-7/"> */}
-      <BrowserRouter>
+      <BrowserRouter basename="/Turistea-project-frontend-7/">
         <AppRouter />
       </BrowserRouter>
     </Provider>
