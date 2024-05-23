@@ -36,20 +36,20 @@ const AppRouter = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const savePath = useCallback(() => {
-    sessionStorage.setItem("currentRoute", JSON.stringify(location.pathname));
-  }, [location.pathname]);
+  // const savePath = useCallback(() => {
+  //   sessionStorage.setItem("currentRoute", JSON.stringify(location.pathname));
+  // }, [location.pathname]);
 
-  useEffect(() => {
-    savePath();
-  }, [savePath]);
+  // useEffect(() => {
+  //   savePath();
+  // }, [savePath]);
 
-  useEffect(() => {
-    const storeRoute = JSON.parse(sessionStorage.getItem("currentRoute"));
-    if (storeRoute) {
-      navigate(storeRoute);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storeRoute = JSON.parse(sessionStorage.getItem("currentRoute"));
+  //   if (storeRoute) {
+  //     navigate(storeRoute);
+  //   }
+  // }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (userCredential) => {
