@@ -1,17 +1,23 @@
-
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { database } from "../firebase/firebaseConfig";
 
-import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 
 import { getAuth } from "firebase/auth";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const SavingsPlan = () => {
   const [infoAhorro, setAhorro] = useState([]);
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +58,7 @@ const SavingsPlan = () => {
         try {
           await deleteDoc(documentRef);
           Swal.fire("Se eliminó tu plan de ahorro exitosamente", "", "success");
-          setAhorro(infoAhorro.filter(plan => plan.id !== idDocumento));
+          setAhorro(infoAhorro.filter((plan) => plan.id !== idDocumento));
         } catch (error) {
           console.error("Error al eliminar la cuenta:", error);
           Swal.fire("Hubo un error al eliminar tu cuenta", "", "error");
@@ -67,7 +73,7 @@ const SavingsPlan = () => {
         <h1 className="font-bold font-title text-primary-color md:text-3xl sm:text-base xs:text-sm sm:mx-2 ">
           Mis Planes de Ahorro
         </h1>
-        <div className="flex gap-2">
+        <div onClick={() => navigate(`/`)} className="flex gap-2">
           <button className="bg-primary-color rounded-full p-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +90,10 @@ const SavingsPlan = () => {
           <p>No tienes ningún plan de ahorro creado.</p>
         ) : (
           infoAhorro.map((plan) => (
-            <div key={plan.id} className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-full hover:bg-gray-100">
+            <div
+              key={plan.id}
+              className="mb-2 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-full hover:bg-gray-100"
+            >
               <div className="w-full flex flex-col justify-between p-4 leading-normal">
                 <div className="mb-4 pb-2 flex justify-between border-b-2 border-primary-color">
                   <h3 className="font-body text-primary-color font-semibold text-sm md:text-lg">
@@ -133,15 +142,16 @@ const SavingsPlan = () => {
                       Periodicidad:
                     </h4>
                     <p className="inline font-normal text-xs md:text-sm text-gray-input">
-                      {plan.frecuency ? plan.frecuency : "No registra informacion"}
+                      {plan.frecuency
+                        ? plan.frecuency
+                        : "No registra informacion"}
                     </p>
                   </div>
                 </div>
-                
+
                 <Link to={`/detailsPlan/:${plan.id}`}>
                   <button
                     type="submit"
-                    
                     className="my-4 font-body text-xs md:text-base font-bold text-secondary-color bg-highlight-color hover:bg-primary-color hover:border border-primary-color font-semibold rounded-xl lg:w-1/3 px-5 py-2 text-center"
                   >
                     Ver detalles
