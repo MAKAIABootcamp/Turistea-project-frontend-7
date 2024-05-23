@@ -72,8 +72,8 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route element={<PrivateRoutes />}>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+        <Route element={<Layout />}>
+          <Route index path="/" element={<Home />} />
           <Route path="detailsPost" element={<DetailsPost />} />
           <Route path="configProfile" element={<ConfigProfile />} />
           <Route path="detailsPlan/:idPlan" element={<ViewDetails />} />
