@@ -1,7 +1,7 @@
 {
   "name": "turistea-project-frontend",
   "homepage": "https://makaiabootcamp.github.io/Turistea-project-frontend-7/",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
